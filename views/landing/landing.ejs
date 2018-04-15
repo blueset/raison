@@ -1,33 +1,189 @@
 <%- include('../templates/head') %>
-<div class="d-flex flex-row" id="landing">
-    <div class="contents d-flex flex-column">
-        <div class="md-logo">
-            <img src="images/raison-black-logo-with-text.svg" alt="Raison">
+<div class="landing-banner">
+    <div class="landing-banner-bg"></div>
+    <%- include('../components/navbar', {theme: "light"}) %>
+    <div class="container">
+        <div class="landing-banner-body">
+            <h1>Connecting Investors, Startups, Donators &amp; Charities.</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pharetra feugiat ullamcorper. Aenean lacinia id metus pellentesque ullamcorper.</p>
+            <div class="call-to-action">
+                <a href="#!" class="mdc-button mdc-button--raised">Sign up for free</a>
+            </div>
         </div>
-        <div class="sm-logo">
-            <img src="images/raison-white-logo-with-text.svg" alt="Raison">
-        </div>
-        <div class="desc">
-            <p>
-                Raison provides an avenue for donators to support their 
-                favorite charities, and offers investors additional business ventures
-                to maximize the potential of startups who need it the most.
-            </p>
-            <h2>Team Members</h2>
-            <ul>
-                 <li>Jin Han</li>
-                 <li>Pham Nhat Tuong</li>
-                 <li>Raymond Siu</li>
-            </ul>
-            <h2>Learn more...</h2>
-            <a href="#!" class="btn btn-outline-light">Coming soon!</a>
-            <footer>
-                Written and Designed by <a href="https://1a23.com"><img src="images/logo4name-white.svg" alt="1A23 Studio"></a>.
-            </footer>
-        </div>
-    </div>
-    <div class="md-background">
-        <h1 class="coming-soon">Coming soon...</h1>
     </div>
 </div>
+
+<div class="container">
+    <div class="landing-body">
+        <section id="popular-ideas">
+            <div class="section-title">
+                <h1>Popular ideas</h1>
+                <a href="#!" class="mdc-button">More</a>
+            </div>
+
+            <%# Loop card starts. %>
+            <div class="author-card mdc-card">
+                <a href="#!" class="mdc-card__primary-action">
+                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/200')"></div>
+                    <div class="author-card-content">
+                        <img class="author-card-profile-picture" src="https://picsum.photos/100" alt="Lauren Arnold">
+                        <div class="author-card-text">
+                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
+                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <%# Loop card ends. %>
+
+            <div class="author-card mdc-card">
+                <a href="#!" class="mdc-card__primary-action">
+                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/200?image=100')"></div>
+                    <div class="author-card-content">
+                        <img class="author-card-profile-picture" src="https://picsum.photos/100?image=200" alt="Lauren Arnold">
+                        <div class="author-card-text">
+                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
+                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="author-card mdc-card">
+                <a href="#!" class="mdc-card__primary-action">
+                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/200?image=301')"></div>
+                    <div class="author-card-content">
+                        <img class="author-card-profile-picture" src="https://picsum.photos/100?image=400" alt="Lauren Arnold">
+                        <div class="author-card-text">
+                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
+                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="author-card mdc-card">
+                <a href="#!" class="mdc-card__primary-action">
+                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/200?image=500')"></div>
+                    <div class="author-card-content">
+                        <img class="author-card-profile-picture" src="https://picsum.photos/100?image=600" alt="Lauren Arnold">
+                        <div class="author-card-text">
+                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
+                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section id="highlights">
+            <div class="section-title">
+                <h1>Highlights</h1>
+                <a href="#!" class="mdc-button">More</a>
+            </div>
+
+            <div class="author-card mdc-card">
+                <a href="#!" class="mdc-card__primary-action">
+                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/600')"></div>
+                    <div class="author-card-content">
+                        <img class="author-card-profile-picture" src="https://picsum.photos/100" alt="Lauren Arnold">
+                        <div class="author-card-text">
+                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
+                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </section>
+        <section id="top-donators">
+            <div class="section-title">
+                <h1>Top donators</h1>
+                <a href="#!" class="mdc-button">More</a>
+            </div>
+
+            <div class="top-donators-list">
+                <ol class="mdc-list mdc-list--avatar-list">
+                    <li class="mdc-list-item">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            Lorem Ipsum
+                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                        </div>
+                    </li>
+                    <li class="mdc-list-item">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            Lorem Ipsum
+                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                        </div>
+                    </li>
+                    <li class="mdc-list-item">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            Lorem Ipsum
+                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                        </div>
+                    </li>
+                    <li class="mdc-list-item">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            Lorem Ipsum
+                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                        </div>
+                    </li>
+                    <li class="mdc-list-item">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            Lorem Ipsum
+                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                        </div>
+                    </li>
+                    <li class="mdc-list-item">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            Lorem Ipsum
+                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                        </div>
+                    </li>
+                    <li class="mdc-list-item">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            Lorem Ipsum
+                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+        <section id="participating-investors">
+            <div class="section-title">
+                <h1>Participating investors</h1>
+                <a href="#!" class="mdc-button">More</a>
+            </div>
+
+            <ul class="participating-investors-list">
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+<div class="landing-lower-banner" style="background-image: url('https://picsum.photos/1200x600?image=26')">
+    <div class="container">
+        <h2>Join us for <br>semper gravida rhoncus</h2>
+        <div class="call-to-action">
+            <a href="#!" class="mdc-button mdc-button--raised">Sign up for free</a>
+        </div>
+    </div>
+</div>
+<%- include('../components/footer') %>
 <%- include('../templates/foot') %>

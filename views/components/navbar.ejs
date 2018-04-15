@@ -1,0 +1,16 @@
+<div class="container">
+    <nav>
+        <div class="nav-logo nav-logo-<%= theme %>">
+            <a href="/">
+            <% if (theme == "light") { %>
+                <img class="logo" src="/images/raison-white-logo-with-text.svg" alt="Raison">
+            <% } else if (theme == "dark") { %>
+                <img class="logo" src="/images/raison-black-logo-with-text.svg" alt="Raison">
+            <% } %>
+            </a>
+        </div>
+        <div class="filler"></div>
+        <div class="mdc-button link"><a href="#!">Sign up</a></div>
+        <div class="mdc-button link"><a href="#!">Log in</a></div>
+    </nav>
+</div>
