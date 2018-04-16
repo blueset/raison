@@ -1,6 +1,15 @@
+<%# 
+Include nav bar with the following parameters:
+theme (required): "light" or "dark"
+section (optional): {
+    "name": Name of the section
+    "url": URL to the section home
+}
+%>
+
 <div class="container">
-    <nav>
-        <div class="nav-logo nav-logo-<%= theme %>">
+    <nav class="nav-<%= theme %>">
+        <div class="nav-logo">
             <a href="/">
             <% if (theme == "light") { %>
                 <img class="logo" src="/images/raison-white-logo-with-text.svg" alt="Raison">
@@ -9,8 +18,13 @@
             <% } %>
             </a>
         </div>
+        <% if (typeof section !== 'undefined') { %>
+            <a href="<%= section.url %>" class="nav-section-name">
+                <%= section.name %>
+            </a>
+        <% } %>
         <div class="filler"></div>
-        <div class="mdc-button link"><a href="#!">Sign up</a></div>
-        <div class="mdc-button link"><a href="#!">Log in</a></div>
+        <a href="#!" class="mdc-button">Sign up</a>
+        <a href="#!" class="mdc-button">Log in</a>
     </nav>
 </div>

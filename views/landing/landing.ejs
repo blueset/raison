@@ -1,6 +1,5 @@
 <%- include('../templates/head') %>
 <div class="landing-banner">
-    <div class="landing-banner-bg"></div>
     <%- include('../components/navbar', {theme: "light"}) %>
     <div class="container">
         <div class="landing-banner-body">
@@ -22,75 +21,56 @@
             </div>
 
             <%# Loop card starts. %>
-            <div class="author-card mdc-card">
-                <a href="#!" class="mdc-card__primary-action">
-                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/200')"></div>
-                    <div class="author-card-content">
-                        <img class="author-card-profile-picture" src="https://picsum.photos/100" alt="Lauren Arnold">
-                        <div class="author-card-text">
-                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
-                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            <%- include('../components/author-card', {
+                image: "https://picsum.photos/300",
+                title: "Aenean lacinia id metu",
+                author: {
+                    name: "Lauren Arnold",
+                    avatar: "https://picsum.photos/100"
+                }
+            }) %>
             <%# Loop card ends. %>
 
-            <div class="author-card mdc-card">
-                <a href="#!" class="mdc-card__primary-action">
-                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/200?image=100')"></div>
-                    <div class="author-card-content">
-                        <img class="author-card-profile-picture" src="https://picsum.photos/100?image=200" alt="Lauren Arnold">
-                        <div class="author-card-text">
-                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
-                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="author-card mdc-card">
-                <a href="#!" class="mdc-card__primary-action">
-                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/200?image=301')"></div>
-                    <div class="author-card-content">
-                        <img class="author-card-profile-picture" src="https://picsum.photos/100?image=400" alt="Lauren Arnold">
-                        <div class="author-card-text">
-                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
-                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="author-card mdc-card">
-                <a href="#!" class="mdc-card__primary-action">
-                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/200?image=500')"></div>
-                    <div class="author-card-content">
-                        <img class="author-card-profile-picture" src="https://picsum.photos/100?image=600" alt="Lauren Arnold">
-                        <div class="author-card-text">
-                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
-                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            <%- include('../components/author-card', {
+                image: "https://picsum.photos/300?image=100",
+                title: "Aenean lacinia id metu",
+                author: {
+                    name: "Lauren Arnold",
+                    avatar: "https://picsum.photos/100?image=200"
+                }
+            }) %>
+
+            <%- include('../components/author-card', {
+                image: "https://picsum.photos/300?image=301",
+                title: "Aenean lacinia id metu",
+                author: {
+                    name: "Lauren Arnold",
+                    avatar: "https://picsum.photos/100?image=400"
+                }
+            }) %>
+
+            <%- include('../components/author-card', {
+                image: "https://picsum.photos/300?image=500",
+                title: "Aenean lacinia id metu",
+                author: {
+                    name: "Lauren Arnold",
+                    avatar: "https://picsum.photos/100?image=600"
+                }
+            }) %>
         </section>
         <section id="highlights">
             <div class="section-title">
                 <h1>Highlights</h1>
                 <a href="#!" class="mdc-button">More</a>
             </div>
-
-            <div class="author-card mdc-card">
-                <a href="#!" class="mdc-card__primary-action">
-                    <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('https://picsum.photos/600')"></div>
-                    <div class="author-card-content">
-                        <img class="author-card-profile-picture" src="https://picsum.photos/100" alt="Lauren Arnold">
-                        <div class="author-card-text">
-                            <div class="mdc-typography-overflow-ellipsis">Aenean lacinia id metu</div>
-                            <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">Lauren Arnold</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+             <%- include('../components/author-card', {
+                image: "https://picsum.photos/600",
+                title: "Aenean lacinia id metu",
+                author: {
+                    name: "Lauren Arnold",
+                    avatar: "https://picsum.photos/100"
+                }
+            }) %>
 
         </section>
         <section id="top-donators">
@@ -101,6 +81,13 @@
 
             <div class="top-donators-list">
                 <ol class="mdc-list mdc-list--avatar-list">
+                    <li class="mdc-list-item">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            Lorem Ipsum
+                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                        </div>
+                    </li>
                     <li class="mdc-list-item">
                         <div class="mdc-list-item__graphic"></div>
                         <div class="mdc-list-item__text">

@@ -1,0 +1,27 @@
+@mixin make-grid($desktop, $tablet, $phone) {
+  $columns: (
+    desktop: $desktop,
+    tablet: $tablet,
+    phone: $phone
+  );
+  @each $size in map-keys($mdc-layout-grid-columns) {
+    @include mdc-layout-grid-media-query_($size) {
+      $margin: map-get($mdc-layout-grid-default-margin, $size);
+      $gutter: map-get($mdc-layout-grid-default-gutter, $size);
+
+      display: flex;
+      flex-flow: row wrap;
+      align-items: stretch;
+      margin: -$gutter / 2;
+      margin: calc(var(--mdc-layout-grid-gutter-#{$size}, #{$gutter}) / 2 * -1);
+
+      @supports (display: grid) {
+        display: grid;
+        margin: 0;
+        grid-gap: $gutter;
+        grid-gap: var(--mdc-layout-grid-gutter-#{$size}, $gutter);
+        grid-template-columns: repeat(map-get($columns, $size), minmax(0, 1fr));
+      }
+    }
+  }
+}

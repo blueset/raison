@@ -1,50 +1,31 @@
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
-@import "node_modules/bootstrap/scss/_grid";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/_carousel";
+@import "../../node_modules/bootstrap/scss/_grid";
+@import "../../node_modules/bootstrap/scss/utilities/_screenreaders";
 
-$mdc-theme-primary: #141E30;
+@import "variables";
 
-$sans-font: "IBM Plex Sans", "Roboto", "Helvetica", "Open Sans", "Source Sans", "Tahoma", sans-serif;
-$serif-font: "IBM Plex Serif", "Roboto Serif", "Noto Serif", "Calibri", serif;
-$mono-font: "IBM Plex Mono", "Fira Mono", "Input Mono", "Roboto Mono", "Inconsolata", "Consolas", "Ubuntu Mono", monospace;
+$mdc-theme-primary: $color-brand-bright;
 
 $mdc-typography-font-family: $sans-font;
 
-@import "node_modules/material-components-web/material-components-web";
+@import "../../node_modules/material-components-web/material-components-web";
 
 :root {
   /* Theming for MDC */
   --mdl-theme-text-primary-on-primary: var(--mdl-theme-text-primary-on-dark);
 }
 
-@mixin make-grid($desktop, $tablet, $phone) {
-  $columns: (
-    desktop: $desktop,
-    tablet: $tablet,
-    phone: $phone
-  );
-  @each $size in map-keys($mdc-layout-grid-columns) {
-    @include mdc-layout-grid-media-query_($size) {
-      $margin: map-get($mdc-layout-grid-default-margin, $size);
-      $gutter: map-get($mdc-layout-grid-default-gutter, $size);
-
-      display: flex;
-      flex-flow: row wrap;
-      align-items: stretch;
-      margin: -$gutter / 2;
-      margin: calc(var(--mdc-layout-grid-gutter-#{$size}, #{$gutter}) / 2 * -1);
-
-      @supports (display: grid) {
-        display: grid;
-        margin: 0;
-        grid-gap: $gutter;
-        grid-gap: var(--mdc-layout-grid-gutter-#{$size}, $gutter);
-        grid-template-columns: repeat(map-get($columns, $size), minmax(0, 1fr));
-      }
-    }
-  }
-}
+@import "variables";
+@import "functions";
+@import "navbar";
+@import "footer";
+@import "landing";
+@import "startup-landing";
+@import "components/author-card";
+@import "components/detail-card";
 
 html, body {
   min-width: 100%;
@@ -72,268 +53,24 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Roboto, sans-serif;
 }
 
-nav {
-  height: 6rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  .filler {
-    flex-grow: 1;
-  }
-  .logo {
-    height: 4em;
-  }
-  .link {
-    display: inline-block;
-    text-transform: uppercase;
-    @include mdc-states-base-color(white);
-    a {
-      padding: 1em;
-      color: #ffffff;
-      text-decoration: none;
-    }
-  }
-}
-
 .invisible-character {
   opacity: 0.3;
 }
 
-/* Landing page */
-.landing-banner {
-  position: relative;
-  overflow: hidden;
-  background: rgba(0,0,0,0.4);
-  &::before {
-    content: " ";
-    position: absolute;
-    left: -1em; right: -1em; top: -1em; bottom: -1em;
-    background-image: url('/images/landing-background.jpeg');
-    background-size: cover;
-    background-position: center;
-    filter: blur(4px);
-    z-index: -1;
-  }
-  .landing-banner-body {
-    max-width: 40em;
-    color: #ffffff;
-    padding: 2rem 0;
-    h1 {
-      color: #ffffff;
-      margin: 2rem 0;
-      font-family: $sans-font;
-      font-weight: 400;
-      font-size: 2.5rem;
-      .invisible-character {
-        visibility: hidden;
-      }
-    }
-    div.call-to-action {
-      margin: 2rem 0;
-      a {
-        @include mdc-button-container-fill-color(#ffffff);
-        @include mdc-button-ink-color(text-primary-on-light);
-      }
-    }
-  }
-}
-
-.author-card {
-  .author-card-content {
-    padding: 0.5rem;
+section {
+  .section-title {
     display: flex;
     flex-direction: row;
     align-items: center;
-    .author-card-profile-picture {
-      height: 2rem;
-      width: 2rem;
-      border-radius: 2rem;
-      margin-right: 0.5rem;
-    }
-    .author-card-text {
-      min-width: 0;
-    }
-  }
-}
-
-.landing-body {
-  margin: 2rem 0;
-  @extend .mdc-layout-grid__inner;
-  section {
-    .section-title {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      h1 {
-        font-size: 1.8em;
-        flex-grow: 1;
-        margin: 0;
-      }
-    }
-  }
-
-  #popular-ideas {
-    @extend .mdc-layout-grid__cell--span-12;
-    @extend .mdc-layout-grid__inner;
-    .section-title {
-      @extend .mdc-layout-grid__cell--span-12;
-    } 
-    .author-card {
-      @extend .mdc-layout-grid__cell--span-3;
-      @extend .mdc-layout-grid__cell--span-4-tablet;
-    }
-  }
-
-  #highlights {
-    @extend .mdc-layout-grid__cell--span-8;
-    @include make-grid(1, 1, 1);
-    .section-title, .author-card {
-      @extend .mdc-layout-grid__cell--span-8;
-    }
-  }
-
-  #top-donators {
-    @extend .mdc-layout-grid__cell--span-4;
-    @include make-grid(1, 1, 1);
-    .section-title, .top-donators-list {
-      @extend .mdc-layout-grid__cell--span-4-desktop;
-      @extend .mdc-layout-grid__cell--span-8-tablet;
-      @extend .mdc-layout-grid__cell--span-8-phone;
-    }
-    .top-donators-list ol {
+    h1 {
+      font-size: 1.8em;
+      flex-grow: 1;
       margin: 0;
-      padding: 0;
-      counter-reset: top-donators-list-counter;
-      list-style-type: none;
-      li {
-        padding: 0;
-      
-        .mdc-list-item__graphic{
-          font-family: $serif-font;
-          font-weight: 600;
-          font-style: italic;
-          font-size: 1.5rem;
-          &::before {
-            counter-increment: top-donators-list-counter;
-            content: counter(top-donators-list-counter);
-          }
-        }
-        &:nth-child(0n+1) .mdc-list-item__graphic {
-          background-color: #FFA000;
-          color: #ffffff;
-        }
-        &:nth-child(0n+2) .mdc-list-item__graphic {
-          background-color: #FFAE04;
-          color: #ffffff;
-        }
-        &:nth-child(0n+3) .mdc-list-item__graphic {
-          background-color: #FFBB3F;
-          color: #ffffff;
-        }
-        &:nth-child(n+4) .mdc-list-item__graphic {
-          background-color: #FFE1A8;
-          color: #E28C00;
-        }
-      }
-    }
-  }
-
-  #participating-investors {
-    @extend .mdc-layout-grid__cell--span-12;
-    @extend .mdc-layout-grid__inner;
-    .section-title {
-      @extend .mdc-layout-grid__cell--span-12;
-    } 
-    .participating-investors-list {
-      margin: 0;
-      padding: 0;
-      display: contents;
-      list-style-type: none;
-      li {
-        @extend .mdc-layout-grid__cell--span-3;
-        @extend .mdc-layout-grid__cell--span-4-tablet;
-        @extend .mdc-layout-grid__cell--span-4-phone;
-        img {
-          width: 100%;
-        }
-      }
-    }
-  }
-  @include media-breakpoint-up(md) {
-  }
-}
-
-.landing-lower-banner {
-  text-align: right;
-  background-position: center;
-  background-size: cover;
-  padding: 3rem 0;
-  h2 {
-    color: #fff;
-    font-size: 2em;
-    font-weight: 300;
-  }
-  div.call-to-action {
-    margin: 2rem 0;
-    a {
-      @include mdc-button-container-fill-color(#ffffff);
-      @include mdc-button-ink-color(text-primary-on-light);
     }
   }
 }
 
-/* Footer */
-footer {
-  background-color: #141E30;
-  padding: 2rem 0;
-  font-size: 0.8em;
-  line-height: 1.4;
-  .container {
-    section {
-      color: #ffffff;
-      display: contents;
-      font-weight: 300;
-      .title, .content {
-        @extend .mdc-layout-grid__cell--span-3-desktop;
-        @extend .mdc-layout-grid__cell--span-4-tablet;
-        @extend .mdc-layout-grid__cell--span-4-phone;
-      }
-      @include mdc-layout-grid-media-query_(desktop) {
-        .title {grid-row: 1;}
-        .content {grid-row: 2;}
-      }
-      @include mdc-layout-grid-media-query_(tablet) {
-        &:nth-child(1) .title, &:nth-child(2) .title {grid-row: 1;}
-        &:nth-child(3) .title, &:nth-child(4) .title {grid-row: 3;}
-        &:nth-child(1) .content, &:nth-child(2) .content {grid-row: 2;}
-        &:nth-child(3) .content, &:nth-child(4) .content {grid-row: 4;}
-      }
-      .title {
-        align-self: end;
-        .logo { 
-          max-height: 5em; 
-          margin-bottom: -1rem;
-          margin-left: -0.5rem;
-        }
-        h2 {
-          color: #ffffff;
-          font-size: 1.25rem;
-          margin: 0;
-          font-weight: 300;
-        }
-      }
-      .content {        
-        .social-media-button {
-          @include mdc-button-ink-color(text-primary-on-light);
-          min-width: 0;
-          font-size: 18px;
-          margin-right: 0.5em;
-        }
-        opacity: 0.7;
-        .logo-1a23 {
-          height: 1em;
-        }
-      }
-    }
-  }
+
+.mdc-button .mdc-button__icon {
+  line-height: 1;
 }

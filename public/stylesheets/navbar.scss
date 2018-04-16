@@ -1,0 +1,43 @@
+@import "@material/button/mdc-button";
+@import "@material/theme/mdc-theme";
+@import "variables";
+
+nav {
+  height: 6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .filler {
+    flex-grow: 1;
+  }
+  .logo {
+    height: 2.5em;
+  }
+  .mdc-button {
+    margin-left: 0.5rem;
+  }
+  .nav-section-name {
+    padding-left: 1rem;
+    margin-left: 1rem;
+    border-left: 1px solid #000;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 300;
+    
+  }
+
+  &.nav-dark {
+    .nav-section-name {
+      border-left-color: $color-brand-bright;
+      color: $color-brand-bright;
+    }
+    .mdc-button {
+      @include mdc-button-ink-color(mdc-theme-prop-value(text-primary-on-light));
+    }
+  }
+  &.nav-light {
+    .mdc-button {
+      @include mdc-button-ink-color(mdc-theme-prop-value(text-primary-on-dark));
+    }
+  }
+}

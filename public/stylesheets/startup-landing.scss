@@ -1,0 +1,47 @@
+@import "@material/layout-grid/mdc-layout-grid";
+@import "variables";
+@import "functions";
+
+#startups-landing-body {
+    @extend .mdc-layout-grid__inner;
+    margin-bottom: 3rem;
+    #highlights {
+        @extend .mdc-layout-grid__cell--span-12;
+        @extend .mdc-layout-grid__inner;
+        .section-title {
+            @extend .mdc-layout-grid__cell--span-12;
+        }
+        #highlights-carousel {
+            @extend .mdc-layout-grid__cell--span-12;
+            margin-bottom: 2.5em;
+            .carousel-control-prev, .carousel-control-next {
+                max-width: 6rem;
+                i {
+                    font-size: 3em;
+                }
+            }
+            .carousel-indicators {
+                bottom: -2.5rem;
+                li {
+                    height: 0.5rem;
+                    width: 0.5rem;
+                    border-radius: 50%;
+                    background-color: $color-brand-bright;
+                    opacity: 0.25;
+                    &.active {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+    #in-your-region, #around-the-world {
+        @extend .mdc-layout-grid__cell--span-6;
+        @include make-grid(1, 1, 1);
+    }
+
+    #latest-ideas {
+        @extend .mdc-layout-grid__cell--span-12;
+        @include make-grid(1, 1, 1);
+    }
+}
