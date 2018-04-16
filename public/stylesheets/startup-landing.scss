@@ -6,13 +6,13 @@
     @extend .mdc-layout-grid__inner;
     margin-bottom: 3rem;
     #highlights {
-        @extend .mdc-layout-grid__cell--span-12;
+        @include mdc-layout-grid-resp-cell(12, 12, 12);
         @extend .mdc-layout-grid__inner;
         .section-title {
-            @extend .mdc-layout-grid__cell--span-12;
+            @include mdc-layout-grid-resp-cell(12, 12, 12);
         }
         #highlights-carousel {
-            @extend .mdc-layout-grid__cell--span-12;
+            @include mdc-layout-grid-resp-cell(12, 12, 12);
             margin-bottom: 2.5em;
             .carousel-control-prev, .carousel-control-next {
                 max-width: 6rem;
@@ -41,7 +41,7 @@
     }
 
     #latest-ideas {
-        @extend .mdc-layout-grid__cell--span-12;
+        @include mdc-layout-grid-resp-cell(12, 12, 12);
         @include make-grid(1, 1, 1);
     }
 }

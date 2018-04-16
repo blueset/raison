@@ -24,7 +24,89 @@ section (optional): {
             </a>
         <% } %>
         <div class="filler"></div>
-        <a href="#!" class="mdc-button">Sign up</a>
-        <a href="#!" class="mdc-button">Log in</a>
+        <div class="navbar-control">
+            <% if (!locals.user) { %>
+                <a href="#!" class="mdc-button">Sign up</a>
+                <a href="#!" class="mdc-button">Log in</a>
+            <% } else { %>
+                <div class="mdc-menu-anchor">
+                    <button id="menu-bar-state-button" class="mdc-button"><%= locals.state || "%STATE" %> <i class="mdc-button__icon-right mdi mdi-menu-down"></i></button>
+                    <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-state-button" data-anchor-position="BOTTOM_START">
+                        <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="/startups">Startups</a>
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="/investors">Investors</a>
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="/charities">Charities</a>
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="/donators">Donators</a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mdc-menu-anchor">
+                    <button id="menu-bar-user-button" class="mdc-button">
+                        John Doe
+                        <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" alt="John Doe" class="user-avatar">
+                    </button>
+                    <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-user-button" data-anchor-position="BOTTOM_START">
+                        <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="#!">Dashboard</a>
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="#!">Inbox (0)</a>
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="#!">Feeds</a>
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="/">Log out</a>
+                        </ul>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <button href="#" class="navbar-drawer-toggle mdc-toolbar__menu-icon">
+            <i class="mdi mdi-menu"></i>
+        </button>
     </nav>
 </div>
+
+<aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+    <div class="mdc-drawer__drawer">
+        <header class="mdc-drawer__header  mdc-theme--text-primary-on-primary mdc-theme--primary-bg">
+            <div class="mdc-drawer__header-content">
+                <% if (locals.user) { %> 
+                    <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" alt="John Doe" class="drawer-user-avatar">
+                <% } %>
+                Welcome, <%= (locals.user ? "John Doe" : "Guest") %>.
+            </div>
+        </header>
+        <div class="mdc-drawer__content mdc-list">
+            <% if (!locals.user) { %> 
+                <a class="mdc-list-item" href="#">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-account"></i></span> Sign in
+                </a>
+                <a class="mdc-list-item" href="#">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-account-plus"></i></span> Sign up
+                </a>
+            <% } else { %>
+                <a class="mdc-list-item mdc-list-item--activated" href="/startups">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-lightbulb-on"></i></span> Startups
+                </a>
+                <a class="mdc-list-item" href="/investors">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-bank"></i></span> Investors
+                </a>
+                <a class="mdc-list-item" href="/charities">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-heart"></i></span> Charities
+                </a>
+                <a class="mdc-list-item" href="/donators">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-human-handsup"></i></span> Donators
+                </a>
+                <hr class="mdc-list-divider">
+                <a class="mdc-list-item" href="#!">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-settings"></i></span> Dashboard
+                </a>
+                <a class="mdc-list-item" href="#!">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-inbox"></i></span> Inbox (0)
+                </a>
+                <a class="mdc-list-item" href="#!">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-rss"></i></span> Feeds
+                </a>
+                <a class="mdc-list-item" href="#!">
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-logout"></i></span> Log out
+                </a>
+            <% } %>
+        </div>
+    </div>
+</aside>

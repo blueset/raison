@@ -13,9 +13,7 @@ footer {
       display: contents;
       font-weight: 300;
       .title, .content {
-        @extend .mdc-layout-grid__cell--span-3-desktop;
-        @extend .mdc-layout-grid__cell--span-4-tablet;
-        @extend .mdc-layout-grid__cell--span-4-phone;
+        @include mdc-layout-grid-resp-cell(3, 4, 4);
       }
       @include mdc-layout-grid-media-query_(desktop) {
         .title {grid-row: 1;}

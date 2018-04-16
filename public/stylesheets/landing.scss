@@ -51,15 +51,13 @@
   }
 
   #popular-ideas {
-    @extend .mdc-layout-grid__cell--span-12;
+    @include mdc-layout-grid-resp-cell(12, 12, 12);
     @extend .mdc-layout-grid__inner;
     .section-title {
-      @extend .mdc-layout-grid__cell--span-12;
+      @include mdc-layout-grid-resp-cell(12, 12, 12);
     } 
     .author-card {
-      @extend .mdc-layout-grid__cell--span-3;
-      @extend .mdc-layout-grid__cell--span-4-tablet;
-      @extend .mdc-layout-grid__cell--span-4-phone;
+      @include mdc-layout-grid-resp-cell(3, 4, 4);
     }
   }
 
@@ -75,9 +73,7 @@
     @extend .mdc-layout-grid__cell--span-4;
     @include make-grid(4, 8, 8);
     .section-title, .top-donators-list {
-      @extend .mdc-layout-grid__cell--span-4-desktop;
-      @extend .mdc-layout-grid__cell--span-8-tablet;
-      @extend .mdc-layout-grid__cell--span-8-phone;
+      @include mdc-layout-grid-resp-cell(4, 8, 8);
     }
     .top-donators-list {
       align-self: stretch;
@@ -121,10 +117,10 @@
   }
 
   #participating-investors {
-    @extend .mdc-layout-grid__cell--span-12;
+    @include mdc-layout-grid-resp-cell(12, 12, 12);
     @extend .mdc-layout-grid__inner;
     .section-title {
-      @extend .mdc-layout-grid__cell--span-12;
+      @include mdc-layout-grid-resp-cell(12, 12, 12);
     } 
     .participating-investors-list {
       margin: 0;
@@ -132,9 +128,7 @@
       display: contents;
       list-style-type: none;
       li {
-        @extend .mdc-layout-grid__cell--span-3;
-        @extend .mdc-layout-grid__cell--span-4-tablet;
-        @extend .mdc-layout-grid__cell--span-4-phone;
+        @include mdc-layout-grid-resp-cell(3, 4, 4);
         img {
           width: 100%;
         }

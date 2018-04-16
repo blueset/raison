@@ -1,5 +1,6 @@
 @import "@material/button/mdc-button";
 @import "@material/theme/mdc-theme";
+@import "@material/layout-grid/mdc-layout-grid";
 @import "variables";
 
 nav {
@@ -26,18 +27,59 @@ nav {
     
   }
 
+  .user-avatar {
+    height: 2.5em;
+    width: 2.5em;
+    margin-left: 1em;
+    border-radius: 50%;
+  }
+
   &.nav-dark {
     .nav-section-name {
       border-left-color: $color-brand-bright;
       color: $color-brand-bright;
     }
-    .mdc-button {
+    .mdc-button, .navbar-drawer-toggle {
       @include mdc-button-ink-color(mdc-theme-prop-value(text-primary-on-light));
     }
   }
   &.nav-light {
-    .mdc-button {
+    .mdc-button, .navbar-drawer-toggle {
       @include mdc-button-ink-color(mdc-theme-prop-value(text-primary-on-dark));
     }
   }
+  .navbar-control {
+    display: flex;
+    flex-direction: row;
+    @include mdc-layout-grid-media-query_(phone) {
+      display: none;
+    }
+    @include mdc-layout-grid-media-query_(tablet) {
+      display: none;
+    }
+  }
+  .navbar-drawer-toggle {
+    font-size: 24px;
+    @include mdc-layout-grid-media-query_(desktop) {
+      display: none;
+    }
+  }
+}
+
+.mdc-drawer {
+  .mdc-drawer__header-content {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  .drawer-user-avatar {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+i.mdi {
+  font-size: 24px;
 }

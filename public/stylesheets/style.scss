@@ -70,7 +70,16 @@ section {
   }
 }
 
-
-.mdc-button .mdc-button__icon {
+.mdc-button .mdc-button__icon, .mdc-button .mdc-button__icon-right {
   line-height: 1;
+}
+
+.mdc-button .mdc-button__icon-right {
+    margin-left: 8px;
+    margin-right: 0;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    vertical-align: top;
 }
