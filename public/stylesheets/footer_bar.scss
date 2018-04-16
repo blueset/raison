@@ -1,0 +1,47 @@
+#footer_bar {
+  background-color: #141E2F;
+  color: #FEFEFE;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+            "heading"
+            "content";
+    grid-template-columns: 1fr;
+    grid-template-rows: 3em 9em;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    .grid-row {
+      display: grid;
+      grid-column-gap: 1em;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      .grid-item {
+        position: relative;
+        min-height: 100%;
+      }
+    }
+  }
+
+  .heading {
+    .heading-content {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      max-height: 100%;
+      .md-logo {
+        img {
+          max-width: 70%;
+        }
+      }
+    }
+  }
+
+  .content {
+    color: #A4A8AF;
+    font-size: 80%;
+  }
+}

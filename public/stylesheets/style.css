@@ -1,9 +1,13 @@
-html, body {
-  min-width: 100%;
+html {
   width: 100%;
-  min-height: 100%;
   height: 100%;
   font-family: "IBM Plex Sans", "Roboto", "Helvetica", "Open Sans", "Source Sans", "Tahoma", sans-serif; }
+
+body {
+  min-height: 100%;
+  min-width: 100%;
+  position: relative;
+  padding-bottom: 15em; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "IBM Plex Mono", "Fira Mono", "Input Mono", "Roboto Mono", "Inconsolata", "Consolas", "Ubuntu Mono", monospace; }

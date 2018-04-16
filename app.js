@@ -8,7 +8,10 @@ var sassMiddleware = require('node-sass-middleware');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var login = require('./routes/login');
+var signup = require('./routes/signup');
 var statics = require('./routes/statics.js');
+
 
 var app = express();
 
@@ -32,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/login', login);
+app.use('/signup', signup);
 statics(app);
 
 // catch 404 and forward to error handler
@@ -52,4 +57,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+app.listen(3000);
