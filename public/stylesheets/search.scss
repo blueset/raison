@@ -18,13 +18,13 @@
             @include mdc-layout-grid-resp-cell(12, 8, 4);
         }
         .search-filter-form-control {
-            @include mdc-layout-grid-resp-cell(3, 4, 3);
+            @include mdc-layout-grid-resp-cell(3, 4, 4);
         }
     }
     .detail-card {
         @include mdc-layout-grid-resp-cell(6, 8, 4);
     }
     .pagination {
-        @include mdc-layout-grid-resp-cell(12, 8, 6);
+        @include mdc-layout-grid-resp-cell(12, 8, 4);
     }
 }

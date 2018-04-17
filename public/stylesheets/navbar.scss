@@ -39,12 +39,12 @@ nav {
       border-left-color: $color-brand-bright;
       color: $color-brand-bright;
     }
-    .mdc-button, .navbar-drawer-toggle {
+    .mdc-button, .navbar-drawer-toggle, .mdc-icon-toggle {
       @include mdc-button-ink-color(mdc-theme-prop-value(text-primary-on-light));
     }
   }
   &.nav-light {
-    .mdc-button, .navbar-drawer-toggle {
+    .mdc-button, .navbar-drawer-toggle, .mdc-icon-toggle {
       @include mdc-button-ink-color(mdc-theme-prop-value(text-primary-on-dark));
     }
   }
