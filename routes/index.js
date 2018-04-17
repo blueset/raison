@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('landing/landing', { title: 'Raison — Connecting Investors, Startups, Donators & Charities.' });
 });
 
+router.get('/search', function (req, res, next) {
+  res.render('search', { title: 'Search — Raison' });
+});
+
 module.exports = router;

@@ -26,3 +26,15 @@ mdc.autoInit();
 /* Navbar only */
 let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector('.mdc-drawer--temporary'));
 document.querySelector('.navbar-drawer-toggle').addEventListener('click', () => drawer.open = true);
+
+/* Forms */
+[].forEach.call(document.querySelectorAll('.mdc-form-control'), function (formControl) {
+    if (formControl.querySelector('.mdc-text-field')) {
+        var helper = formControl.querySelector('.mdc-text-field-helper-text');
+        var element = formControl.querySelector('.mdc-text-field');
+        var textField = new mdc.textField.MDCTextField(element);
+    }
+    if (formControl.querySelector('.mdc-select')) {
+        mdc.select.MDCSelect.attachTo(formControl.querySelector('.mdc-select'));
+    }
+});

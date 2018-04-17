@@ -18,12 +18,13 @@ $mdc-typography-font-family: $sans-font;
   --mdl-theme-text-primary-on-primary: var(--mdl-theme-text-primary-on-dark);
 }
 
-@import "variables";
 @import "functions";
 @import "navbar";
 @import "footer";
 @import "landing";
 @import "startup-landing";
+@import "search";
+@import "components/pagination";
 @import "components/author-card";
 @import "components/detail-card";
 
@@ -82,4 +83,13 @@ section {
     height: 18px;
     font-size: 18px;
     vertical-align: top;
+}
+
+.mdc-text-field--with-trailing-icon:not(.mdc-text-field--outlined) .mdc-text-field__input {
+  padding-left: 0;
+}
+
+.mdc-select__native-control {
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }

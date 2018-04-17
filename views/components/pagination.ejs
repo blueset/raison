@@ -1,0 +1,51 @@
+<%# Accept parameters:
+total: int, total number of pages
+current: int, current number op page, start from 1.
+url: str, URL prefix of each page.
+%>
+
+<div class="pagination">
+    <a href="<%= (current - 1 > 0 ? url + (current - 1) : "#!") %>" 
+       class="mdc-icon-toggle"<%= (current - 1 < 0) ? " disabled" : "" %>
+       role="button">
+        <i class="mdi mdi-chevron-left"></i>
+    </a>
+    <% for (var i = 1; i <= Math.min(5, total); i++) { %>
+        <a href="<%= (current - 1 > 0 ? url + (current - 1) : '#!') %>" 
+           class="mdc-button<%= (current == i) ? ' current-page' : ''%>"<%= (current - 1 < 0) ? " disabled" : "" %>
+           role="button">
+            <%= i %>
+        </a>
+    <% } %>
+    <% if (current - 3 > 5) { %>
+        <a href="#!" class="mdc-button" disabled role="button">...</a>
+    <% } %>
+
+    <% if (current > 5 && current < total - 5)
+       for (var i = Math.max(6, current - 2); i <= Math.min(current + 2, total - 5); i++) { %>
+        <a href="<%= (current - 1 > 0 ? url + (current - 1) : '#!') %>" 
+           class="mdc-button<%= (current == i) ? ' current-page' : ''%>"<%= (current - 1 < 0) ? " disabled" : "" %>
+           role="button">
+            <%= i %>
+        </a>
+    <% } %>
+
+    <% if (current + 3 > total - 5) { %>
+        <a href="#!" class="mdc-button" disabled role="button">...</a>
+    <% } %>
+
+    <% if (current > 5 && current < total - 5)
+       for (var i = Math.max(6, total - 5); i <= total; i++) { %>
+        <a href="<%= (current - 1 > 0 ? url + (current - 1) : '#!') %>" 
+           class="mdc-button<%= (current == i) ? ' current-page' : ''%>"<%= (current - 1 < 0) ? " disabled" : "" %>
+           role="button">
+            <%= i %>
+        </a>
+    <% } %>
+
+    <a href="<%= (current + 1 < total ? url + (current + 1) : "#!") %>" 
+       class="mdc-icon-toggle"<%= (current + 1 < total) ? " disabled" : "" %>
+       role="button">
+        <i class="mdi mdi-chevron-right"></i>
+    </a>
+</div>

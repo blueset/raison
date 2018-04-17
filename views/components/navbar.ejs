@@ -25,6 +25,7 @@ section (optional): {
         <% } %>
         <div class="filler"></div>
         <div class="navbar-control">
+            <a href="/search" class="mdc-icon-toggle"><i class="mdi mdi-magnify"></i></a>
             <% if (!locals.user) { %>
                 <a href="#!" class="mdc-button">Sign up</a>
                 <a href="#!" class="mdc-button">Log in</a>
@@ -73,6 +74,9 @@ section (optional): {
             </div>
         </header>
         <div class="mdc-drawer__content mdc-list">
+            <a class="mdc-list-item" href="/search">
+                <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-magnify"></i></span> Search
+            </a>
             <% if (!locals.user) { %> 
                 <a class="mdc-list-item" href="#">
                     <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-account"></i></span> Sign in

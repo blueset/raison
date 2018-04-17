@@ -1,0 +1,30 @@
+@import "@material/layout-grid/mdc-layout-grid";
+@import "variables";
+@import "functions";
+
+#search-body {
+    padding-bottom: 3em;
+    @include make-grid();
+    form {
+        @include mdc-layout-grid-resp-cell(12, 12, 12);
+        @include make-grid();
+        .mdc-form-control {
+            display: flex;
+            & > div {
+                flex-grow: 1;
+            }
+        }
+        #search-query-form-control {
+            @include mdc-layout-grid-resp-cell(12, 8, 4);
+        }
+        .search-filter-form-control {
+            @include mdc-layout-grid-resp-cell(3, 4, 3);
+        }
+    }
+    .detail-card {
+        @include mdc-layout-grid-resp-cell(6, 8, 4);
+    }
+    .pagination {
+        @include mdc-layout-grid-resp-cell(12, 8, 6);
+    }
+}
