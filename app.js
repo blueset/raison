@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
 
 var index = require('./routes/index');
+var interaction  = require('./routes/interaction');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
@@ -37,6 +38,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
 app.use('/signup', signup);
+app.use('/interaction', interaction);
 statics(app);
 
 // catch 404 and forward to error handler
