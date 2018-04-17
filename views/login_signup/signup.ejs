@@ -1,0 +1,138 @@
+<%- include('../templates/head') %>
+
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+</script>
+
+<script src="javascripts/user_signup_validation.js">
+
+</script>
+
+
+<script type="text/javascript">
+    function verifyCallback(response) {
+        alert(response);
+    }
+
+    var widget;
+
+    var onloadCallback = function () {
+        widget = grecaptcha.render('capcha', {
+            'sitekey': "6Lf8N1MUAAAAAAlfHlOVakFVT3fx4cKWAbsdOP9j",
+            'callback': verifyCallback
+        });
+    };
+</script>
+<div id="login-signup-page">
+    <div class="container">
+        <button class="btn-return-home" type="button">
+            RETURN TO HOME
+        </button>
+
+        <div class="grid-container">
+            <div class="introduction">
+                <div class="md-logo">
+                    <img src="images/raison-black-logo-with-text.svg" alt="Raison">
+                </div>
+                <h2>Join Raison </h2>
+                <p>With in account, you can...</p>
+                <div class="feature">
+                    <div class="feature-item">
+                        <img class="img-fluid" src="images/donation-icon.jpeg" alt="donation">
+                        Donation and Charity
+                    </div>
+                    <div class="feature-item">
+                        <img class="img-fluid" src="images/Investment-Icon.jpeg" alt="Investment">
+                        Propose ideas to get invested
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form">
+                <b> SIGN UP WITH EMAIL </b>
+                <hr>
+                <form action="javascript:signup_validation(document, grecaptcha.getResponse(widget));">
+                    <div class="form-group">
+
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail">
+                        <div class="error-notification"> Email is invalid!</div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="inputPassword">Password</label>
+                        <input type="password" class="form-control" id="inputPassword">
+                        <div class="error-notification"> Password is invalid!</div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="inputPasswordRepeat4">Retype Password</label>
+                        <input type="password" class="form-control" id="inputPasswordRepeat">
+                        <div class="error-notification"> Password is not the same!</div>
+                    </div>
+
+
+                    <b> PERSONAL INFORMATION </b>
+                    <hr>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="form-firstname">First Name</label>
+                            <input type="text" class="form-control" id="inputFirstname">
+                            <div class="error-notification"> First name cannot be empty!</div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="form-lastname">Last Name</label>
+                            <input type="text" class="form-control" id="inputLastname">
+                            <div class="error-notification"> Last name cannot be empty!</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" id="inputCity">
+                            <div class="error-notification"> Cannot be empty!</div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">State</label>
+                            <input type="text" class="form-control" id="inputState">
+                            <div class="error-notification"> Cannot be empty!</div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Zip</label>
+                            <input type="text" class="form-control" id="inputZip">
+                            <div class="error-notification"> Cannot be empty!</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="capcha"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <a href="/login" style="color: #1C61A0"> Already have an account? </a>
+
+                    </div>
+
+                    <div class="form-group" style="color: #B1B1C1">
+                        By Clicking "Sign up", you are agreeing to Raison's
+                        <a href="#" style="color: #1C61A0">Terms of Service </a>
+                    </div>
+
+
+                    <button type="submit"
+                            class="btn btn-primary">SIGN UP
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>

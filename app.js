@@ -9,9 +9,14 @@ var importOnce = require('node-sass-import-once');
 
 // Routings
 var index = require('./routes/index');
+var interaction  = require('./routes/interaction');
 var users = require('./routes/users');
 var startups = require('./routes/startups');
 var statics = require('./routes/statics');
+var login = require('./routes/login');
+var signup = require('./routes/signup');
+
+
 
 var app = express();
 
@@ -51,7 +56,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Binding routes
 app.use('/', index);
 app.use('/users', users);
+app.use('/login', login);
+app.use('/signup', signup);
+app.use('/interaction', interaction);
 app.use('/startups', startups);
+
 statics(app);
 
 // catch 404 and forward to error handler
@@ -72,4 +81,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+app.listen(3000);
