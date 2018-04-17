@@ -6,6 +6,9 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@material/button": "^0.34.1",
+    "@material/ripple": "^0.34.1",
+    "@mdi/font": "^2.2.43",
     "body-parser": "~1.18.2",
     "bootstrap": "^4.0.0",
     "cookie-parser": "~1.4.3",
@@ -14,8 +17,13 @@
     "express": "~4.15.5",
     "express-print-routes": "^1.0.0",
     "jquery": "^3.3.1",
+    "material-components-web": "^0.34.1",
     "morgan": "~1.9.0",
+    "node-sass-import-once": "^1.2.0",
     "node-sass-middleware": "0.9.8",
+    "nodemon": "^1.17.3",
+    "normalize.css": "^8.0.0",
+    "npm": "^5.8.0",
     "popper.js": "^1.14.1",
     "serve-favicon": "~2.4.5"
   }

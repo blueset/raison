@@ -1,0 +1,158 @@
+@import "@material/layout-grid/mdc-layout-grid";
+@import "variables";
+@import "functions";
+
+/* Landing page */
+.landing-banner {
+  position: relative;
+  overflow: hidden;
+  background: rgba(0,0,0,0.4);
+  &::before {
+    content: " ";
+    position: absolute;
+    left: -1em; right: -1em; top: -1em; bottom: -1em;
+    background-image: url('/images/landing-background.jpeg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px);
+    z-index: -1;
+  }
+  .landing-banner-body {
+    max-width: 40em;
+    color: #ffffff;
+    padding: 2rem 0;
+    h1 {
+      color: #ffffff;
+      margin: 2rem 0;
+      font-family: $sans-font;
+      font-weight: 400;
+      font-size: 2.5rem;
+      .invisible-character {
+        visibility: hidden;
+      }
+    }
+    div.call-to-action {
+      margin: 2rem 0;
+      a {
+        @include mdc-button-container-fill-color(#ffffff);
+        @include mdc-button-ink-color(text-primary-on-light);
+      }
+    }
+  }
+}
+
+.landing-body {
+  padding: 2rem 0;
+  @extend .mdc-layout-grid__inner;
+
+  section {
+    align-content: start;
+    align-items: start;
+  }
+
+  #popular-ideas {
+    @include mdc-layout-grid-resp-cell(12, 12, 12);
+    @extend .mdc-layout-grid__inner;
+    .section-title {
+      @include mdc-layout-grid-resp-cell(12, 12, 12);
+    } 
+    .author-card {
+      @include mdc-layout-grid-resp-cell(3, 4, 4);
+    }
+  }
+
+  #highlights {
+    @extend .mdc-layout-grid__cell--span-8;
+    @include make-grid(8, 8, 8);
+    .section-title, .author-card {
+      @extend .mdc-layout-grid__cell--span-8;
+    }
+  }
+
+  #top-donators {
+    @extend .mdc-layout-grid__cell--span-4;
+    @include make-grid(4, 8, 8);
+    .section-title, .top-donators-list {
+      @include mdc-layout-grid-resp-cell(4, 8, 8);
+    }
+    .top-donators-list {
+      align-self: stretch;
+    }
+    .top-donators-list ol {
+      margin: 0;
+      padding: 0;
+      counter-reset: top-donators-list-counter;
+      list-style-type: none;
+      li {
+        padding: 0;
+      
+        .mdc-list-item__graphic{
+          font-family: $serif-font;
+          font-weight: 600;
+          font-style: italic;
+          font-size: 1.5rem;
+          &::before {
+            counter-increment: top-donators-list-counter;
+            content: counter(top-donators-list-counter);
+          }
+        }
+        &:nth-child(0n+1) .mdc-list-item__graphic {
+          background-color: #FFA000;
+          color: #ffffff;
+        }
+        &:nth-child(0n+2) .mdc-list-item__graphic {
+          background-color: #FFAE04;
+          color: #ffffff;
+        }
+        &:nth-child(0n+3) .mdc-list-item__graphic {
+          background-color: #FFBB3F;
+          color: #ffffff;
+        }
+        &:nth-child(n+4) .mdc-list-item__graphic {
+          background-color: #FFE1A8;
+          color: #E28C00;
+        }
+      }
+    }
+  }
+
+  #participating-investors {
+    @include mdc-layout-grid-resp-cell(12, 12, 12);
+    @extend .mdc-layout-grid__inner;
+    .section-title {
+      @include mdc-layout-grid-resp-cell(12, 12, 12);
+    } 
+    .participating-investors-list {
+      margin: 0;
+      padding: 0;
+      display: contents;
+      list-style-type: none;
+      li {
+        @include mdc-layout-grid-resp-cell(3, 4, 4);
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.landing-lower-banner {
+  text-align: right;
+  background-position: center;
+  background-size: cover;
+  padding: 5rem 0;
+  h2 {
+    color: #fff;
+    font-size: 2em;
+    font-weight: 300;
+    margin: 0;
+  }
+  div.call-to-action {
+    margin-top: 2rem;
+    a {
+      @include mdc-button-container-fill-color(#ffffff);
+      @include mdc-button-ink-color(text-primary-on-light);
+    }
+  }
+}

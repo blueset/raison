@@ -1,0 +1,73 @@
+#login-signup-page .invisible-character {
+  opacity: 0.4; }
+
+#login-signup-page .btn-return-home {
+  border: none;
+  color: #565656;
+  cursor: pointer;
+  font-size: 120%; }
+
+#login-signup-page .grid-container {
+  display: grid;
+  padding-top: 5em;
+  grid-template-areas: 'introduction form';
+  grid-row-gap: 1em;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 1em;
+  min-height: 100%; }
+  #login-signup-page .grid-container .md-logo img {
+    max-width: 40%;
+    margin-bottom: 3em; }
+  #login-signup-page .grid-container .introduction {
+    grid-area: introduction; }
+    #login-signup-page .grid-container .introduction h2 {
+      color: #214C74; }
+    #login-signup-page .grid-container .introduction .feature {
+      display: grid;
+      margin-top: 4em;
+      grid-template-columns: 1fr 1fr 4em;
+      grid-template-rows: 5em;
+      grid-column-gap: 1em;
+      justify-content: center;
+      font-size: 80%;
+      color: #B1B1C1;
+      max-width: 100%; }
+      #login-signup-page .grid-container .introduction .feature .feature-item {
+        max-width: 100%;
+        max-height: 100%;
+        text-align: center; }
+        #login-signup-page .grid-container .introduction .feature .feature-item img {
+          display: block;
+          border-radius: 50%;
+          max-width: 100%;
+          max-height: 100%;
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 1em; }
+  #login-signup-page .grid-container .form {
+    grid-area: form; }
+    #login-signup-page .grid-container .form .error-notification {
+      display: none;
+      max-width: 100%;
+      position: relative;
+      margin-top: 12px;
+      padding: 1em;
+      border: 2px solid #FF5251; }
+      #login-signup-page .grid-container .form .error-notification.show {
+        display: block; }
+      #login-signup-page .grid-container .form .error-notification:before {
+        content: "";
+        position: absolute;
+        top: -16px;
+        left: 10px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent transparent #FF5251 transparent; }
+    #login-signup-page .grid-container .form [type="submit"] {
+      background-color: #064078;
+      border: none;
+      padding: 0.5em 2em;
+      box-shadow: #C1C1C1 0 1px 1px 1px; }
+
+/*# sourceMappingURL=login_signup.css.map */

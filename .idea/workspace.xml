@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a61dcc-ee74-4010-a384-da656e98bf6c" name="Default" comment="">
+<<<<<<< HEAD
       <change beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/interaction.scss" />
       <change beforePath="" afterPath="$PROJECT_DIR$/routes/interaction.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/views/interaction/interaction.ejs" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change beforePath="$PROJECT_DIR$/views/templates/head.ejs" afterPath="$PROJECT_DIR$/views/templates/head.ejs" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/styles/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/style.css" beforeDir="false" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,6 +27,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file leaf-file-name="login_signup.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/login_signup.scss">
           <provider selected="true" editor-type-id="text-editor">
@@ -60,10 +67,18 @@
             <state relative-caret-position="75">
               <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="7" />
               <folding />
+=======
+      <file leaf-file-name="pagination.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/components/pagination.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="head.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/templates/head.ejs">
           <provider selected="true" editor-type-id="text-editor">
@@ -124,6 +139,31 @@
               <folding />
             </state>
           </provider>
+=======
+      <file leaf-file-name="footer.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/components/footer.ejs">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="detail-card.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/components/detail-card.ejs">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="foot.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/templates/foot.ejs">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="style.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/stylesheets/style.scss">
+          <provider selected="true" editor-type-id="text-editor" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
         </entry>
       </file>
     </leaf>
@@ -148,6 +188,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/teamMember.html" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/views/landing/landing.ejs" />
         <option value="$PROJECT_DIR$/public/javascripts/title_invisible.js" />
@@ -171,6 +212,9 @@
         <option value="$PROJECT_DIR$/routes/interaction.js" />
         <option value="$PROJECT_DIR$/views/interaction/interaction.ejs" />
         <option value="$PROJECT_DIR$/public/stylesheets/interaction.scss" />
+=======
+        <option value="$PROJECT_DIR$/views/components/pagination.ejs" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
       </list>
     </option>
   </component>
@@ -183,24 +227,27 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectFrameBounds">
     <option name="x" value="-59" />
     <option name="y" value="95" />
     <option name="width" value="1280" />
     <option name="height" value="706" />
+=======
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="20" />
+    <option name="y" value="41" />
+    <option name="width" value="1260" />
+    <option name="height" value="688" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -210,6 +257,7 @@
         <subPane>
           <expand>
             <path>
+<<<<<<< HEAD
               <item name="info30006-2018-rs" type="b2602c69:ProjectViewProjectNode" />
               <item name="info30006-2018-rs" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -221,10 +269,24 @@
             <path>
               <item name="info30006-2018-rs" type="b2602c69:ProjectViewProjectNode" />
               <item name="info30006-2018-rs" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="INFO30005-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="INFO30005-Project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="INFO30005-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="INFO30005-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="INFO30005-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="INFO30005-Project" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
+<<<<<<< HEAD
               <item name="info30006-2018-rs" type="b2602c69:ProjectViewProjectNode" />
               <item name="info30006-2018-rs" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
@@ -253,11 +315,22 @@
             <path>
               <item name="info30006-2018-rs" type="b2602c69:ProjectViewProjectNode" />
               <item name="info30006-2018-rs" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="INFO30005-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="INFO30005-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="stylesheets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="INFO30005-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="INFO30005-Project" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="stylesheets" type="462c0819:PsiDirectoryNode" />
               <item name="style.scss" type="620a8d5e:NestingTreeNode" />
             </path>
             <path>
+<<<<<<< HEAD
               <item name="info30006-2018-rs" type="b2602c69:ProjectViewProjectNode" />
               <item name="info30006-2018-rs" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
@@ -288,6 +361,21 @@
             <path>
               <item name="info30006-2018-rs" type="b2602c69:ProjectViewProjectNode" />
               <item name="info30006-2018-rs" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="INFO30005-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="INFO30005-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="INFO30005-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="INFO30005-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="INFO30005-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="INFO30005-Project" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -298,12 +386,20 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+=======
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="node.js.detected.package.prettier" value="true" />
+    <property name="node.js.path.for.package.prettier" value="project" />
+    <property name="node.js.selected.package.prettier" value="" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -317,9 +413,6 @@
       </list>
     </option>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -331,6 +424,7 @@
       <option name="presentableId" value="Default" />
       <updated>1520491312140</updated>
       <workItem from="1520491313469" duration="211000" />
+<<<<<<< HEAD
       <workItem from="1523157781918" duration="1921000" />
       <workItem from="1523279964505" duration="7649000" />
       <workItem from="1523517663901" duration="2217000" />
@@ -341,10 +435,14 @@
       <workItem from="1523855284053" duration="3195000" />
       <workItem from="1523859964442" duration="201000" />
       <workItem from="1523880450030" duration="9896000" />
+=======
+      <workItem from="1523933673086" duration="1122000" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="45102000" />
   </component>
   <component name="ToolWindowManager">
@@ -367,6 +465,31 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+=======
+    <option name="totallyTimeSpent" value="1333000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="22" width="1680" height="1028" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18690476" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,11 +498,8 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
-  </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/views/templates/head.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -418,13 +538,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/style.scss">
+=======
+    <entry file="file://$PROJECT_DIR$/index.html" />
+    <entry file="file://$PROJECT_DIR$/teamMember.html" />
+    <entry file="file://$PROJECT_DIR$/views/components/pagination.ejs">
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="291">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -706,6 +831,31 @@
           <folding />
         </state>
       </provider>
+=======
+    <entry file="file://$PROJECT_DIR$/views/components/footer.ejs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/components/detail-card.ejs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/raison-white-logo-with-text.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/logo4name-white.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/styles/style.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/templates/foot.ejs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/style.scss">
+      <provider selected="true" editor-type-id="text-editor" />
+>>>>>>> 98104104baef40d6eb63e42868fcbbec009f2a3c
     </entry>
   </component>
 </project>

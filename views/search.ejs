@@ -1,0 +1,128 @@
+<%- include('templates/head') %>
+<%- include('components/navbar', {theme: "dark", section: {name: "Search", url: "/search"}, state: "Search", user: 1}) %>
+
+<div class="container">
+    <div id="search-body">
+        <form action="#!" class="search-controllers">
+            <div id="search-query-form-control" class="mdc-form-control">
+                <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input type="text" id="search-keyword" class="mdc-text-field__input">
+                    <label class="mdc-floating-label" for="search-keyword">Search keywords</label>
+                    <i class="mdc-text-field__icon" tabindex="0"><i class="mdi mdi-magnify"></i></i>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+            </div>
+            <div class="search-filter-form-control mdc-form-control">
+                <div class="mdc-select">
+                    <select class="mdc-select__native-control">
+                        <option value="AU" selected>📍 Australia</option>
+                        <option value="ALL">Worldwide</option>
+                        <option value="AS">Asia</option>
+                        <option value="EU">Europe</option>
+                        <option value="NA">North America</option>
+                        <option value="SA">South America</option>
+                        <option value="AF">Africa</option>
+                        <option value="OC">Oceania</option>
+                        <option value="AN">Antarctica</option>
+                    </select>
+                    <div class="mdc-select__label mdc-select__label--float-above">Region</div>
+                    <div class="mdc-select__bottom-line"></div>
+                </div>
+            </div>
+            <div class="search-filter-form-control mdc-form-control">
+                <div class="mdc-select">
+                    <select class="mdc-select__native-control">
+                        <option value="ALL">All topics</option>
+                        <option value="1">This topic</option>
+                        <option value="2">That topic</option>
+                    </select>
+                    <div class="mdc-select__label mdc-select__label--float-above">Topic</div>
+                    <div class="mdc-select__bottom-line"></div>
+                </div>
+            </div>
+            <div class="search-filter-form-control mdc-form-control">
+                <div class="mdc-select">
+                    <select class="mdc-select__native-control">
+                        <option value="ALL" selected>All time</option>
+                        <option value="1">Today</option>
+                        <option value="7">This week</option>
+                        <option value="30">This month</option>
+                        <option value="365">This year</option>
+                    </select>
+                    <div class="mdc-select__label mdc-select__label--float-above">Time</div>
+                    <div class="mdc-select__bottom-line"></div>
+                </div>
+            </div>
+            <div class="search-filter-form-control mdc-form-control">
+                <div class="mdc-select">
+                    <select class="mdc-select__native-control">
+                        <option value="REL" selected>By relevance</option>
+                        <option value="TIME">By time</option>
+                        <option value="LIKE">By likes</option>
+                        <option value="COMMENT">By comments</option>
+                    </select>
+                    <div class="mdc-select__label mdc-select__label--float-above">Sort order</div>
+                    <div class="mdc-select__bottom-line"></div>
+                </div>
+            </div>
+        </form>
+        <%- include('components/detail-card', {
+            image: "https://picsum.photos/300",
+            title: "Aenean lacinia id metu",
+            summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
+            author: {
+                name: "Lauren Arnold",
+                avatar: "https://picsum.photos/100"
+            }
+        }) %>
+        <%- include('components/detail-card', {
+            image: "https://picsum.photos/300",
+            title: "Aenean lacinia id metu",
+            summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
+            author: {
+                name: "Lauren Arnold",
+                avatar: "https://picsum.photos/100"
+            }
+        }) %>
+        <%- include('components/detail-card', {
+            image: "https://picsum.photos/300",
+            title: "Aenean lacinia id metu",
+            summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
+            author: {
+                name: "Lauren Arnold",
+                avatar: "https://picsum.photos/100"
+            }
+        }) %>
+        <%- include('components/detail-card', {
+            image: "https://picsum.photos/300",
+            title: "Aenean lacinia id metu",
+            summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
+            author: {
+                name: "Lauren Arnold",
+                avatar: "https://picsum.photos/100"
+            }
+        }) %>
+        <%- include('components/detail-card', {
+            image: "https://picsum.photos/300",
+            title: "Aenean lacinia id metu",
+            summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
+            author: {
+                name: "Lauren Arnold",
+                avatar: "https://picsum.photos/100"
+            }
+        }) %>
+        <%- include('components/detail-card', {
+            image: "https://picsum.photos/300",
+            title: "Aenean lacinia id metu",
+            summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
+            author: {
+                name: "Lauren Arnold",
+                avatar: "https://picsum.photos/100"
+            }
+        }) %>
+        <%- include('components/pagination', {total: 12, current: 1, url: "/search?page="}) %>
+    </div>
+    
+</div>
+<%- include('components/footer') %>
+<%- include('templates/foot') %>

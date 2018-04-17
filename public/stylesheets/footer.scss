@@ -1,0 +1,54 @@
+@import "@material/button/mdc-button";
+@import "@material/layout-grid/mdc-layout-grid";
+
+/* Footer */
+footer {
+  background-color: #141E30;
+  padding: 2rem 0;
+  font-size: 0.8em;
+  line-height: 1.4;
+  .container {
+    section {
+      color: #ffffff;
+      display: contents;
+      font-weight: 300;
+      .title, .content {
+        @include mdc-layout-grid-resp-cell(3, 4, 4);
+      }
+      @include mdc-layout-grid-media-query_(desktop) {
+        .title {grid-row: 1;}
+        .content {grid-row: 2;}
+      }
+      @include mdc-layout-grid-media-query_(tablet) {
+        &:nth-child(1) .title, &:nth-child(2) .title {grid-row: 1;}
+        &:nth-child(3) .title, &:nth-child(4) .title {grid-row: 3;}
+        &:nth-child(1) .content, &:nth-child(2) .content {grid-row: 2;}
+        &:nth-child(3) .content, &:nth-child(4) .content {grid-row: 4;}
+      }
+      .title {
+        align-self: end;
+        .logo { 
+          max-height: 3em;
+        }
+        h2 {
+          color: #ffffff;
+          font-size: 1.25rem;
+          margin: 0;
+          font-weight: 300;
+        }
+      }
+      .content {        
+        .social-media-button {
+          @include mdc-button-ink-color(text-primary-on-dark);
+          min-width: 0;
+          font-size: 18px;
+          margin-right: 0.5em;
+        }
+        opacity: 0.7;
+        .logo-1a23 {
+          height: 1em;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<div class="detail-card mdc-card">
+    <a href="<%= locals.url || '#!' %>" class="detail-card-media-action mdc-card__primary-action">
+        <div class="mdc-card__media mdc-card__media--9-16" style="background-image: url('<%= image %>')"></div>
+    </a>
+    <div class="detail-card-content">
+        <a href="<%= locals.url || '#!' %>" class="detail-card-content-action mdc-card__primary-action">
+            <div class="detail-card-author">
+                <div class="detail-card-author-text">
+                    <div class="mdc-typography-overflow-ellipsis"><%= title %></div>
+                    <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis"><%= author.name %></div>
+                </div>
+                <img class="detail-card-profile-picture" src="<%= author.avatar %>" alt="<%= author.name %>">
+            </div>
+            <div class="detail-card-summary">
+                <%= summary %>
+            </div>
+        </a>
+        <div class="mdc-card__actions">
+            <div class="mdc-card__action-buttons">
+                <a class="mdc-button">
+                    <i class="mdi mdi-thumb-up-outline mdc-button__icon"></i>
+                    <%= locals.like || 10 %>
+                </a>
+                <a class="mdc-button">
+                    <i class="mdi mdi-message-reply-text mdc-button__icon"></i>
+                    <%= locals.comment || 6 %>
+                </a>
+            </div>
+            <div class="mdc-card__action-icons">
+                <span class="mdc-icon-toggle mdc-card__action mdc-card__action--icon" role="button">
+                    <i class="mdi mdi-star-outline"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

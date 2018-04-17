@@ -1,0 +1,16 @@
+@import "variables";
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    a.mdc-button {
+        min-width: 36px;
+        margin: 4px;
+    }
+    .current-page {
+        @extend .mdc-button--raised;
+        @include mdc-button-container-fill-color(primary);
+        @include mdc-button-ink-color(text-primary-on-dark);
+    }
+}

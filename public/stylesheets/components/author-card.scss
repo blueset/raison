@@ -1,0 +1,50 @@
+@import "@material/card/mdc-card";
+@import "@material/theme/_functions";
+
+.author-card {
+  .author-card-content {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .author-card-profile-picture {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 2rem;
+      margin-right: 0.5rem;
+    }
+    .author-card-text {
+      min-width: 0;
+    }
+  }
+}
+
+
+.author-card-carousel {
+  @extend .mdc-card;
+  position: relative;
+  .author-card-content {
+    position: absolute;
+    bottom: 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
+    .author-card-profile-picture {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 2rem;
+      margin-right: 0.5rem;
+    }
+    .author-card-text {
+      min-width: 0;
+      @include mdc-theme-prop(color, text-primary-on-dark);
+      .author-name {
+        @include mdc-theme-prop(color, text-secondary-on-dark);
+      }
+    }
+  }
+}
+

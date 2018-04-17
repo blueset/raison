@@ -1,0 +1,51 @@
+@import "@material/typography/mdc-typography";
+
+.detail-card {
+    display: flex;
+    flex-direction: row;
+    height: 18rem;
+    overflow: hidden;
+    .detail-card-media-action {
+        width: 10.125rem;
+    }
+    .detail-card-content-action {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        padding: 0.5em;
+    }
+    .detail-card-content {
+        width: 0;
+        flex-basis: 0;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        .detail-card-author-text, .detail-card-summary {
+            padding: 0.5rem;
+        }
+        .detail-card-author {
+            display: flex;
+            flex-direction: row;
+            .detail-card-author-text {
+                flex-grow: 1;
+                width: 0;
+            }
+            .detail-card-profile-picture {
+                height: 2em;
+                width: 2em;
+                border-radius: 50%;
+            }
+        }
+        .detail-card-summary {
+            @include mdc-typography(body1);
+            flex-basis: 0;
+            flex-grow: 1;
+            flex-shrink: 1;
+            overflow: hidden;
+        }
+    }
+}
+
+.mdc-card__media--9-16::before {
+    margin-top: 177.78%;
+}
