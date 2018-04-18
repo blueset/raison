@@ -12,6 +12,10 @@ mdc.autoInit();
     mdc.ripple.MDCRipple.attachTo(surface);
 });
 
+[].forEach.call(document.querySelectorAll('.mdc-ripple-surface'), function (surface) {
+    mdc.ripple.MDCRipple.attachTo(surface);
+});
+
 [].forEach.call(document.querySelectorAll('.mdc-menu'), function (menuDom) {
     var menu = new mdc.menu.MDCMenu(menuDom);
     document.querySelector(menuDom.dataset.anchor).addEventListener('click', function () {

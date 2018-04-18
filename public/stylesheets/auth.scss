@@ -20,6 +20,61 @@
     @include make-grid();
     align-content: center;
 
+
+    .md-logo {
+        height: 3em;
+        margin-bottom: 3rem;
+    }
+
+    .mdc-form-control, .mdc-form-control > * {
+        width: 100%;
+    }
+
+    .form-element.mdc-form-control .mdc-select {
+        margin-top: 16px;
+    }
+
+    .form-element:not(.mdc-form-control) {
+        margin: 1.5rem 0;
+    }
+
+    .message-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .message-icon {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $color-blue-500;
+            i.mdi {
+                color: #ffffff;
+                font-size: 3em;
+            }
+        }
+        &.message-success .message-icon {
+            background-color: $color-orange-600;
+        }
+        &.message-success .message-text h1 {
+            color: $color-orange-600;
+        }
+        .message-text {
+            flex-grow: 1;
+            h1, p {
+                margin: 0.5rem 0;
+            }
+        }
+    }
+
+    #full-panel {
+        @include mdc-layout-grid-resp-cell(8, 8, 6);
+    }
+
     #introduction, #form {
         @include mdc-layout-grid-resp-cell(6, 8, 6);
         align-self: center;
@@ -34,10 +89,6 @@
             margin: .5rem 0;
         }
 
-        .md-logo {
-            height: 3em;
-            margin-bottom: 3rem;
-        }
 
         .feature {
             margin-top: 3rem;
@@ -74,17 +125,6 @@
             @include mdc-typography(subheading2);
             text-transform: uppercase;
             font-weight: bold;
-        }
-        .mdc-form-control, .mdc-form-control > * {
-            width: 100%;
-        }
-
-        .form-element.mdc-form-control .mdc-select {
-            margin-top: 16px;
-        }
-
-        .form-element:not(.mdc-form-control) {
-            margin: 1.5rem 0;
         }
 
         .alternative-options {

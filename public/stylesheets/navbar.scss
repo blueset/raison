@@ -47,6 +47,10 @@ nav {
         .mdc-button, .navbar-drawer-toggle, .mdc-icon-toggle {
             @include mdc-button-ink-color(mdc-theme-prop-value(text-primary-on-dark));
         }
+        .nav-section-name {
+            border-left-color: white;
+            color: white;
+        }
     }
     .navbar-control {
         display: flex;

@@ -9,8 +9,10 @@ var importOnce = require('node-sass-import-once');
 
 // Routings
 var index = require('./routes/index');
-var users = require('./routes/users');
 var startups = require('./routes/startups');
+var investors = require('./routes/investors');
+var charities = require('./routes/charities');
+var donators = require('./routes/donators');
 var statics = require('./routes/statics');
 var auth = require('./routes/auth');
 
@@ -53,8 +55,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Binding routes
 app.use('/', index);
 app.use('/', auth);
-app.use('/users', users);
 app.use('/startups', startups);
+app.use('/investors', investors);
+app.use('/charities', charities);
+app.use('/donators', donators);
 
 statics(app);
 
