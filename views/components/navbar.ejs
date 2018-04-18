@@ -44,7 +44,7 @@ section (optional): {
                 <div class="mdc-menu-anchor">
                     <button id="menu-bar-user-button" class="mdc-button">
                         John Doe
-                        <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" alt="John Doe" class="user-avatar">
+                        <img src="<%= locals.user.image %>" alt="<%=locals.user.name%>" class="user-avatar">
                     </button>
                     <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-user-button" data-anchor-position="BOTTOM_START">
                         <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
@@ -68,7 +68,7 @@ section (optional): {
         <header class="mdc-drawer__header  mdc-theme--text-primary-on-primary mdc-theme--primary-bg">
             <div class="mdc-drawer__header-content">
                 <% if (locals.user) { %> 
-                    <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" alt="John Doe" class="drawer-user-avatar">
+                    <img src="<%= locals.user.image %>" alt="<%=locals.user.name%>" class="drawer-user-avatar">
                 <% } %>
                 Welcome, <%= (locals.user ? locals.user.name : "Guest") %>.
             </div>
@@ -107,7 +107,7 @@ section (optional): {
                 <a class="mdc-list-item" href="#!">
                     <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-rss"></i></span> Feeds
                 </a>
-                <a class="mdc-list-item" href="#!">
+                <a class="mdc-list-item" href="/logout">
                     <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-logout"></i></span> Log out
                 </a>
             <% } %>

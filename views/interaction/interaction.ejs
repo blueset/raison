@@ -1,126 +1,90 @@
 <%- include('../templates/head') %>
-<%- include('../components/navbar', {theme: "dark", section: {name: "Interaction", url: "/interaction"}, state: "Investors", user: 1}) %>
+<%- include('../components/navbar', {theme: "dark", section: {name: "Interaction", url: "/startups"}}) %>
 
-<div id="interaction-page">
-    <div class="container">
+<div id="startup-project-content" class="container">
+    <div class="title">
+        <h1> <%= locals.interaction.title %></h1>
+        <div class="subtitle"> <%= locals.interaction.subtitle %></div>
+    </div>
 
-        <div class="grid-container">
-            <div class="heading">
-                <div class="introduction">
-                    <div class="title">
-                        <h1>Information Technologies - Web Project </h1>
-                    </div>
-                    <div class="sub-title"> Make the world better.
-                    </div>
-                </div>
-                <div class="author">
-                    <div class="author-info">
-                        <img class='author-image' src="https://s3.amazonaws.com/uifaces/faces/twitter/posterjob/128.jpg" alt="">
-                        <div class="author-name"> By Kenneth </div>
-                        <div class="time-post"> 2 days ago</div>
-                    </div>
+    <div class="author">
+        <img class='author-avatar' src="<%= locals.writer.image %>" alt="">
+        <div class="author-info"> <%= locals.writer.name %><br>2 days ago</div>
+    </div>
+    <div class="description article-content">
+        <img class="featuring-image" src="<%= locals.interaction.thumbnail%>" alt="First slide">
+        <p><em>Montes odio suscipit ipsum</em> fringilla praesent interdum dictum, nostra fusce habitant vivamus elit ante urna, tempus vehicula <u>condimentum suspendisse</u> sem est. Turpis fringilla conubia sit sapien nostra ac massa vulputate congue, fames rutrum lectus maecenas dolor eu nisl orci risus, etiam tincidunt pretium scelerisque cum mus enim duis. Convallis tempor interdum eu nam volutpat imperdiet habitasse velit luctus, aliquet torquent felis proin dictumst laoreet inceptos pulvinar, curae in dui ultrices habitant quisque amet sed. Auctor fermentum pretium pharetra dis dignissim penatibus praesent posuere adipiscing ultrices, at <strong>senectus mattis venenatis</strong> ullamcorper integer potenti suspendisse dolor, nisl ante volutpat mauris cras purus dapibus sed diam.</p>
 
-                </div>
+        <p><strong>Conubia aenean euismod</strong><br>
+            Magnis ipsum dictumst per, arcu felis platea turpis erat, fusce egestas libero pellentesque praesent. Condimentum odio ultrices nam sed posuere litora accumsan aptent eu nunc, dui maecenas sem habitant mauris vitae metus phasellus conubia.</p>
+
+        <figure>
+            <img src="<%= locals.interaction.thumbnail2%>" alt="Iaculis egestas a bibendum per consectetur justo.">
+            <figcaption>Iaculis egestas a bibendum per consectetur justo.</figcaption>
+        </figure>
+
+        <p><strong>Rutrum neque</strong><br>
+            Dictum sapien suspendisse dignissim bibendum natoque magnis inceptos velit leo, tempus duis nostra fusce amet curabitur ac tortor himenaeos at laoreet facilisi, dictumst tellus porta pharetra quis in lacus sagittis vel varius orci. </p>
+
+        <blockquote class="emphasis">
+            Diam dolor hac ligula morbi per augue ilu et mauris viverra rhoncus id senectus, todari maecenas turpis himenaeos consequat.
+        </blockquote>
+
+        <p><strong>Tempus eleifend</strong><br>
+            Neque diam class ullamcorper eget proin sociis, conubia amet parturient a litora et facilisis, pharetra accumsan consectetur ad vivamus ac per. Elit phasellus nisl quisque tortor eu sem dis commodo cubilia duis aliquam, suscipit auctor justo sodales ullamcorper convallis molestie facilisis primis parturient, iaculis tincidunt penatibus augue rutrum himenaeos nulla dapibus id ac. </p>
+
+        <blockquote>
+            <p>Per sit mollis porta ultrices adipiscing facilisi potenti, dis faucibus consectetur ac ligula ad nunc dictum, cum mi proin feugiat platea fusce.</p>
+
+            <p>“Vestibulum enim eget parturient interdum felis odio condimentum, ipsum.”</p>
+
+            <p>“Viverra ut tellus fusce libero platea.”</p>
+        </blockquote>
+
+        <p>Elit phasellus nisl quisque tortor eu sem dis commodo cubilia duis aliquam, suscipit auctor justo sodales ullamcorper convallis molestie facilisis. Convallis, sollicitudin ridiculus facilisi pretium elit sagittis. Fringilla arcu consectetur tempor sem mollis bibendum fermentum, pellentesque mattis.</p>
+
+        <hr>
+
+        <p>A sem ut senectus facilisi sollicitudin scelerisque quis, nibh aenean varius posuere dictumst velit torquent natoque, curabitur nisi convallis hac sed orci. </p>
+    </div>
+
+
+    <div class="information">
+        <section class="information-section" id="investor-information">
+            <div class="investor-information-entry">
+                <div class="title">Status</div>
+                <div class="content">In Progress</div>
             </div>
-            <div class="information">
-                <div class="content grid-item">
-                    <div class="feature-image">
-                        <img class="d-block img-fluid" width="100%" src="/images/b1.jpg" alt="First slide">
-                    </div>
-
-                    <div class="paragraph">
-                        <p>
-                            Ullam numquam sit. Aliquid laudantium in sed inventore at saepe sequi. Adipisci facere eum corporis iste ut sit. Aut aspernatur sunt ut quos.
-                            Tempore mollitia dolores expedita sapiente asperiores nihil voluptatibus necessitatibus. Deleniti ut rerum reiciendis id consequatur error hic dolor tempora. Dignissimos nulla sit fugiat placeat nesciunt aut consequatur et.
-                            Magnam adipisci nihil porro. Unde et porro expedita suscipit fugiat aut reprehenderit neque. Maxime vitae optio tempore.
-                            <br> <br>
-                            Vel animi quibusdam. Doloremque iste maxime est aperiam. Qui dolor dignissimos. A debitis ducimus.
-                            Illo nihil voluptatibus magni omnis a voluptatem. Laboriosam commodi est expedita quas. Cupiditate voluptate iste in dolor. Deserunt excepturi ipsum dicta. Sit tempora beatae aut autem officiis.
-                            Alias non vero dolor fuga modi. Aut consequuntur voluptatem et et recusandae unde voluptas ratione. Neque ratione nostrum voluptas laboriosam. Repudiandae ut qui minus sint molestiae quibusdam. Eveniet non quasi dolores harum quam est et laudantium.
-
-                        </p>
-
-                    </div>
-
-                </div>
-                <div class="interaction grid-item">
-                    <div class="investor-donator">
-                        <div class="card mb-3" style="max-width: 100%">
-                            <div class="card-header"> Investor Information </div>
-                            <div class="card-body">
-                                <div class="card-title"> Status </div>
-                                <b class="card-text"> In Progress </b>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="card-title"> Invested By </div>
-                                <b class="card-text"> KP Capital </b>
-                                <img src="/images/c1.png" alt="Company Logo">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="section-interaction">
-                        <div class="section-heading">
-                            <h3>About the author</h3>
-                        </div>
-
-                        <p> Aut et distinctio est at iusto quia maxime aut doloremque. Quis officiis quasi aliquid. Omnis occaecati ducimus et saepe iste nostrum temporibus molestiae. Sunt dolores repellendus dolor nobis nihil sed repellat.
-                        </p>
-
-                    </div>
-
-                    <div class="section-interaction">
-                        <div class="section-heading">
-                            <h3>Comment </h3>
-                        </div>
-
-                        <div class="comment-section">
-                            <div class="commenter">
-                                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/vladyn/128.jpg" alt="">
-                                <b>Joelia Roman</b>
-                                <br>
-                                <div class="time-post"> 3 hours ago </div>
-                            </div>
-
-                            <div class="comment">
-                                it's very nice! Great Work!
-                            </div>
-                        </div>
-
-                        <div class="comment-section">
-                            <div class="commenter">
-                                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jacksonlatka/128.jpg" alt="">
-                                <b>Joelia Roman</b>
-                                <br>
-                                <div class="time-post"> 4 hours ago </div>
-                            </div>
-
-                            <div class="comment">
-                                Nice to see it
-                            </div>
-                        </div>
-
-                        <div class="comment-section">
-                            <div class="commenter">
-                                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/VMilescu/128.jpg" alt="">
-                                <b>David Johnson</b>
-                                <br>
-                                <div class="time-post"> 1 day ago </div>
-                            </div>
-
-                            <div class="comment">
-                                Perfect!
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                </div>
+            <div class="investor-information-entry">
+                <div class="title">Invested By</div>
+                <img src="<%= locals.actor.image %>" style="border-radius: 50%" class="picture" alt="Company Logo">
+                <div class="content"><%= locals.actor.name %> </div>
             </div>
-        </div>
+        </section>
+        <section class="actions">
+            <button class="mdc-button mdc-button--raised primary-action-button">
+                <i class="mdc-button__icon mdi mdi-star-outline"></i>
+                Add to favorites
+            </button>
+            <button class="mdc-button mdc-button--raised secondary-action-button">
+                <i class="mdc-button__icon mdi mdi-message-reply-text"></i>
+                Request contact details
+            </button>
+        </section>
+        <section class="information-section">
+            <h2>About the author</h2>
+            <div class="mdc-typography--body1">
+                <p>
+                    Aut et distinctio est at iusto quia maxime aut doloremque. Quis officiis quasi aliquid. Omnis
+                    occaecati ducimus et saepe iste nostrum temporibus molestiae. Sunt dolores repellendus dolor
+                    nobis nihil sed repellat.
+                </p>
+            </div>
+        </section>
+        <section class="information-section">
+            <h2>Comments</h2>
+            <%- include('../components/comments') %>
+        </section>
     </div>
 </div>
 

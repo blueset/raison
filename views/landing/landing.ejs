@@ -5,9 +5,12 @@
         <div class="landing-banner-body">
             <h1>Connecting Investors, Startups, Donators &amp; Charities.</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pharetra feugiat ullamcorper. Aenean lacinia id metus pellentesque ullamcorper.</p>
+
+            <% if (!locals.user) {%>
             <div class="call-to-action">
                 <a href="/signup" class="mdc-button mdc-button--raised">Sign up for free</a>
             </div>
+            <% } %>
         </div>
     </div>
 </div>
@@ -21,56 +24,19 @@
             </div>
 
             <%# Loop card starts. %>
-            <%- include('../components/author-card', {
-                image: "https://picsum.photos/300",
-                title: "Aenean lacinia id metu",
-                author: {
-                    name: "Lauren Arnold",
-                    avatar: "https://picsum.photos/100"
-                }
-            }) %>
-            <%# Loop card ends. %>
+            <% for (var i = 1; i < locals.authors.length; i++) {%>
+            <% author = locals.authors[i] %>
+            <%- include('../components/author-card', author) %>
+            <% } %>
 
-            <%- include('../components/author-card', {
-                image: "https://picsum.photos/300?image=100",
-                title: "Aenean lacinia id metu",
-                author: {
-                    name: "Lauren Arnold",
-                    avatar: "https://picsum.photos/100?image=200"
-                }
-            }) %>
-
-            <%- include('../components/author-card', {
-                image: "https://picsum.photos/300?image=301",
-                title: "Aenean lacinia id metu",
-                author: {
-                    name: "Lauren Arnold",
-                    avatar: "https://picsum.photos/100?image=400"
-                }
-            }) %>
-
-            <%- include('../components/author-card', {
-                image: "https://picsum.photos/300?image=500",
-                title: "Aenean lacinia id metu",
-                author: {
-                    name: "Lauren Arnold",
-                    avatar: "https://picsum.photos/100?image=600"
-                }
-            }) %>
         </section>
         <section id="highlights">
             <div class="section-title">
                 <h1>Highlights</h1>
                 <a href="#!" class="mdc-button">More</a>
             </div>
-             <%- include('../components/author-card', {
-                image: "https://picsum.photos/600",
-                title: "Aenean lacinia id metu",
-                author: {
-                    name: "Lauren Arnold",
-                    avatar: "https://picsum.photos/100"
-                }
-            }) %>
+            <% author = locals.authors[0] %>
+            <%- include('../components/author-card', author) %>
 
         </section>
         <section id="top-donators">
@@ -81,62 +47,18 @@
 
             <div class="top-donators-list">
                 <ol class="mdc-list mdc-list--avatar-list">
-                    <li class="mdc-list-item">
+                    <% for (var i = 0; i < locals.donators.length; i++){%>
+                    <li class="mdc-list-item" style="cursor: pointer">
                         <div class="mdc-list-item__graphic"></div>
                         <div class="mdc-list-item__text">
-                            Lorem Ipsum
-                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
+                            <%= locals.donators[i].username%>
+                            <span class="mdc-list-item__secondary-text">
+                                <%= locals.donators[i].name%>
+                            </span>
                         </div>
                     </li>
-                    <li class="mdc-list-item">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            Lorem Ipsum
-                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
-                        </div>
-                    </li>
-                    <li class="mdc-list-item">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            Lorem Ipsum
-                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
-                        </div>
-                    </li>
-                    <li class="mdc-list-item">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            Lorem Ipsum
-                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
-                        </div>
-                    </li>
-                    <li class="mdc-list-item">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            Lorem Ipsum
-                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
-                        </div>
-                    </li>
-                    <li class="mdc-list-item">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            Lorem Ipsum
-                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
-                        </div>
-                    </li>
-                    <li class="mdc-list-item">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            Lorem Ipsum
-                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
-                        </div>
-                    </li>
-                    <li class="mdc-list-item">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            Lorem Ipsum
-                            <span class="mdc-list-item__secondary-text">Dolor sit amet</span>
-                        </div>
-                    </li>
+                    <% } %>
+
                 </ol>
             </div>
         </section>
@@ -147,18 +69,9 @@
             </div>
 
             <ul class="participating-investors-list">
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
-                <li><img src="https://placeholdit.co/i/200x100" alt="Company"></li>
+                <% for (var i = 0; i < locals.investors.length; i++){ %>
+                    <li><img src="<%= locals.investors[i].image%>" alt="Company"></li>
+                <% } %>
             </ul>
         </section>
     </div>

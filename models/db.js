@@ -1,8 +1,11 @@
 var faker = require('faker');
 
+
+faker.seed(15121996);
+
 var User = require('./user');
 
-const numuser = 100;
+const numuser = 200;
 
 const ROLES = [
     'Investors',
@@ -15,15 +18,20 @@ var users = {};
 var roles = {};
 var allUsers = [];
 
-for (let role in ROLES)
-    roles[role] = [0];
+for (var i = 0; i < 4; i++)
+    roles[ROLES[i]] = [];
 
 var defaultUser = new User('johnDue', 'John Due', '12345abcde', 'Investors', 'johndue@gmail.com', faker.internet.avatar(),
     'Melbourne', 'VIC', '3053');
 
-users['johnDue'] = defaultUser;
+allUsers.push(defaultUser);
 
-for (var i = 0; i < numuser; i++) {
+users['johnDue'] = defaultUser;
+roles['Investors'].push('johnDue');
+
+
+// Create username
+for (let i = 0; i < numuser; i++) {
     var username = faker.internet.userName();
 
     while (username in users) {
@@ -36,20 +44,111 @@ for (var i = 0; i < numuser; i++) {
         faker.internet.password(),
         userRole,
         faker.internet.email(),
-        faker.internet.avatar(),
-        faker.address.city(),
-        faker.address.state(),
-        faker.address.zipCode());
+        faker.internet.avatar()
+    );
 
-    if (userRole in roles)
-        roles[userRole].push(username);
-    else
-        roles[userRole] = [username];
+
+    roles[userRole].push(username);
+
     users[username] = user;
 }
 
+var investments = [];
+var donations = [];
+var interactions = {};
+
+// Create interaction
+for (let i = 0; i < 20; i++) {
+    var writer = roles["Startups"][Math.floor(Math.random() * roles["Startups"].length)];
+    var actor = roles["Investors"][Math.floor(Math.random() * roles["Investors"].length)];
+    var idPicture = Math.floor(Math.random() * 300) + 600;
+    var idPicture2 = Math.floor(Math.random() * 300) + 600;
+    var interaction = {
+        id: i,
+        thumbnail: "https://picsum.photos/" + idPicture,
+        thumbnail2: "https://picsum.photos/" + idPicture2,
+        title: faker.commerce.productName(),
+        subtitle: faker.lorem.sentence(),
+        writer: writer,
+        actor: actor,
+        rating: Math.floor(Math.random() * 11),
+        funds: Math.floor(Math.random() * 100000)
+    }
+    investments.push(i);
+    interactions[i] = interaction;
+    users[writer].projects.push(i);
+    users[writer].totalFunds += interaction.funds;
+    users[actor].projects.push(i);
+    users[actor].totalFunds += interaction.funds;
+}
+
+for (let i = 20; i < 40; i++) {
+    var writer = roles["Charities"][Math.floor(Math.random() * roles["Charities"].length)];
+    var actor = roles["Donators"][Math.floor(Math.random() * roles["Donators"].length)];
+    var interaction = {
+        id: i,
+        thumbnail: faker.image.avatar(),
+        title: faker.commerce.productName(),
+        subtitle: faker.lorem.sentence(),
+        writer: writer,
+        actor: actor,
+        rating: Math.floor(Math.random() * 11),
+        funds: Math.floor(Math.random() * 100000)
+    }
+    donations.push(i);
+    interactions[i] = interaction;
+    users[writer].projects.push(i);
+    users[writer].totalFunds += interaction.funds;
+    users[actor].projects.push(i);
+    users[actor].totalFunds += interaction.funds;
+}
+
+function interactionSorting(a, b) {
+    if (interactions[a].rating < interactions[b].rating) {
+        return 1;
+    } else if (interactions[a].rating > interactions[b].rating) {
+        return -1;
+    } else {
+        if (interactions[a].funds < interactions[b].funds) {
+            return 1;
+        } else if (interactions[a].funds > interactions[b].funds) {
+            return -1;
+        } return 0;
+    }
+}
+
+function userSorting(a, b) {
+    if (users[a].funds < users[b].funds) {
+        return 1;
+    } else if (users[a].funds > users[b].funds) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
+donations.sort(interactionSorting);
+investments.sort(interactionSorting);
+for (var i = 0; i < 4; i++)
+    roles[ROLES[i]].sort(userSorting);
+
+function getInteraction(id) {
+    return interactions[id];
+}
+
+function getTopInteraction(type, limit) {
+    if (type == "Donation")
+        return donations.slice(0, limit);
+    else
+        return investments.slice(0, limit);
+}
+
+function getTopUser(type, limit) {
+    return roles[type].slice(0, limit);
+}
+
+
 function authenticate(username, password) {
-    console.log(username, password);
     if (username in users) {
         if (users[username].password === password) {
             return  {
@@ -69,6 +168,10 @@ function authenticate(username, password) {
     }
 }
 
+function getUser(username) {
+    return users[username];
+}
+
 function findUser(username) {
     if (username in users) return {
         found: true,
@@ -83,5 +186,9 @@ function findUser(username) {
 
 module.exports = {
     authenticate: authenticate,
-    findUser: findUser
+    findUser: findUser,
+    getInteraction: getInteraction,
+    getTopInteraction: getTopInteraction,
+    getUser: getUser,
+    getTopUser: getTopUser
 }

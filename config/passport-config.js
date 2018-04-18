@@ -8,13 +8,11 @@ function configPassport(app, passport) {
     app.use(passport.session());
 
     passport.use(new LocalStrategy({
-            usernameField: 'inputEmail4',
-            passwordField: 'inputPassword4',
+            usernameField: 'inputEmail',
+            passwordField: 'inputPassword',
             passReqToCallback : true
         },
         function(req, username, password, done) {
-            console.log("xxx");
-            console.log(username);
             var res = userAuthentication(username, password);
 
             if (res.found) {

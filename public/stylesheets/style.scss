@@ -3,6 +3,9 @@
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/_carousel";
 @import "../../node_modules/bootstrap/scss/_grid";
+@import "../../node_modules/bootstrap/scss/_modal";
+@import "../../node_modules/bootstrap/scss/_card";
+
 @import "../../node_modules/bootstrap/scss/utilities/_screenreaders";
 @import "variables";
 
@@ -24,6 +27,7 @@ $mdc-typography-font-family: $sans-font;
 @import "startups-landing";
 @import "search";
 @import "auth";
+@import "interaction";
 @import "startups-project";
 @import "investors-business";
 @import "components/pagination";

@@ -19,16 +19,11 @@ var investors = require('./routes/investors');
 var charities = require('./routes/charities');
 var donators = require('./routes/donators');
 var statics = require('./routes/statics');
-var login = require('./routes/login');
-var signup = require('./routes/signup');
-var logout = require('./routes/logout');
 var auth = require('./routes/auth');
+var interaction = require('./routes/interaction');
 
 // Config
 var configPassport = require('./config/passport-config');
-
-
-
 
 
 var app = express();
@@ -102,4 +97,4 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+app.listen(3000);

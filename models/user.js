@@ -1,14 +1,13 @@
 class User {
-    constructor(username, name, password, roles, email, image, city, state, zipCode) {
+    constructor(username, name, password, role, email, image, logo) {
         this.username = username;
         this.name = name;
         this.password = password;
-        this.role = roles;
+        this.role = role;
         this.email = email;
         this.image = image;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
+        this.projects = [];
+        this.totalFunds = 0;
     }
 }
 
