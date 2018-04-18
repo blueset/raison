@@ -15693,7 +15693,7 @@ footer {
     display: grid;
     grid-template-areas: "heading" "information";
     grid-row-gap: 2em;
-    padding-top: 6em; }
+    padding-top: 2em; }
     #interaction-page .grid-container .grid-item {
       overflow: auto;
       word-wrap: break-word; }

@@ -27,11 +27,11 @@ section (optional): {
         <div class="navbar-control">
             <a href="/search" class="mdc-icon-toggle"><i class="mdi mdi-magnify"></i></a>
             <% if (!locals.user) { %>
-                <a href="#!" class="mdc-button">Sign up</a>
-                <a href="#!" class="mdc-button">Log in</a>
+                <a href="/signup" class="mdc-button">Sign up</a>
+                <a href="/login" class="mdc-button">Log in</a>
             <% } else { %>
                 <div class="mdc-menu-anchor">
-                    <button id="menu-bar-state-button" class="mdc-button"><%= locals.state || "%STATE" %> <i class="mdc-button__icon-right mdi mdi-menu-down"></i></button>
+                    <button id="menu-bar-state-button" class="mdc-button"><%= locals.user.role || "%STATE" %> <i class="mdc-button__icon-right mdi mdi-menu-down"></i></button>
                     <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-state-button" data-anchor-position="BOTTOM_START">
                         <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
                             <a class="mdc-list-item" role="menuitem" tabindex="0" href="/startups">Startups</a>
@@ -51,7 +51,7 @@ section (optional): {
                             <a class="mdc-list-item" role="menuitem" tabindex="0" href="#!">Dashboard</a>
                             <a class="mdc-list-item" role="menuitem" tabindex="0" href="#!">Inbox (0)</a>
                             <a class="mdc-list-item" role="menuitem" tabindex="0" href="#!">Feeds</a>
-                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="/">Log out</a>
+                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="/logout">Log out</a>
                         </ul>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ section (optional): {
                 <% if (locals.user) { %> 
                     <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" alt="John Doe" class="drawer-user-avatar">
                 <% } %>
-                Welcome, <%= (locals.user ? "John Doe" : "Guest") %>.
+                Welcome, <%= (locals.user ? locals.user.name : "Guest") %>.
             </div>
         </header>
         <div class="mdc-drawer__content mdc-list">
@@ -78,10 +78,10 @@ section (optional): {
                 <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-magnify"></i></span> Search
             </a>
             <% if (!locals.user) { %> 
-                <a class="mdc-list-item" href="#">
+                <a class="mdc-list-item" href="/login">
                     <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-account"></i></span> Sign in
                 </a>
-                <a class="mdc-list-item" href="#">
+                <a class="mdc-list-item" href="/signup">
                     <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-account-plus"></i></span> Sign up
                 </a>
             <% } else { %>

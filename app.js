@@ -6,6 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
 var importOnce = require('node-sass-import-once');
+var passport = require('passport');
+var session = require('express-session');
+var flash = require('connect-flash');
+
+
 
 // Routings
 var index = require('./routes/index');
@@ -15,6 +20,11 @@ var startups = require('./routes/startups');
 var statics = require('./routes/statics');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
+var logout = require('./routes/logout');
+
+
+// Config
+var configPassport = require('./config/passport-config');
 
 
 
@@ -29,6 +39,8 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({secret: 'info30005'}));
+app.use(flash());
 app.use(cookieParser());
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
@@ -53,13 +65,18 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Config
+configPassport(app, passport);
+
 // Binding routes
 app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
+app.use('/logout', logout);
 app.use('/signup', signup);
 app.use('/interaction', interaction);
 app.use('/startups', startups);
+
 
 statics(app);
 

@@ -3,6 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  res.locals.user = req.user;
   res.render('landing/landing', { title: 'Raison — Connecting Investors, Startups, Donators & Charities.' });
 });
 
