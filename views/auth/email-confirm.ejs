@@ -1,0 +1,26 @@
+<%- include('../templates/head') %>
+
+<%- include('auth-header', {return_to_home: false}) %>
+
+
+<div class="container auth-content" id="login">
+    <div id="full-panel">
+        <img class="md-logo" src="images/raison-black-logo-with-text.svg" alt="Raison">
+        <div class="message-row message-success">
+            <div class="message-icon">
+                <i class="mdi mdi-check"></i>
+            </div>
+            <div class="message-text">
+                <h1>Congratulations!</h1>
+                <p>Please check your inbox for the link to activate your account.</p>
+            </div>
+        </div>
+        <div style="height: 5em;"></div>
+        <a href="/" class="mdc-button">Return to home</a>
+
+    </div>
+</div>
+
+<%- include('../components/footer') %>
+<%- include('auth-footer') %>
+<%- include('../templates/foot') %>

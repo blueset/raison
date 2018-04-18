@@ -14,17 +14,20 @@ var flash = require('connect-flash');
 
 // Routings
 var index = require('./routes/index');
-var interaction  = require('./routes/interaction');
-var users = require('./routes/users');
 var startups = require('./routes/startups');
+var investors = require('./routes/investors');
+var charities = require('./routes/charities');
+var donators = require('./routes/donators');
 var statics = require('./routes/statics');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
 var logout = require('./routes/logout');
-
+var auth = require('./routes/auth');
 
 // Config
 var configPassport = require('./config/passport-config');
+
+
 
 
 
@@ -41,27 +44,28 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({secret: 'info30005'}));
 app.use(flash());
+
 app.use(cookieParser());
 app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: false, // true = .sass and false = .scss
-  sourceMap: true,
-  debug: true,
-  importer: function (url, prev, done) {
-    if (url.indexOf('@material') === 0) {
-      var filePath = url.split('@material')[1];
-      var nodeModulePath = `./node_modules/@material/${filePath}`;
-      return { file: require('path').resolve(nodeModulePath) };
-    } 
-    this.importOnce = importOnce;
-    return this.importOnce(url, prev, done);
-  },
-  importOnce: {
-    index: false,
-    css: false,
-    bower: false
-  }
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    indentedSyntax: false, // true = .sass and false = .scss
+    sourceMap: true,
+    debug: true,
+    importer: function (url, prev, done) {
+        if (url.indexOf('@material') === 0) {
+            var filePath = url.split('@material')[1];
+            var nodeModulePath = `./node_modules/@material/${filePath}`;
+            return {file: require('path').resolve(nodeModulePath)};
+        }
+        this.importOnce = importOnce;
+        return this.importOnce(url, prev, done);
+    },
+    importOnce: {
+        index: false,
+        css: false,
+        bower: false
+    }
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -70,32 +74,32 @@ configPassport(app, passport);
 
 // Binding routes
 app.use('/', index);
-app.use('/users', users);
-app.use('/login', login);
-app.use('/logout', logout);
-app.use('/signup', signup);
+app.use('/', auth);
 app.use('/interaction', interaction);
 app.use('/startups', startups);
+app.use('/investors', investors);
+app.use('/charities', charities);
+app.use('/donators', donators);
 
 
 statics(app);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
-app.listen(3000);
+module.exports = app;

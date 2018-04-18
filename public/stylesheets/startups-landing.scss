@@ -4,7 +4,7 @@
 
 #startups-landing-body {
     @extend .mdc-layout-grid__inner;
-    margin-bottom: 3rem;
+    padding-bottom: 3rem;
     #highlights {
         @include mdc-layout-grid-resp-cell(12, 12, 12);
         @extend .mdc-layout-grid__inner;
@@ -13,7 +13,7 @@
         }
         #highlights-carousel {
             @include mdc-layout-grid-resp-cell(12, 12, 12);
-            margin-bottom: 2.5em;
+            margin-bottom: 2.5em !important;
             .carousel-control-prev, .carousel-control-next {
                 max-width: 6rem;
                 i {

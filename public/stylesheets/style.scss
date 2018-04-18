@@ -4,7 +4,6 @@
 @import "../../node_modules/bootstrap/scss/_carousel";
 @import "../../node_modules/bootstrap/scss/_grid";
 @import "../../node_modules/bootstrap/scss/utilities/_screenreaders";
-
 @import "variables";
 
 $mdc-theme-primary: $color-brand-bright;
@@ -14,71 +13,80 @@ $mdc-typography-font-family: $sans-font;
 @import "../../node_modules/material-components-web/material-components-web";
 
 :root {
-  /* Theming for MDC */
-  --mdl-theme-text-primary-on-primary: var(--mdl-theme-text-primary-on-dark);
+    /* Theming for MDC */
+    --mdl-theme-text-primary-on-primary: var(--mdl-theme-text-primary-on-dark);
 }
 
 @import "functions";
 @import "navbar";
 @import "footer";
 @import "landing";
-@import "startup-landing";
+@import "startups-landing";
 @import "search";
-@import "login_signup";
-@import "footer_bar";
-@import "interaction";
+@import "auth";
+@import "startups-project";
+@import "investors-business";
 @import "components/pagination";
 @import "components/author-card";
 @import "components/detail-card";
+@import "components/article-content";
+@import "components/comments";
 
 html {
-  width: 100%;
-  height: 100%;
-  font-family: $sans-font;
+    width: 100%;
+    height: 100%;
+    font-family: $sans-font;
 }
 
 .container {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
+
 body {
-  min-height: 100%;
-  min-width: 100%;
-  position: relative;
+    min-height: 100%;
+    min-width: 100%;
+    position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $mono-font;
-  color: #003363;
-  font-weight: 400;
+    font-family: $mono-font;
+    color: #003363;
+    font-weight: 400;
+}
+
+a {
+    color: $color-blue-400;
 }
 
 .mdc-typography-overflow-ellipsis {
-  @include mdc-typography-overflow-ellipsis();
+    @include mdc-typography-overflow-ellipsis();
 }
 
 .mdc-typography--button, .mdc-button {
-  font-family: Roboto, sans-serif;
+    font-family: Roboto, sans-serif;
 }
 
 .invisible-character {
-  opacity: 0.3;
+    opacity: 0.3;
 }
 
 section {
-  .section-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    h1 {
-      font-size: 1.8em;
-      flex-grow: 1;
-      margin: 0;
+    .section-title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        h1 {
+            font-size: 1.8em;
+            flex-grow: 1;
+            margin: 0;
+        }
     }
-  }
 }
 
 .mdc-button .mdc-button__icon, .mdc-button .mdc-button__icon-right {
-  line-height: 1;
+    line-height: 1;
 }
 
 .mdc-button .mdc-button__icon-right {
@@ -92,10 +100,10 @@ section {
 }
 
 .mdc-text-field--with-trailing-icon:not(.mdc-text-field--outlined) .mdc-text-field__input {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 .mdc-select__native-control {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }

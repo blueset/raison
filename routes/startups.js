@@ -6,4 +6,8 @@ router.get('/', function (req, res, next) {
     res.render('startups/landing', { title: 'Startups — Raison' });
 });
 
+router.get('/information-technologies-web-project/1', function(req, res, next) {
+    res.render('startups/project', { title: 'Project Name — Startups — Raison'});
+});
+
 module.exports = router;

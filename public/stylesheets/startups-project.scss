@@ -1,0 +1,94 @@
+@import "functions";
+@import "variables";
+@import "@material/layout-grid/mdc-layout-grid";
+@import "@material/theme/mdc-theme";
+@import "@material/button/mdc-button";
+
+#startup-project-content {
+    margin-bottom: 2em;
+    @include make-grid();
+    @include mdc-layout-grid-media-query_(desktop) {
+        & > .title, & > .author {
+            margin: 2rem 0 1rem 0 !important;
+        }
+    }
+    & > .title {
+        @include mdc-layout-grid-resp-cell(8, 8, 6);
+        h1 {
+            margin: 0 0 1rem 0;
+        }
+        .subtitle {
+            @include mdc-theme-prop(color, text-secondary-on-light);
+        }
+    }
+    & > .author {
+        .author-avatar {
+            height: 4em;
+            width: 4em;
+            border-radius: 50%;
+        }
+        @include mdc-layout-grid-resp-cell(4, 8, 6);
+        @include mdc-layout-grid-media-query_(desktop) {
+            text-align: right;
+        }
+    }
+    .description {
+       @include mdc-layout-grid-resp-cell(8, 8, 6);
+    }
+    .information {
+        @include mdc-layout-grid-resp-cell(4, 8, 6);
+        .information-section {
+            width: 100%;
+            border-top: 3px solid $color-brand-bright;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+            h2 {
+                margin: 0 0 1rem 0;
+                font-size: 2rem;
+            }
+            .investor-information-entry {
+                margin-bottom: 1.5rem;
+                .title {
+                    margin-bottom: .25rem;
+                }
+                .content {
+                    color: $color-blue-500;
+                    font-size: 1.5rem;
+                }
+                img {
+                    float: right;
+                    max-width: 50%;
+                }
+                &:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+        .actions {
+            .mdc-button {
+                width: 100%;
+                justify-content: flex-start;
+                margin-bottom: 1em;
+                line-height: 1;
+                height: auto;
+                text-align: left;
+                padding: 8px 16px;
+                &.primary-action-button {
+                    @include mdc-button-container-fill-color($color-brand-bright);
+                }
+
+                &.secondary-action-button {
+                    @include mdc-button-container-fill-color(#ffffff);
+                    @include mdc-button-ink-color(text-secondary-on-light);
+                }
+            }
+        }
+
+    }
+
+}

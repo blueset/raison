@@ -1,0 +1,111 @@
+<%- include('../templates/head') %>
+
+<%- include('auth-header') %>
+
+<div class="container auth-content" id="login">
+    <div id="introduction">
+        <img class="md-logo" src="images/raison-black-logo-with-text.svg" alt="Raison">
+        <h1>Join Raison!</h1>
+        <p>With in account, you can...</p>
+        <div class="feature">
+            <div class="feature-item">
+                <img class="img-fluid" src="images/donation-icon.jpeg" alt="donation">
+                Donation and charity
+            </div>
+            <div class="feature-item">
+                <img class="img-fluid" src="images/Investment-Icon.jpeg" alt="Investment">
+                Propose ideas to get invested
+            </div>
+        </div>
+    </div>
+    <div id="form">
+        <form>
+            <div class="mdc-form-control form-element">
+                <div class="mdc-text-field">
+                    <input type="text" required id="display_name" class="mdc-text-field__input">
+                    <label class="mdc-floating-label" for="display_name">Display name</label>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    Your name used to show other members.
+                </p>
+            </div>
+
+            <div class="mdc-form-control form-element">
+                <div class="mdc-text-field">
+                    <input type="text" required id="username" class="mdc-text-field__input" pattern="[a-zA-Z]{[a-zA-Z0-9-_]{5,31}">
+                    <label class="mdc-floating-label" for="username">Username</label>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    6 ~ 32 characters of only alphabets, numbers, dash (-) and underscores(_). Must start with an alphabet.
+                </p>
+            </div>
+
+            <div class="mdc-form-control form-element">
+                <div class="mdc-text-field">
+                    <input type="email" required id="email" class="mdc-text-field__input">
+                    <label class="mdc-floating-label" for="email">Email</label>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                    A valid address email is required.
+                </p>
+            </div>
+
+            <div class="mdc-form-control form-element">
+                <div class="mdc-text-field">
+                    <input type="password" required id="password" class="mdc-text-field__input">
+                    <label class="mdc-floating-label" for="password" minlength="6">Password</label>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
+                    Password must be 6 characters or longer.
+                </p>
+            </div>
+
+            <div class="mdc-form-control form-element">
+                <div class="mdc-text-field">
+                    <input type="password" required id="confirm_password" class="mdc-text-field__input">
+                    <label class="mdc-floating-label" for="confirm_password" minlength="6">Confirm password</label>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                </p>
+            </div>
+
+            <div class="mdc-form-control form-element">
+                <div class="mdc-select">
+                    <select class="mdc-select__native-control">
+                        <option value="startup" selected>Startup</option>
+                        <option value="investor">Investor</option>
+                        <option value="donator">Donator</option>
+                        <option value="charity">Charity</option>
+                    </select>
+                    <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
+                    <div class="mdc-select__bottom-line"></div>
+                </div>
+            </div>
+
+            <div class="form-element">
+                <div id="capcha"></div>
+            </div>
+
+            <div class="form-element alternative-options">
+                <div>
+                    <a href="/login">Already have an account?</a>
+                </div>
+                <a href="/email-confirm" class="mdc-button mdc-button--raised">Sign up</a>
+            </div>
+
+            <div class="form-element tos">
+                By Clicking "Sign up", you are agreeing to Raison's
+                <a href="#!">Terms of Service </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('../components/footer') %>
+<%- include('auth-footer') %>
+<%- include('../templates/foot') %>

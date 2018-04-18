@@ -1,0 +1,72 @@
+<%- include('../templates/head') %>
+
+<%- include('auth-header') %>
+
+
+<div class="container auth-content" id="login">
+    <div id="introduction">
+        <img class="md-logo" src="images/raison-black-logo-with-text.svg" alt="Raison">
+        <h1>Welcome back!</h1>
+        <p>With in account, you can...</p>
+        <div class="feature">
+            <div class="feature-item">
+                <img class="img-fluid" src="images/donation-icon.jpeg" alt="donation">
+                Donation and charity
+            </div>
+            <div class="feature-item">
+                <img class="img-fluid" src="images/Investment-Icon.jpeg" alt="Investment">
+                Propose ideas to get invested
+            </div>
+        </div>
+    </div>
+
+    <div id="form">
+        <div class="auth-section">
+            <div class="auth-section-name">Sign in with Email</div>
+            <form>
+                <div class="mdc-form-control form-element">
+                    <div class="mdc-text-field">
+                        <input type="text" required id="email" class="mdc-text-field__input">
+                        <label class="mdc-floating-label" for="email">Email/Username</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">Email/username is required.</p>
+                </div>
+
+                <div class="mdc-form-control form-element">
+                    <div class="mdc-text-field">
+                        <input type="password" required id="password" class="mdc-text-field__input">
+                        <label class="mdc-floating-label" for="password">Password</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">Password is required.</p>
+                </div>
+
+                <div class="form-element">
+                    <div id="capcha"></div>
+                </div>
+
+                <div class="form-element alternative-options">
+                    <div>
+                        <a href="/signup"> Don't have an account? </a>
+                        <br>
+                        <a href="/forgot-password"> Forgot your password? </a>
+                    </div>
+                    <a href="/startups" class="mdc-button mdc-button--raised">Sign in</a>
+                </div>
+            </form>
+        </div>
+        <div class="auth-section">
+            <div class="auth-section-name">Or sign in with...</div>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-facebook"><i class="mdi mdi-facebook"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-twitter"><i class="mdi mdi-twitter"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-github"><i class="mdi mdi-github-circle"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-telegram"><i class="mdi mdi-telegram"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-google"><i class="mdi mdi-google"></i></button>
+        </div>
+    </div>
+</div>
+
+<%- include('../components/footer') %>
+<%- include('auth-footer') %>
+<%- include('../templates/foot') %>

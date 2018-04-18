@@ -12,6 +12,10 @@ mdc.autoInit();
     mdc.ripple.MDCRipple.attachTo(surface);
 });
 
+[].forEach.call(document.querySelectorAll('.mdc-ripple-surface'), function (surface) {
+    mdc.ripple.MDCRipple.attachTo(surface);
+});
+
 [].forEach.call(document.querySelectorAll('.mdc-menu'), function (menuDom) {
     var menu = new mdc.menu.MDCMenu(menuDom);
     document.querySelector(menuDom.dataset.anchor).addEventListener('click', function () {
@@ -24,8 +28,10 @@ mdc.autoInit();
 
 
 /* Navbar only */
-let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector('.mdc-drawer--temporary'));
-document.querySelector('.navbar-drawer-toggle').addEventListener('click', () => drawer.open = true);
+if (document.querySelector('.mdc-drawer--temporary')) {
+    let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector('.mdc-drawer--temporary'));
+    document.querySelector('.navbar-drawer-toggle').addEventListener('click', () => drawer.open = true);
+}
 
 /* Forms */
 [].forEach.call(document.querySelectorAll('.mdc-form-control'), function (formControl) {
@@ -37,4 +43,8 @@ document.querySelector('.navbar-drawer-toggle').addEventListener('click', () => 
     if (formControl.querySelector('.mdc-select')) {
         mdc.select.MDCSelect.attachTo(formControl.querySelector('.mdc-select'));
     }
+});
+
+[].forEach.call(document.querySelectorAll('.mdc-text-field--textarea'), function (textarea) {
+    new mdc.textField.MDCTextField(textarea);
 });
