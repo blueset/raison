@@ -1,0 +1,126 @@
+@import "@material/typography/mdc-typography";
+@import "@material/button/mdc-button";
+@import "@material/theme/mdc-theme";
+@import "functions";
+@import "variables";
+
+.auth-wrapper {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-header {
+    padding: 2em 0;
+}
+
+.auth-content {
+    flex-grow: 1;
+    @include make-grid();
+    align-content: center;
+
+    #introduction, #form {
+        @include mdc-layout-grid-resp-cell(6, 8, 6);
+        align-self: center;
+    }
+
+    #introduction {
+        h1 {
+            color: $color-brand-bright;
+        }
+
+        h1, p {
+            margin: .5rem 0;
+        }
+
+        .md-logo {
+            height: 3em;
+            margin-bottom: 3rem;
+        }
+
+        .feature {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: row;
+            max-width: 100%;
+            .feature-item {
+                max-width: 100%;
+                max-height: 100%;
+                text-align: center;
+                @include mdc-typography(caption);
+                margin-right: 1.5rem;
+                line-height: 1.2;
+                img {
+                    height: 5em;
+                    display: block;
+                    border-radius: 50%;
+                    max-width: 100%;
+                    max-height: 100%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-bottom: 1em;
+                }
+            }
+        }
+    }
+
+    #form {
+        .auth-section {
+            margin: 3rem 0;
+        }
+        .auth-section-name {
+            margin: 1rem 0;
+            @include mdc-typography(subheading2);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .mdc-form-control, .mdc-form-control > * {
+            width: 100%;
+        }
+
+        .form-element.mdc-form-control .mdc-select {
+            margin-top: 16px;
+        }
+
+        .form-element:not(.mdc-form-control) {
+            margin: 1.5rem 0;
+        }
+
+        .alternative-options {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            div {
+                flex-grow: 1;
+                a {
+                    text-decoration: none;
+                    color: $color-blue-400;
+                }
+            }
+            button[type=submit] {
+                @include mdc-button-container-fill-color(primary);
+                @include mdc-button-ink-color(text-primary-on-dark);
+            }
+        }
+
+        .social-sign-in-button {
+            @include mdc-button-ink-color(text-primary-on-dark);
+            min-width: 32px;
+            margin-right: 8px;
+        }
+
+        .ssibtn-facebook {@include mdc-button-container-fill-color(#3B5998);}
+        .ssibtn-twitter {@include mdc-button-container-fill-color(#0088CC);}
+        .ssibtn-github {@include mdc-button-container-fill-color(#000000);}
+        .ssibtn-telegram {@include mdc-button-container-fill-color(#1DA1F2);}
+        .ssibtn-google {@include mdc-button-container-fill-color(#D33D34);}
+
+        .tos {
+            @include mdc-theme-prop(color, text-hint-on-light);
+            font-size: .8em;
+        }
+    }
+
+}
+

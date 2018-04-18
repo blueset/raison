@@ -1,0 +1,54 @@
+@import "../variables";
+
+.article-content {
+    font-family: $serif-font;
+    line-height: 1.75;
+
+    p {
+        margin: 2em 0;
+    }
+
+    img.featuring-image {
+        width: 100%;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    figure {
+        margin: 1rem 0;
+        figcaption {
+            margin: 1rem;
+            text-align: center;
+            font-style: italic;
+        }
+    }
+    blockquote.emphasis {
+        padding: 1rem 0 1rem 3rem;
+        margin: 0;
+        font-size: 1.5em;
+        font-weight: 500;
+        font-style: italic;
+    }
+
+    hr {
+        border: 0;
+        margin: 0;
+        height: 1em;
+        text-align: center;
+        letter-spacing: 2em;
+        font-weight: 800;
+        line-height: 1em;
+        &:after {
+            content: "···";
+        }
+    }
+
+    blockquote:not(.emphasis) {
+        margin-left: -24px;
+        border-left: 4px solid black;
+        padding-left: 20px;
+        font-style: italic;
+    }
+}

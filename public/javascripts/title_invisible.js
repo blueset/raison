@@ -4,7 +4,6 @@ $(function() {
 
             elem.innerHTML = elem.innerHTML.replace(/ /g, '<span class="invisible-character">·</span><wbr>')
                 + '<span class="invisible-character">¬</span>';
-            console.log(elem);
         });
     }
 });
