@@ -15,6 +15,7 @@ var charities = require('./routes/charities');
 var donators = require('./routes/donators');
 var statics = require('./routes/statics');
 var auth = require('./routes/auth');
+var dashboard = require('./routes/dashboard');
 
 
 var app = express();
@@ -59,6 +60,7 @@ app.use('/startups', startups);
 app.use('/investors', investors);
 app.use('/charities', charities);
 app.use('/donators', donators);
+app.use('/dashboard', dashboard);
 
 statics(app);
 

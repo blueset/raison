@@ -8,7 +8,7 @@ mdc.autoInit();
     mdc.ripple.MDCRipple.attachTo(surface);
 });
 
-[].forEach.call(document.querySelectorAll('.mdc-list-item'), function (surface) {
+[].forEach.call(document.querySelectorAll('.mdc-list-item:not(.no-ripple)'), function (surface) {
     mdc.ripple.MDCRipple.attachTo(surface);
 });
 

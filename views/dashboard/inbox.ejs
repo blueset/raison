@@ -1,0 +1,39 @@
+<%- include('../templates/head') %>
+<%- include('navbar') %>
+
+<div class="dashbaord-content container">
+    <%- include('nav-aside', {path: 'inbox'}) %>
+    <div class="content">
+        <section>
+            <div class="title-row">
+                <h1>My inbox</h1>
+                <a href="#!" class="mdc-button mdc-button--raised">Send message</a>
+            </div>
+            <ul class="mdc-list table-list">
+                <li class="mdc-list-item no-ripple title-row">
+                    <span class="title">Title</span>
+                    <span class="author">Sender</span>
+                    <span class="time">Time</span>
+                </li>
+                <li class="mdc-list-item no-ripple">
+                    <span class="title">Faucibus vulputate felis rhoncus blandit penatibus </span>
+                    <span class="author">Jeremiah Lawrence</span>
+                    <span class="time">6 Dec</span>
+                </li>
+                <li class="mdc-list-item no-ripple">
+                    <span class="title">Faucibus vulputate felis rhoncus blandit penatibus </span>
+                    <span class="author">Jeremiah Lawrence</span>
+                    <span class="time">6 Dec</span>
+                </li>
+                <li class="mdc-list-item no-ripple">
+                    <span class="title">Faucibus vulputate felis rhoncus blandit penatibus </span>
+                    <span class="author">Jeremiah Lawrence</span>
+                    <span class="time">6 Dec</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>
