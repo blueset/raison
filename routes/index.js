@@ -23,7 +23,8 @@ function createAuthorCard(interaction) {
 router.get('/', function(req, res, next) {
   res.locals.interactions = db.getTopInteraction("Investment", 5);
   res.locals.donators = db.getTopUser("Donators", 8);
-  res.locals.investors = db.getTopUser("Investors", 12);
+  res.locals.companies = db.getCompanies();
+  //console.log(res.locals.companies);
   res.locals.authors = [];
   for (var i = 0; i < res.locals.interactions.length; i++)
     res.locals.authors.push(createAuthorCard(db.getInteraction(res.locals.interactions[i])));
@@ -31,8 +32,8 @@ router.get('/', function(req, res, next) {
   for (var i = 0; i < res.locals.donators.length; i++)
       res.locals.donators[i] = db.getUser(res.locals.donators[i]);
 
-  for (var i = 0; i < res.locals.investors.length; i++)
-      res.locals.investors[i] = db.getUser(res.locals.investors[i]);
+  for (var i = 0; i < res.locals.companies.length; i++)
+      res.locals.companies[i] = db.getUser(res.locals.companies[i]);
 
 
   res.locals.user = req.user;

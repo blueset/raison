@@ -17,6 +17,7 @@ const ROLES = [
 var users = {};
 var roles = {};
 var allUsers = [];
+var companies = [];
 
 for (var i = 0; i < 4; i++)
     roles[ROLES[i]] = [];
@@ -38,19 +39,35 @@ for (let i = 0; i < numuser; i++) {
         username = faker.internet.userName();
     }
 
-    var userRole = ROLES[Math.floor((Math.random() * 4))];
-    var user = new User(username,
-        faker.name.firstName() + " " + faker.name.lastName(),
-        faker.internet.password(),
-        userRole,
-        faker.internet.email(),
-        faker.internet.avatar()
-    );
+    // Create 12 companies
+    if (i < 12) {
+        var user = new User(
+            username,
+            faker.company.companyName(),
+            faker.internet.password(),
+            "Investors",
+            faker.internet.email(),
+            "/images/" + (i + 1) + ".png"
+        );
+        roles["Investors"].push(username);
+        companies.push(username);
+        users[username] = user;
+    } else {
+
+        var userRole = ROLES[Math.floor((Math.random() * 4))];
+        var user = new User(username,
+            faker.name.firstName() + " " + faker.name.lastName(),
+            faker.internet.password(),
+            userRole,
+            faker.internet.email(),
+            faker.internet.avatar()
+        );
 
 
-    roles[userRole].push(username);
+        roles[userRole].push(username);
 
-    users[username] = user;
+        users[username] = user;
+    }
 }
 
 var investments = [];
@@ -132,6 +149,10 @@ investments.sort(interactionSorting);
 for (var i = 0; i < 4; i++)
     roles[ROLES[i]].sort(userSorting);
 
+function getCompanies() {
+    return companies.slice();
+}
+
 function getInteraction(id) {
     return interactions[id];
 }
@@ -190,5 +211,7 @@ module.exports = {
     getInteraction: getInteraction,
     getTopInteraction: getTopInteraction,
     getUser: getUser,
-    getTopUser: getTopUser
+    getTopUser: getTopUser,
+    getCompanies: getCompanies
 }
+
