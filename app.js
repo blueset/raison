@@ -6,6 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
 var importOnce = require('node-sass-import-once');
+var passport = require('passport');
+var session = require('express-session');
+var flash = require('connect-flash');
+
+// Custom middleware
+authenticateUser = require('./controller/authenticationMiddleware');
+
+
 
 // Routings
 var index = require('./routes/index');
@@ -15,7 +23,11 @@ var charities = require('./routes/charities');
 var donators = require('./routes/donators');
 var statics = require('./routes/statics');
 var auth = require('./routes/auth');
+var interaction = require('./routes/interaction');
 var dashboard = require('./routes/dashboard');
+
+// Config
+var configPassport = require('./config/passport-config');
 
 
 var app = express();
@@ -28,7 +40,11 @@ app.set('view engine', 'ejs');
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({secret: 'info30005'}));
+app.use(flash());
+
+
 app.use(cookieParser());
 
 if (process.env.NODE_ENV !== 'production')
@@ -54,14 +70,27 @@ if (process.env.NODE_ENV !== 'production')
     }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Config
+configPassport(app, passport);
+
+
+app.use(authenticateUser);
+
 // Binding routes
 app.use('/', index);
 app.use('/', auth);
+app.use('/interaction', interaction);
 app.use('/startups', startups);
 app.use('/investors', investors);
 app.use('/charities', charities);
 app.use('/donators', donators);
-app.use('/dashboard', dashboard);
+app.use('/dashboard', function(req, res, next) {
+    if (!req.user) {
+        res.redirect('/login');
+    }
+    next();
+}, dashboard);
+
 
 statics(app);
 
@@ -83,4 +112,4 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+app.listen(3000);

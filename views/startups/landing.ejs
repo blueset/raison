@@ -1,5 +1,5 @@
 <%- include('../templates/head') %>
-<%- include('../components/navbar', {theme: "dark", section: {name: "Startups", url: "/startups"}, state: "Startups", user: 1}) %>
+<%- include('../components/navbar', {theme: "dark", section: {name: "Startups", url: "/startups"}, state: "Startups"}) %>
 
 <div class="container">
     <div id="startups-landing-body">
@@ -64,7 +64,7 @@
         </section>
         <section id="in-your-region">
             <div class="section-title">
-                <h1>In your region</h1>
+                <h1> In your region </h1>
                 <a href="#!" class="mdc-icon-toggle"><i class="mdi mdi-crosshairs-gps"></i></a>
             </div>
             <%- include('../components/detail-card', {

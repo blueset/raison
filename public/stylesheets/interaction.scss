@@ -1,0 +1,132 @@
+#interaction-page {
+  margin-bottom: 2em;
+
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+            "heading"
+            "information";
+    grid-row-gap: 2em;
+    padding-top: 2em;
+
+    .grid-item {
+      overflow: auto;
+      word-wrap: break-word;
+    }
+
+    .information {
+      display: grid;
+      grid-template-columns: 70% 30%;
+      grid-column-gap: 1em;
+      .author {
+        width: 100%;
+        .card {
+          width: 100%;
+        }
+      }
+
+      .content {
+        .carousel-item {
+          width: 100%;
+        }
+
+        .paragraph {
+          margin-top: 2em;
+        }
+      }
+
+      .interaction {
+        .investor-donator {
+          .card {
+            border: 2px solid #1B61A0;
+            .card-title {
+              font-size: 90%;
+            }
+
+            .card-text {
+              color: #1B61A0;
+            }
+
+            img {
+              position: absolute;
+              height: 30%;
+              bottom: 0;
+              right: 10%;
+            }
+
+          }
+
+        }
+
+        .section-interaction {
+          margin-top: 2em;
+          padding-top: 1em;
+
+          border-top: 0.5em solid #1B61A0;
+          .section-heading {
+            color: #063563;
+          }
+
+          .comment-section {
+            margin-top: 2em;
+            .commenter {
+              height: 4em;
+              img {
+                max-height: 100%;
+                float: left;
+                border-radius: 50%;
+                margin-right: 1em;
+              }
+
+              .time-post {
+                color: #5E5E5E;
+                font-size: 80%;
+              }
+            }
+
+            .comment {
+              padding-left: 5em;
+            }
+          }
+        }
+      }
+    }
+
+
+    .heading {
+      display: grid;
+      grid-template-columns: 60% 40%;
+      grid-column-gap: 1em;
+      .title {
+        color: #053563;
+      }
+
+      .sub-title {
+        color: #5E5E5E;
+      }
+
+      .author {
+        position: relative;
+        .author-info {
+          position: absolute;
+          top: 0;
+          right: 0;
+          text-align: right;
+          .author-image {
+            border-radius: 50%;
+            max-width: 50%;
+            margin-left: auto;
+          }
+
+          .author-name, .time-post {
+            color: #5E5E5E;
+            font-size: 80%;
+          }
+
+        }
+
+      }
+
+    }
+  }
+}

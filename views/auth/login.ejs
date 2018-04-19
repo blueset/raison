@@ -1,7 +1,13 @@
 <%- include('../templates/head') %>
-
 <%- include('auth-header') %>
 
+<% if (message !== undefined) {%>
+<script>
+    //console.log(1);
+    alert("<%= message %>");
+</script>
+
+<% } %>
 
 <div class="container auth-content" id="login">
     <div id="introduction">
@@ -22,24 +28,27 @@
 
     <div id="form">
         <div class="auth-section">
-            <div class="auth-section-name">Sign in with Email</div>
-            <form>
+            <div class="auth-section-name"><%= message %></div>
+            <form method="POST" action="/login">
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field">
-                        <input type="text" required id="email" class="mdc-text-field__input">
+                        <input type="text" required id="email" class="mdc-text-field__input" name="inputEmail">
                         <label class="mdc-floating-label" for="email">Email/Username</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
-                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">Email/username is required.</p>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                        Email/username is required.</p>
                 </div>
 
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field">
-                        <input type="password" required id="password" class="mdc-text-field__input">
+                        <input type="password" required id="password" class="mdc-text-field__input"
+                               name="inputPassword">
                         <label class="mdc-floating-label" for="password">Password</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
-                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">Password is required.</p>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                        Password is required.</p>
                 </div>
 
                 <div class="form-element">
@@ -52,17 +61,22 @@
                         <br>
                         <a href="/forgot-password"> Forgot your password? </a>
                     </div>
-                    <a href="/startups" class="mdc-button mdc-button--raised">Sign in</a>
+                    <button type="submit" class="mdc-button mdc-button--raised">Sign in</button>
                 </div>
             </form>
         </div>
         <div class="auth-section">
             <div class="auth-section-name">Or sign in with...</div>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-facebook"><i class="mdi mdi-facebook"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-twitter"><i class="mdi mdi-twitter"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-github"><i class="mdi mdi-github-circle"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-telegram"><i class="mdi mdi-telegram"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-google"><i class="mdi mdi-google"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-facebook"><i
+                        class="mdi mdi-facebook"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-twitter"><i
+                        class="mdi mdi-twitter"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-github"><i
+                        class="mdi mdi-github-circle"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-telegram"><i
+                        class="mdi mdi-telegram"></i></button>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-google"><i
+                        class="mdi mdi-google"></i></button>
         </div>
     </div>
 </div>
