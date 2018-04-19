@@ -10,6 +10,9 @@ var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
 
+// Custom middleware
+authenticateUser = require('./controller/authenticationMiddleware');
+
 
 
 // Routings
@@ -21,6 +24,7 @@ var donators = require('./routes/donators');
 var statics = require('./routes/statics');
 var auth = require('./routes/auth');
 var interaction = require('./routes/interaction');
+var dashboard = require('./routes/dashboard');
 
 // Config
 var configPassport = require('./config/passport-config');
@@ -39,6 +43,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({secret: 'info30005'}));
 app.use(flash());
+
 
 app.use(cookieParser());
 app.use(sassMiddleware({
@@ -67,6 +72,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Config
 configPassport(app, passport);
 
+
+app.use(authenticateUser);
+
 // Binding routes
 app.use('/', index);
 app.use('/', auth);
@@ -75,6 +83,12 @@ app.use('/startups', startups);
 app.use('/investors', investors);
 app.use('/charities', charities);
 app.use('/donators', donators);
+app.use('/dashboard', function(req, res, next) {
+    if (!req.user) {
+        res.redirect('/login');
+    }
+    next();
+}, dashboard);
 
 
 statics(app);

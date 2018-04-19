@@ -1,0 +1,42 @@
+<%- include('../templates/head') %>
+<%- include('navbar') %>
+
+<div class="dashbaord-content container">
+    <%- include('nav-aside', {path: 'dashboard'}) %>
+    <div class="content">
+        <div class="numbers">
+            <div class="number-card mdc-card" id="projects">
+                <div class="number">2</div>
+                <div class="name">Projects</div>
+            </div>
+            <div class="number-card mdc-card" id="feeds">
+                <div class="number">42</div>
+                <div class="name">Feeds</div>
+            </div>
+            <div class="number-card mdc-card" id="likes">
+                <div class="number">233</div>
+                <div class="name">Likes</div>
+            </div>
+        </div>
+        <section>
+            <h1>Recent activities</h1>
+            <ul class="recent-activities">
+                <li>
+                    <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" class="avatar" alt="Person Name">
+                    <strong>You</strong> liked Christopher Thomas’s share “Lorem ipsum dolor sit amet”.
+                </li>
+                <li>
+                    <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" class="avatar" alt="Person Name">
+                    <strong>Miguel Scott</strong> liked your share “Lorem ipsum dolor sit amet”.
+                </li>
+                <li>
+                    <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" class="avatar" alt="Person Name">
+                    <strong>Miguel Scott</strong> followed you.
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>
