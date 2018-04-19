@@ -30,27 +30,28 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(sassMiddleware({
-    src: path.join(__dirname, 'public'),
-    dest: path.join(__dirname, 'public'),
-    indentedSyntax: false, // true = .sass and false = .scss
-    sourceMap: true,
-    debug: true,
-    importer: function (url, prev, done) {
-        if (url.indexOf('@material') === 0) {
-            var filePath = url.split('@material')[1];
-            var nodeModulePath = `./node_modules/@material/${filePath}`;
-            return {file: require('path').resolve(nodeModulePath)};
+
+if (process.env.NODE_ENV !== 'production')
+    app.use(sassMiddleware({
+        src: path.join(__dirname, 'public'),
+        dest: path.join(__dirname, 'public'),
+        indentedSyntax: false, // true = .sass and false = .scss
+        sourceMap: true,
+        importer: function (url, prev, done) {
+            if (url.indexOf('@material') === 0) {
+                var filePath = url.split('@material')[1];
+                var nodeModulePath = `./node_modules/@material/${filePath}`;
+                return {file: require('path').resolve(nodeModulePath)};
+            }
+            this.importOnce = importOnce;
+            return this.importOnce(url, prev, done);
+        },
+        importOnce: {
+            index: false,
+            css: false,
+            bower: false
         }
-        this.importOnce = importOnce;
-        return this.importOnce(url, prev, done);
-    },
-    importOnce: {
-        index: false,
-        css: false,
-        bower: false
-    }
-}));
+    }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Binding routes

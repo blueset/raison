@@ -1,0 +1,5 @@
+apps:
+  - script   : ./bin/www
+    name     : 'if305'
+    env      :
+      NODE_ENV: production

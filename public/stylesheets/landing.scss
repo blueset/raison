@@ -62,18 +62,18 @@
   }
 
   #highlights {
-    @extend .mdc-layout-grid__cell--span-8;
-    @include make-grid(8, 8, 8);
+    @include mdc-layout-grid-resp-cell(8, 8, 6);
+    @include make-grid(1, 1, 1);
     .section-title, .author-card {
-      @extend .mdc-layout-grid__cell--span-8;
+      @include mdc-layout-grid-resp-cell(1, 1, 1);
     }
   }
 
   #top-donators {
-    @extend .mdc-layout-grid__cell--span-4;
-    @include make-grid(4, 8, 8);
+    @include mdc-layout-grid-resp-cell(4, 8, 6);
+    @include make-grid(1, 1, 1);
     .section-title, .top-donators-list {
-      @include mdc-layout-grid-resp-cell(4, 8, 8);
+      @include mdc-layout-grid-resp-cell(1, 1, 1);
     }
     .top-donators-list {
       align-self: stretch;

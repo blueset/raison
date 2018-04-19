@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a61dcc-ee74-4010-a384-da656e98bf6c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/stylesheets/dashboard.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/dashboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard/dashboard.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard/inbox.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard/nav-aside.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard/navbar.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard/profile.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard/projects.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard/security.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/mcw.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/mcw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/footer.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/footer.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/auth/signup.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/auth/signup.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/components/navbar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/components/navbar.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -47,8 +30,8 @@
           <file leaf-file-name="navbar.ejs" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/views/dashboard/navbar.ejs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="154">
-                  <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+                <state relative-caret-position="352">
+                  <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
                 </state>
               </provider>
             </entry>
@@ -397,16 +380,15 @@
       <option name="presentableId" value="Default" />
       <updated>1520491312140</updated>
       <workItem from="1520491313469" duration="211000" />
-      <workItem from="1523933673086" duration="27629000" />
+      <workItem from="1523933673086" duration="28013000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27840000" />
+    <option name="totallyTimeSpent" value="28224000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="1028" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.18690476" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -788,8 +770,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/dashboard/navbar.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+        <state relative-caret-position="352">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
         </state>
       </provider>
     </entry>
