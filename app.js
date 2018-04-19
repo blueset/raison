@@ -11,7 +11,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 
 // Custom middleware
-authenticateUser = require('./controller/authenticationMiddleware');
+var authenticateUser = require('./controllers/authenticationMiddleware');
 
 
 
@@ -41,7 +41,11 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({secret: 'info30005'}));
+app.use(session({
+    secret: 'info30005',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(flash());
 
 
@@ -68,6 +72,7 @@ if (process.env.NODE_ENV !== 'production')
             bower: false
         }
     }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Config
@@ -112,4 +117,5 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-app.listen(3000);
+
+module.exports = app;

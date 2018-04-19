@@ -4,14 +4,13 @@ var passport = require('passport');
 
 /* GET home page. */
 router.get('/login', function (req, res) {
-    console.log('haiz');
     var message = req.flash('error')[0];
-    res.render('auth/login', {title: 'Login— Raison', message: message});
+    res.render('auth/login', {title: 'Log in — Raison', message: message});
 });
 
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/startups',
     failureRedirect: '/login',
     failureFlash: true
 }));
