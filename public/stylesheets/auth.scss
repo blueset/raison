@@ -65,6 +65,8 @@
         }
         .message-text {
             flex-grow: 1;
+            width: 0;
+            word-break: break-all;
             h1, p {
                 margin: 0.5rem 0;
             }

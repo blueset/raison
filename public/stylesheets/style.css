@@ -14685,7 +14685,8 @@ footer {
       #startups-landing-body #highlights #highlights-carousel .carousel-control-prev i, #startups-landing-body #highlights #highlights-carousel .carousel-control-next i {
         font-size: 3em; }
     #startups-landing-body #highlights #highlights-carousel .carousel-indicators {
-      bottom: -2.5rem; }
+      bottom: -2.5rem;
+      z-index: inherit; }
       #startups-landing-body #highlights #highlights-carousel .carousel-indicators li {
         height: 0.5rem;
         width: 0.5rem;
@@ -16496,7 +16497,9 @@ footer {
     .auth-content .message-row.message-success .message-text h1 {
       color: #E28C00; }
     .auth-content .message-row .message-text {
-      flex-grow: 1; }
+      flex-grow: 1;
+      width: 0;
+      word-break: break-all; }
       .auth-content .message-row .message-text h1, .auth-content .message-row .message-text p {
         margin: 0.5rem 0; }
   @media (min-width: 840px) {
