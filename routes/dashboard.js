@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var db = require('../models/db');
+
 router.get('/dashboard', function (req, res, next) {
     res.render('dashboard/dashboard', { title: 'Dashboard — Raison' });
 });
@@ -14,6 +16,7 @@ router.get('/profile', function (req, res, next) {
 });
 
 router.get('/projects', function (req, res, next) {
+    res.locals.projects = db.getProjectUser(res.locals.user.username);
     res.render('dashboard/projects', { title: 'Projects — Raison' });
 });
 

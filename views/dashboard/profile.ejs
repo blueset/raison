@@ -10,13 +10,14 @@
             </div>
             <div class="mdc-typography--headline">Profile picture</div>
             <div class="avatar-row">
-                <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" alt="John Doe" class="user-avatar">
+                <img src="<%= user.image %>" alt="John Doe" class="user-avatar">
                 <a href="https://gravatar.com" class="mdc-button mdc-button--raised">Change profile picture</a>
             </div>
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
-                    <input type="text" required id="display_name" value="John Doe" class="mdc-text-field__input">
+                    <input type="text" required id="display_name" value="<%= user.name %>"
+                           class="mdc-text-field__input">
                     <label class="mdc-floating-label" for="display_name">Display Name</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -26,13 +27,16 @@
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
                     <input type="date" id="date_of_birth" value="1960-01-01" class="mdc-text-field__input">
-                    <label class="mdc-floating-label mdc-floating-label--float-above" for="date_of_birth">Date of Birth</label>
+                    <label class="mdc-floating-label mdc-floating-label--float-above" for="date_of_birth">Date of
+                        Birth</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
             </div>
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
-                    <input type="text" required id="bio" value="Euismod parturient scelerisque ligula iaculis ante nostra." class="mdc-text-field__input">
+                    <input type="text" required id="bio"
+                           value="Euismod parturient scelerisque ligula iaculis ante nostra."
+                           class="mdc-text-field__input">
                     <label class="mdc-floating-label" for="bio">Bio</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -43,10 +47,22 @@
             <div class="mdc-form-control form-element">
                 <div class="mdc-select">
                     <select class="mdc-select__native-control">
-                        <option value="startup" selected>Startup</option>
-                        <option value="investor">Investor</option>
-                        <option value="donator">Donator</option>
-                        <option value="charity">Charity</option>
+                        <option value="startup"
+                                <% if (user.role == "Startups") { %>
+                                selected
+                                <% } %>
+                        >Startup
+                        </option>
+                        <option value="investor"
+                                <% if (user.role == "Investors") { %>
+                                selected
+                                <% } %>
+                        >Investor
+                        </option>
+                        <option value="donator"
+                                <% if (user.role == "Donators") { %> selected <% } %>>Donator</option>
+                        <option value="charity"
+                                <% if (user.role == "Charities") { %> selected <% } %>>Charity</option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
                     <div class="mdc-select__bottom-line"></div>

@@ -77,7 +77,11 @@ var interactions = {};
 // Create interaction
 for (let i = 0; i < 20; i++) {
     var writer = roles["Startups"][Math.floor(Math.random() * roles["Startups"].length)];
-    var actor = roles["Investors"][Math.floor(Math.random() * roles["Investors"].length)];
+    var actor;
+    if (i < 4)
+        actor = "johnDue";
+    else
+        actor = roles["Investors"][Math.floor(Math.random() * roles["Investors"].length)];
     var idPicture = Math.floor(Math.random() * 300) + 600;
     var idPicture2 = Math.floor(Math.random() * 300) + 600;
     var interaction = {
@@ -204,6 +208,13 @@ function findUser(username) {
     }
 }
 
+function getProjectUser(username) {
+    var personal_project = [];
+    for (var i = 0; i < users[username].projects.length; i++)
+        personal_project.push(interactions[users[username].projects[i]]);
+    return personal_project;
+}
+
 
 module.exports = {
     authenticate: authenticate,
@@ -212,6 +223,7 @@ module.exports = {
     getTopInteraction: getTopInteraction,
     getUser: getUser,
     getTopUser: getTopUser,
-    getCompanies: getCompanies
+    getCompanies: getCompanies,
+    getProjectUser: getProjectUser
 }
 
