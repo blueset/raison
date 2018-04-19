@@ -14,18 +14,18 @@
                     <span class="title">Title</span>
                     <span class="time">Time</span>
                 </li>
+                <% for (var i = 0; i < projects.length; i++) { %>
+
                 <li class="mdc-list-item no-ripple">
-                    <span class="title">Faucibus vulputate felis rhoncus blandit penatibus </span>
+                    <span class="title">
+                         <a href="/interaction/<%= projects[i].id %>">
+                        <%= projects[i].title %>
+                         </a>
+                    </span>
                     <span class="time">6 Dec</span>
                 </li>
-                <li class="mdc-list-item no-ripple">
-                    <span class="title">Faucibus vulputate felis rhoncus blandit penatibus </span>
-                    <span class="time">6 Dec</span>
-                </li>
-                <li class="mdc-list-item no-ripple">
-                    <span class="title">Faucibus vulputate felis rhoncus blandit penatibus </span>
-                    <span class="time">6 Dec</span>
-                </li>
+                <% } %>
+
             </ul>
         </section>
     </div>

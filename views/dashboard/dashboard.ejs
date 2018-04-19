@@ -6,8 +6,10 @@
     <div class="content">
         <div class="numbers">
             <div class="number-card mdc-card" id="projects">
-                <div class="number">2</div>
-                <div class="name">Projects</div>
+                <a href="/dashboard/projects" class="mdc-card__primary-action">
+                    <div class="number"><%= user.projects.length %></div>
+                    <div class="name">Projects</div>
+                </a>
             </div>
             <div class="number-card mdc-card" id="feeds">
                 <div class="number">42</div>
@@ -22,16 +24,14 @@
             <h1>Recent activities</h1>
             <ul class="recent-activities">
                 <li>
-                    <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" class="avatar" alt="Person Name">
+                    <img src="<%= user.image %>" class="avatar"
+                         alt="Person Name">
                     <strong>You</strong> liked Christopher Thomas’s share “Lorem ipsum dolor sit amet”.
                 </li>
                 <li>
-                    <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" class="avatar" alt="Person Name">
-                    <strong>Miguel Scott</strong> liked your share “Lorem ipsum dolor sit amet”.
-                </li>
-                <li>
-                    <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" class="avatar" alt="Person Name">
-                    <strong>Miguel Scott</strong> followed you.
+                    <img src="<%= user.image %>"" class="avatar"
+                         alt="Person Name">
+                    <strong>You</strong> liked your share “Lorem ipsum dolor sit amet”.
                 </li>
             </ul>
         </section>
