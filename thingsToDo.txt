@@ -1,0 +1,15 @@
+Things to do for backend:
+- Create database schema
+- Write related models with Mongoose
+- Complete controllers that interacts with models and fill content to the views
+- Complete missing frontend pages (J)
+    - Profile page for startups/donators (investors and charities share the same org profile template)
+    - Inbox/Threads/etc.
+    - Notifications
+    - ...
+    - Add role for 
+- Produce filler data in database
+- Complete the user authentication part
+    - 3rd party logins
+    - forget password / email verifications / etc.
+- 
