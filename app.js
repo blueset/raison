@@ -23,7 +23,6 @@ var charities = require('./routes/charities');
 var donators = require('./routes/donators');
 var statics = require('./routes/statics');
 var auth = require('./routes/auth');
-var interaction = require('./routes/interaction');
 var dashboard = require('./routes/dashboard');
 
 // Config
@@ -84,7 +83,6 @@ app.use(authenticateUser);
 // Binding routes
 app.use('/', index);
 app.use('/', auth);
-app.use('/interaction', interaction);
 app.use('/startups', startups);
 app.use('/investors', investors);
 app.use('/charities', charities);
