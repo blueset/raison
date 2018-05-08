@@ -31,7 +31,7 @@ section (optional): {
                 <a href="/login" class="mdc-button">Log in</a>
             <% } else { %>
                 <div class="mdc-menu-anchor">
-                    <button id="menu-bar-state-button" class="mdc-button"><%= locals.user.role || "%STATE" %> <i class="mdc-button__icon-right mdi mdi-menu-down"></i></button>
+                    <button id="menu-bar-state-button" class="mdc-button"><%= locals.state || "%STATE" %> <i class="mdc-button__icon-right mdi mdi-menu-down"></i></button>
                     <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-state-button" data-anchor-position="BOTTOM_START">
                             <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
                             <a class="mdc-list-item" role="menuitem" tabindex="0" href="/startups">Startups</a>
