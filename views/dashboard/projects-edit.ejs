@@ -1,0 +1,90 @@
+<%- include('../templates/head') %>
+<%- include('navbar') %>
+
+<div class="dashbaord-content container">
+    <%- include('nav-aside', {path: 'inbox'}) %>
+    <div class="content">
+        <section class="project-editor">
+            <a href="/dashboard/inbox" class="mdc-button">
+                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to inbox
+            </a>
+            <div class="title-row">
+                <h1>(New|Edit) project</h1>
+            </div>
+            <form action="#!">
+                <div class="mdc-form-control form-element">
+                    <div class="mdc-text-field large-text-field">
+                        <input required type="text" id="project-title" class="mdc-text-field__input">
+                        <label class="mdc-floating-label" for="project-title">Project title</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
+                <div class="form-element">
+                    <div class="mdc-text-field chip-text-field">
+                        <input required type="text" id="project-tags">
+                        <label class="mdc-floating-label" for="project-tags">Tags</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
+                <div class="mdc-form-control form-element">
+                    <div class="mdc-text-field">
+                        <input required type="text" id="banner-url" class="mdc-text-field__input" 
+                            aria-controls="banner-url-helper-text"
+                            aria-describedby="banner-url-helper-text">
+                        <label class="mdc-floating-label" for="banner-url">Banner Image URL</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg" 
+                            id="banner-url-helper-text">
+                            We recommend you to upload images through public image hosting services such as <a href="https://imgur.com">imgur</a>.
+                        </p>
+                </div>
+                <div id="banner-preview">
+                </div>
+                <button type="submit" class="mdc-button mdc-button--raised">Publish</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
+<script src="/javascripts/taginput.js"></script>
+<script>
+
+$("#banner-url").change(() => {
+    $("#banner-preview").css("background-image", `url('${$("#banner-url").val()}')`);
+});
+
+var mdcTagInput = function (el) {
+    var tagsInput = $(el).children("input");
+    tagsInput.tagsinput({
+        tagClass: "mdc-chip",
+    });
+    var label = el.querySelector("label.mdc-floating-label");
+    var mdcTF = new mdc.textField.MDCTextField(el);
+    mdcTF.foundation_.getNativeInput_().validity = {badInput: false, isValid: true};
+    var input = el.querySelector(".bootstrap-tagsinput input");
+    $(input).on({
+        focusin: function () {
+            console.log("focus in");
+            mdcTF.getLabelAdapterMethods_().floatLabel(true);
+            mdcTF.getLineRippleAdapterMethods_().activateLineRipple()
+        },
+        focusout: function () {
+            console.log("focus out");
+            console.log(!tagsInput.tagsinput('items').length);
+            mdcTF.getLineRippleAdapterMethods_().deactivateLineRipple()
+            if (!tagsInput.tagsinput('items').length) {
+                mdcTF.getLabelAdapterMethods_().floatLabel(false);
+            }
+        }
+    });
+}
+
+$(function() {
+    mdcTagInput(document.querySelector(".chip-text-field"));
+});
+</script>
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>

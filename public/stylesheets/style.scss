@@ -27,7 +27,6 @@ $mdc-typography-font-family: $sans-font;
 @import "startups-landing";
 @import "search";
 @import "auth";
-@import "interaction";
 @import "startups-project";
 @import "dashboard";
 @import "investors-business";
@@ -54,6 +53,8 @@ body {
     min-height: 100%;
     min-width: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -112,4 +113,13 @@ section {
 .mdc-select__native-control {
     -webkit-appearance: none;
     -moz-appearance: none;
+}
+
+.mdc-text-field.large-text-field {
+    label.mdc-floating-label, input.mdc-text-field__input {
+        font-size: 2em;
+    }
+    label.mdc-floating-label--float-above {
+        transform: translateY(-60%) scale(0.4);
+    }
 }

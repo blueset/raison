@@ -6,6 +6,7 @@
 
 .dashbaord-content {
     @include make-grid();
+    flex-grow: 1;
     & > aside {
         @include mdc-layout-grid-resp-cell(3, 8, 6);
         @include mdc-layout-grid-media-query_(tablet) {
@@ -79,12 +80,13 @@
                 &:before, &:after {
                     display: none;
                 }
-                &:hover {
+                &:not(.title-row):hover {
                     background-color: rgba(0,0,0,0.1);
                 }
                 display: table-row;
                 span {
                     display: table-cell;
+                    vertical-align: middle;
                 }
             }
         }
@@ -118,6 +120,94 @@
         .warning-button {
             @include mdc-button-container-fill-color($material-color-red-800);
             @include mdc-button-ink-color(text-primary-on-dark);
+        }
+
+        .thread-list {
+            .mdc-list-item .mdc-list-item__text {
+                .name {
+                    color: black;
+                }
+                .time::before {
+                    content: "· ";
+                    font-weight: bold;
+                }
+            }
+        }
+        .chip-text-field {
+            .mdc-floating-label.mdc-floating-label--float-above {
+                transform: translateY(-200%) scale(0.75);
+            }
+            .bootstrap-tagsinput.mdc-text-field__input input{
+                border: 0;
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+        &.thread-content {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            max-height: 100vh;
+            .messages {
+                flex-grow: 1;
+                overflow-y: scroll;
+            }
+            .message {
+                display: flex;
+                flex-direction: row;
+                margin: 2em 0;
+                img.avatar {
+                    height: 3em;
+                    width: 3em;
+                    margin-right: 1em;
+                    border-radius: 50%;
+                }
+                .sender {
+                    margin-bottom: 0.5rem;
+                    .author {
+                        font-weight: bold;
+                    }
+                    .time {
+                        content: "· ";
+                        opacity: 0.6;
+                    }
+                }
+                .send-form {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    height: auto;
+                    align-items: flex-start;
+                    .mdc-text-field {
+                        flex-grow: 1;
+                        margin: 0;
+                        input {
+                            padding: 8px 0;
+                        }
+                    }
+                }
+            }
+        }
+        section.project-editor {
+            #banner-preview {
+                background-color: rgba(0,0,0,0.1);
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 300px;
+                margin: 1em 0;
+                border-radius: 10px;
+                &:before {
+                    content: "Preview of your banner image here"; 
+                    opacity: 0.6;
+                    font-style: italic;
+                    z-index: -1;
+                }
+            }
         }
     }
 }
