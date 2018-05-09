@@ -19491,7 +19491,8 @@ footer {
   margin-left: auto; }
 
 .dashbaord-content {
-  flex-grow: 1; }
+  flex-grow: 1;
+  padding-bottom: 3em; }
   @media (min-width: 840px) {
     .dashbaord-content {
       display: flex;
@@ -19821,6 +19822,8 @@ footer {
         opacity: 0.6;
         font-style: italic;
         z-index: -1; }
+    .dashbaord-content > .content section.project-editor .note-editor.note-frame {
+      margin: 1em 0; }
 
 :root {
   --mdc-theme-primary: #243B55;
@@ -21910,28 +21913,28 @@ footer {
 .mdc-card__media--9-16::before {
   margin-top: 177.78%; }
 
-.article-content {
+.article-content, .note-editing-area {
   font-family: "IBM Plex Serif", "Roboto Serif", "Noto Serif", "Calibri", serif;
   line-height: 1.75; }
-  .article-content p {
+  .article-content p, .note-editing-area p {
     margin: 2em 0; }
-  .article-content img.featuring-image {
+  .article-content img.featuring-image, .note-editing-area img.featuring-image {
     width: 100%; }
-  .article-content img {
+  .article-content img, .note-editing-area img {
     max-width: 100%; }
-  .article-content figure {
+  .article-content figure, .note-editing-area figure {
     margin: 1rem 0; }
-    .article-content figure figcaption {
+    .article-content figure figcaption, .note-editing-area figure figcaption {
       margin: 1rem;
       text-align: center;
       font-style: italic; }
-  .article-content blockquote.emphasis {
+  .article-content blockquote.emphasis, .note-editing-area blockquote.emphasis {
     padding: 1rem 0 1rem 3rem;
     margin: 0;
     font-size: 1.5em;
     font-weight: 500;
     font-style: italic; }
-  .article-content hr {
+  .article-content hr, .note-editing-area hr {
     border: 0;
     margin: 0;
     height: 1em;
@@ -21939,9 +21942,9 @@ footer {
     letter-spacing: 2em;
     font-weight: 800;
     line-height: 1em; }
-    .article-content hr:after {
+    .article-content hr:after, .note-editing-area hr:after {
       content: "···"; }
-  .article-content blockquote:not(.emphasis) {
+  .article-content blockquote:not(.emphasis), .note-editing-area blockquote:not(.emphasis) {
     margin-left: -24px;
     border-left: 4px solid black;
     padding-left: 20px;

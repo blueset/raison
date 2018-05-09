@@ -2,11 +2,11 @@
 <%- include('navbar') %>
 
 <div class="dashbaord-content container">
-    <%- include('nav-aside', {path: 'inbox'}) %>
+    <%- include('nav-aside', {path: 'projects'}) %>
     <div class="content">
         <section class="project-editor">
-            <a href="/dashboard/inbox" class="mdc-button">
-                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to inbox
+            <a href="/dashboard/projects" class="mdc-button">
+                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to projects
             </a>
             <div class="title-row">
                 <h1>(New|Edit) project</h1>
@@ -41,6 +41,9 @@
                 </div>
                 <div id="banner-preview">
                 </div>
+
+                <textarea id="bodyContent" class="article-content"></textarea>
+
                 <button type="submit" class="mdc-button mdc-button--raised">Publish</button>
             </form>
         </section>
@@ -49,6 +52,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
 <script src="/javascripts/taginput.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 <script>
 
 $("#banner-url").change(() => {
@@ -83,6 +88,18 @@ var mdcTagInput = function (el) {
 
 $(function() {
     mdcTagInput(document.querySelector(".chip-text-field"));
+    $("#bodyContent").summernote({
+        placeholder: "A detailed discription of your project.",
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['level', ['style']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['picture', 'link', 'table', 'hr']]
+        ],
+        styleTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        height: 300,
+    });
 });
 </script>
 
