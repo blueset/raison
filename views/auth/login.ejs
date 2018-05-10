@@ -24,7 +24,7 @@
             <form method="POST" action="/login">
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field<%= (locals.message && ' mdc-text-field--invalid') || '' %>">
-                        <input type="text" required id="email" value="<%= locals.userInput.username || 'johnDoe' %>" class="mdc-text-field__input" name="inputEmail">
+                        <input type="text" required id="email" value="<%= locals.userInput && locals.userInput.username || 'johnDoe' %>" class="mdc-text-field__input" name="inputEmail">
                         <label class="mdc-floating-label" for="email">Email/Username</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
@@ -34,7 +34,7 @@
 
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field">
-                        <input type="password" required value="<%= locals.userInput.username === undefined ? '12345abcde' : '' %>" id="password" class="mdc-text-field__input"
+                        <input type="password" required value="<%= (locals.userInput && locals.userInput.username) === undefined ? '12345abcde' : '' %>" id="password" class="mdc-text-field__input"
                                name="inputPassword">
                         <label class="mdc-floating-label" for="password">Password</label>
                         <div class="mdc-line-ripple"></div>
