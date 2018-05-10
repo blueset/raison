@@ -42,7 +42,10 @@ router.get('/signup', function (req, res, next) {
 
 
 router.post('/signup', [
-    check('username').custom(async (value) => {
+    check('displayname').exists(),
+    check('username')
+    .isLength({min: 6, max: 32})
+    .custom(async (value) => {
         var x = new Promise((resolve, reject) => {
             userController.findUser(value, function (user) {
                 resolve(user);
@@ -52,7 +55,9 @@ router.post('/signup', [
         console.log(user);
         return user == null;
     }).withMessage('User is already taken!'),
-    check('email').custom(async (value) => {
+    check('email')
+        .isEmail().withMessage("Email entered is not valid.").trim().normalizeEmail()
+        .custom(async (value) => {
         var x = new Promise((resolve, reject) => {
             userController.findUser(value, function (user) {
                 resolve(user);
@@ -61,14 +66,18 @@ router.post('/signup', [
         var user = await x;
         return user == null;
     }).withMessage('Email is already taken!'),
+    check('password').exists().isLength({min: 6}),
     check('confirm_password')
+        .exists()
         .custom((value, {req}) => value === req.body.password)
         .withMessage('Password confirmation field must have the same value as the password field')
 ], function (req, res, next) {
     const errors = validationResult(req).mapped();
+    
     console.log(errors);
+    console.log("SIGN_IN REQ BODY", req.body);
     if (Object.keys(errors).length != 0)
-        res.render('auth/signup', {title: 'Sign Up — Raison', errors: errors});
+        res.render('auth/signup', {title: 'Sign Up — Raison', errors: errors, userInput: req.body});
     else {
         userController.createUser(req, function (saved) {
             if (saved) res.redirect('/email-confirm');
@@ -77,8 +86,6 @@ router.post('/signup', [
 });
 
 router.get('/current-user', function(req, res) {
-    // console.log('omegalul');
-    // console.log(res.user);
     if (!req.user) {
         res.json({});
     } else {
