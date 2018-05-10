@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var preProcess = require('../controller/app');
+var preProcess = require('../controllers/app');
 
 /* GET home page. */
 

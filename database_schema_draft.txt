@@ -1,0 +1,99 @@
+User = {
+    uniqueID: {  // Alt
+        username: String,
+        email: String
+    }, 
+    _id: ObjectID,
+    username: String, // Unique, key, ?
+    display_name: String,
+    password: String,  // Hashed and salted
+    role: Enum(String), // startup, investor, donator, charity
+    bio: String,  // Markdown or HTML
+    email: String, // Unique, key, ?
+    featuredImage: String, // URL to the picture
+
+    externalLoginToken: {
+        service: String,  // Google, Facebook, Github, Telgeram, etc.
+        token: String
+    },
+
+    projects: Array[Project]
+}
+
+project = {
+    _id: ObjectID,
+    author: ObjectID(user),
+    title: String,
+    funds: Integer,
+    description: String,  // Markdown / HTML
+    comments: Array[comments],
+    likes: Array[ObjectID(user)],
+    location: {
+        lat: float,
+        long: float
+    },
+    timeCreated: Date,
+    timeLastUpdated: Date,
+    investors: ObjectID(user.role === 'investor') || null,
+    EOI: Array[expressOfInterest],
+    featuredImage: String, // URL to the picture
+    topic: Array[Enum(String)],  // IT, Agriculture, Real Estate, etc.
+}
+
+article = {
+    _id,
+    title: String,
+    content: String,
+    author: OID(user),
+    timeCreated: Date,
+    timeLastUpdated: Date,
+    featuredImage: String, // URL to the picture
+}
+
+comment = {
+    _id: ObjectID,
+    author: ObjectID(user),
+    content: String,
+    likes: Array[ObjectID(user)],
+    timeCreated: Date
+}
+
+expressOfInterest = {
+    _id: ObjectID,
+    sender: ObjectID(user.role === 'investor'),
+    project: ObjectID(project),
+    amount: Integer,
+    proposal: String,
+    accepted: Boolean
+}
+
+notification = {
+    _id: ObjectID,
+    destination: ObjectID(user),
+    content: String,
+    link: String,
+    read: Boolean
+}
+
+thread = {
+    _id,
+    project: OID(project),
+    investor: OID(user.role === 'investor'),
+    closed: Boolean,
+    messages: [
+        {
+            _id,
+            from: OID(user),
+            content: String,
+            timeCreated: Date
+        }
+    ]
+}
+
+donation = {
+    _id,
+    donator: OID(user.type === 'donator'),
+    amount: Money,
+    charity: OID(user.type === 'charity'),
+    confirmed: Boolean
+}

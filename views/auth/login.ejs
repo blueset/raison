@@ -28,21 +28,21 @@
 
     <div id="form">
         <div class="auth-section">
-            <div class="auth-section-name"><%= message %></div>
+            <div class="auth-section-name">Sign in with Email / username...</div>
             <form method="POST" action="/login">
                 <div class="mdc-form-control form-element">
-                    <div class="mdc-text-field">
-                        <input type="text" required id="email" class="mdc-text-field__input" name="inputEmail">
+                    <div class="mdc-text-field<%= (message && ' mdc-text-field--invalid') || '' %>">
+                        <input type="text" required id="email" value="johndoe" class="mdc-text-field__input" name="inputEmail">
                         <label class="mdc-floating-label" for="email">Email/Username</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
                     <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
-                        Email/username is required.</p>
+                        <%= message || 'Email/username is required.' %></p>
                 </div>
 
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field">
-                        <input type="password" required id="password" class="mdc-text-field__input"
+                        <input type="password" required value="12345abcde" id="password" class="mdc-text-field__input"
                                name="inputPassword">
                         <label class="mdc-floating-label" for="password">Password</label>
                         <div class="mdc-line-ripple"></div>

@@ -22,13 +22,22 @@ var companies = [];
 for (var i = 0; i < 4; i++)
     roles[ROLES[i]] = [];
 
-var defaultUser = new User('johnDue', 'John Due', '12345abcde', 'Investors', 'johndue@gmail.com', faker.internet.avatar(),
-    'Melbourne', 'VIC', '3053');
+var defaultUser = new User(
+    'johndoe', 
+    'John Doe', 
+    '12345abcde', 
+    'Investors', 
+    'johndoe@example.com', 
+    faker.internet.avatar(),
+    'Melbourne', 
+    'VIC', 
+    '3053'
+);
 
 allUsers.push(defaultUser);
 
-users['johnDue'] = defaultUser;
-roles['Investors'].push('johnDue');
+users['johndoe'] = defaultUser;
+roles['Investors'].push('johndoe');
 
 
 // Create username
@@ -79,7 +88,7 @@ for (let i = 0; i < 20; i++) {
     var writer = roles["Startups"][Math.floor(Math.random() * roles["Startups"].length)];
     var actor;
     if (i < 4)
-        actor = "johnDue";
+        actor = "johndoe";
     else
         actor = roles["Investors"][Math.floor(Math.random() * roles["Investors"].length)];
     var idPicture = Math.floor(Math.random() * 300) + 600;
