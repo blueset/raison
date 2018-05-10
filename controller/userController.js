@@ -105,5 +105,4 @@ module.exports = {
     authenticateUser: authenticateUser,
     saveUser: saveUser,
     addNewProject: addNewProject
-
 }
