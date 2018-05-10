@@ -45,6 +45,7 @@ router.post('/signup', [
     check('displayname').exists(),
     check('username')
     .isLength({min: 6, max: 32})
+    .matches(/[a-zA-Z]{[a-zA-Z0-9-_]{5,31}/i)
     .custom(async (value) => {
         var x = new Promise((resolve, reject) => {
             userController.findUser(value, function (user) {
@@ -73,9 +74,6 @@ router.post('/signup', [
         .withMessage('Password confirmation field must have the same value as the password field')
 ], function (req, res, next) {
     const errors = validationResult(req).mapped();
-    
-    console.log(errors);
-    console.log("SIGN_IN REQ BODY", req.body);
     if (Object.keys(errors).length != 0)
         res.render('auth/signup', {title: 'Sign Up — Raison', errors: errors, userInput: req.body});
     else {
