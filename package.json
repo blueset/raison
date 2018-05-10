@@ -30,6 +30,7 @@
     "express-validator": "^5.1.2",
     "get-json": "^1.0.0",
     "gravatar": "^1.6.0",
+    "javascript-time-ago": "^1.0.30",
     "jquery": "^3.3.1",
     "material-components-web": "^0.34.1",
     "mongoose": "^5.0.17",

@@ -31,7 +31,7 @@ section (optional): {
                 <a href="/login" class="mdc-button">Log in</a>
             <% } else { %>
                 <div class="mdc-menu-anchor" id="menu-bar-notification">
-                    <a href="#!" id="menu-bar-notification-btn" class="mdc-icon-toggle"><i class="mdi mdi-bell-outline<%# notification-have-unread%>"></i></a>
+                    <a href="#!" id="menu-bar-notification-btn" class="mdc-icon-toggle"><i class="mdi mdi-bell-outline<%= (user.notifications && user.notifications.some((i) => i.read) && ' notification-have-unread') || '' %>"></i></a>
                     <div class="mdc-menu" id="menu-bar-notification-menu" data-anchor="#menu-bar-notification-btn" data-anchor-position="BOTTOM_START">
                         <ul class="mdc-menu__items mdc-list notification-list-wrap" role="menu" aria-hidden="true">
                             <div class="mbn-header">
@@ -39,21 +39,27 @@ section (optional): {
                                 <a href="#!" id="menu-bar-notification-clear" class="mdc-icon-toggle"><i class="mdi mdi-notification-clear-all"></i></a>
                             </div>
                             <ul class="notification-list">
-                                <li class="no-notification">There is no notification.</li>
-                                <li class="notification-card mdc-card">
-                                    <img src="https://randomuser.me/api/portraits/women/15.jpg" alt="Amily Arinston" class="avatar">
-                                    <div class="texts">
-                                        <div class="time">5 hours ago</div>
-                                        <div class="text mdc-typography-overflow-ellipsis"><strong>Amily Arinston</strong> commented on your project <strong>Lorem ipsum dolor sit amet</strong>.</div>
-                                    </div>
-                                </li>
-                                <li class="notification-card mdc-card">
-                                    <img src="https://randomuser.me/api/portraits/women/15.jpg" alt="Amily Arinston" class="avatar">
-                                    <div class="texts">
-                                        <div class="time">2 days ago</div>
-                                        <div class="text mdc-typography-overflow-ellipsis"><strong>Amily Arinston</strong> replied in thread <strong>Regarding investment on Lorem ipsum</strong>.</div>
-                                    </div>
-                                </li>
+                                <% if (locals.user.notifications && user.notifications.length > 0) { 
+                                    const TimeAgo = require('javascript-time-ago');
+                                    const timeAgoEn = require('javascript-time-ago/locale/en');
+                                    TimeAgo.locale(timeAgoEn);
+                                    for (var notification of locals.user.notifications) { %>
+                                    <a href="<%= notification.link %>" class="notification-card mdc-card">
+                                        <div class="texts">
+                                            <div class="time"><%= TimeAgo.format(notification.time) %>/div>
+                                            <div class="text mdc-typography-overflow-ellipsis">
+                                                <% if (notification.read) {%> 
+                                                    <%= notification.content %>
+                                                <% } else { %> 
+                                                    <strong><%= notifiction.content %></strong>
+                                                <% }%>
+                                            </div>
+                                        </div>
+                                    </a>
+                                <% }
+                                } else { %>
+                                    <li class="no-notification">There is no notification.</li>
+                                <% } %>
                         </ul>
                     </div>
                 </div>
@@ -78,7 +84,6 @@ section (optional): {
                         <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
                             <a class="mdc-list-item" role="menuitem" tabindex="0" href="/dashboard/dashboard">Dashboard</a>
                             <a class="mdc-list-item" role="menuitem" tabindex="0" href="/dashboard/inbox">Inbox (0)</a>
-                            <a class="mdc-list-item" role="menuitem" tabindex="0" href="#!">Feeds</a>
                             <a class="mdc-list-item" role="menuitem" tabindex="0" href="/logout">Log out</a>
                         </ul>
                     </div>
@@ -130,10 +135,7 @@ section (optional): {
                     <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-settings"></i></span> Dashboard
                 </a>
                 <a class="mdc-list-item" href="/dashboard/inbox">
-                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-inbox"></i></span> Inbox (0)
-                </a>
-                <a class="mdc-list-item" href="#!">
-                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-rss"></i></span> Feeds
+                    <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-inbox"></i></span> Inbox
                 </a>
                 <a class="mdc-list-item" href="/logout">
                     <span class="mdc-list-item__graphic" aria-hidden="true"><i class="mdi mdi-logout"></i></span> Log out

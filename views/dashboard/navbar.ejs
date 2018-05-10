@@ -10,8 +10,8 @@
         </a>
         <div class="filler"></div>
         <div class="navbar-control">
-            Welcome back, <%= user.name%>
-            <img src="<%= user.image %>" alt="John Doe" class="user-avatar">
+            Welcome back, <%= user.name %>
+            <img src="<%= user.image %>" alt="<%= user.name %>" class="user-avatar">
         </div>
         <button href="#" class="navbar-drawer-toggle mdc-toolbar__menu-icon">
             <i class="mdi mdi-menu"></i>
@@ -23,8 +23,8 @@
     <div class="mdc-drawer__drawer">
         <header class="mdc-drawer__header  mdc-theme--text-primary-on-primary mdc-theme--primary-bg">
             <div class="mdc-drawer__header-content">
-                <img src="https://secure.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?d=retro" alt="John Doe" class="drawer-user-avatar">
-                Welcome back, John Doe.
+                <img src="<%= user.image %>" alt="John Doe" class="drawer-user-avatar">
+                Welcome back, <%= user.name %>.
             </div>
         </header>
         <div class="mdc-drawer__content mdc-list">
@@ -32,7 +32,7 @@
                 Dashboard
             </a>
             <a class="mdc-list-item" href="/dashboard/inbox">
-                Inbox (0)
+                Inbox
             </a>
             <a class="mdc-list-item" href="/dashboard/profile">
                 Profile
