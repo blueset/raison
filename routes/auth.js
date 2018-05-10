@@ -24,15 +24,15 @@ router.post('/login', passport.authenticate('local', {
     let redirectTo = req.session.redirectTo ? req.session.redirectTo : undefined;
     if (redirectTo !== undefined) {
         delete req.session.redirectTo;
-        res.redirect(redirectTo);
+        return res.redirect(redirectTo);
     } else {
         const redirectionMapping = {
             "Startup": "/investors",
             "Investor": "/startups",
-            "Donator": "/investors",
-            "Investor": "/donators"
+            "Donator": "/charities",
+            "Charity": "/donators"
         }
-        res.redirectTo(redirectionMapping[req.user.role]);
+        return res.redirect(redirectionMapping[req.user.role]);
     }
 });
 
