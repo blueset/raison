@@ -19,10 +19,10 @@
         </div>
     </div>
     <div id="form">
-        <form>
+        <form method="POST" action="/signup">
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
-                    <input type="text" required id="display_name" class="mdc-text-field__input">
+                    <input type="text" required id="display_name" class="mdc-text-field__input" name="displayname">
                     <label class="mdc-floating-label" for="display_name">Display name</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -33,7 +33,8 @@
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
-                    <input type="text" required id="username" class="mdc-text-field__input" pattern="[a-zA-Z]{[a-zA-Z0-9-_]{5,31}">
+                    <input type="text" required id="username"
+                           name="username" class="mdc-text-field__input" value="{'value user entered'}" pattern="[a-zA-Z]{[a-zA-Z0-9-_]{5,31}">
                     <label class="mdc-floating-label" for="username">Username</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -44,7 +45,7 @@
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
-                    <input type="email" required id="email" class="mdc-text-field__input">
+                    <input type="email" required id="email" name="email" class="mdc-text-field__input">
                     <label class="mdc-floating-label" for="email">Email</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -55,7 +56,7 @@
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
-                    <input type="password" required id="password" class="mdc-text-field__input" minlength="6">
+                    <input type="password" name="password" required id="password" class="mdc-text-field__input" minlength="6">
                     <label class="mdc-floating-label" for="password">Password</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -66,7 +67,7 @@
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
-                    <input type="password" required id="confirm_password" class="mdc-text-field__input">
+                    <input type="password" name="confirm_password" required id="confirm_password" class="mdc-text-field__input">
                     <label class="mdc-floating-label" for="confirm_password" minlength="6">Confirm password</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -76,7 +77,7 @@
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-select">
-                    <select class="mdc-select__native-control">
+                    <select class="mdc-select__native-control" name="role">
                         <option value="startup" selected>Startup</option>
                         <option value="investor">Investor</option>
                         <option value="donator">Donator</option>
@@ -95,7 +96,7 @@
                 <div>
                     <a href="/login">Already have an account?</a>
                 </div>
-                <a href="/email-confirm" class="mdc-button mdc-button--raised">Sign up</a>
+                <button type="submit" class="mdc-button mdc-button--raised">Sign up</button>
             </div>
 
             <div class="form-element tos">

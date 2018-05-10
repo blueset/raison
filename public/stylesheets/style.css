@@ -15,9 +15,6 @@
   transition: transform 0.6s ease;
   backface-visibility: hidden;
   perspective: 1000px; }
-  @media screen and (prefers-reduced-motion: reduce) {
-    .carousel-item {
-      transition: none; } }
 
 .carousel-item.active,
 .carousel-item-next,
@@ -52,34 +49,6 @@
     .carousel-item-prev,
     .active.carousel-item-left {
       transform: translate3d(-100%, 0, 0); } }
-
-.carousel-fade .carousel-item {
-  opacity: 0;
-  transition-duration: .6s;
-  transition-property: opacity; }
-
-.carousel-fade .carousel-item.active,
-.carousel-fade .carousel-item-next.carousel-item-left,
-.carousel-fade .carousel-item-prev.carousel-item-right {
-  opacity: 1; }
-
-.carousel-fade .active.carousel-item-left,
-.carousel-fade .active.carousel-item-right {
-  opacity: 0; }
-
-.carousel-fade .carousel-item-next,
-.carousel-fade .carousel-item-prev,
-.carousel-fade .carousel-item.active,
-.carousel-fade .active.carousel-item-left,
-.carousel-fade .active.carousel-item-prev {
-  transform: translateX(0); }
-  @supports (transform-style: preserve-3d) {
-    .carousel-fade .carousel-item-next,
-    .carousel-fade .carousel-item-prev,
-    .carousel-fade .carousel-item.active,
-    .carousel-fade .active.carousel-item-left,
-    .carousel-fade .active.carousel-item-prev {
-      transform: translate3d(0, 0, 0); } }
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -785,9 +754,6 @@
   .modal.fade .modal-dialog {
     transition: transform 0.3s ease-out;
     transform: translate(0, -25%); }
-    @media screen and (prefers-reduced-motion: reduce) {
-      .modal.fade .modal-dialog {
-        transition: none; } }
   .modal.show .modal-dialog {
     transform: translate(0, 0); }
 
@@ -1036,28 +1002,10 @@
 @media (min-width: 576px) {
   .card-columns {
     column-count: 3;
-    column-gap: 1.25rem;
-    orphans: 1;
-    widows: 1; }
+    column-gap: 1.25rem; }
     .card-columns .card {
       display: inline-block;
       width: 100%; } }
-
-.accordion .card:not(:first-of-type):not(:last-of-type) {
-  border-bottom: 0;
-  border-radius: 0; }
-
-.accordion .card:not(:first-of-type) .card-header:first-child {
-  border-radius: 0; }
-
-.accordion .card:first-of-type {
-  border-bottom: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0; }
-
-.accordion .card:last-of-type {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0; }
 
 .sr-only {
   position: absolute;
@@ -1067,6 +1015,7 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
+  clip-path: inset(50%);
   border: 0; }
 
 .sr-only-focusable:active, .sr-only-focusable:focus {
@@ -1075,7 +1024,8 @@
   height: auto;
   overflow: visible;
   clip: auto;
-  white-space: normal; }
+  white-space: normal;
+  clip-path: none; }
 
 /* Color */
 /* Typography */
@@ -14211,7 +14161,8 @@ footer {
           .landing-body #participating-investors .participating-investors-list li {
             margin: 0; } } }
     .landing-body #participating-investors .participating-investors-list li img {
-      width: 100%; }
+      width: 100%;
+      height: 100%; }
 
 .landing-lower-banner {
   text-align: right;

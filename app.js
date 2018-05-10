@@ -13,7 +13,8 @@ var flash = require('connect-flash');
 // Custom middleware
 authenticateUser = require('./controller/authenticationMiddleware');
 
-
+// Create database
+require('./models/db1.js');
 
 // Routings
 var index = require('./routes/index');

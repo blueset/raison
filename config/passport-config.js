@@ -3,6 +3,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const userAuthentication = require('../models/db').authenticate;
 const findUser = require('../models/db').findUser;
 
+const userController = require('../controller/userController');
+
 function configPassport(app, passport) {
     app.use(passport.initialize());
     app.use(passport.session());
@@ -13,36 +15,32 @@ function configPassport(app, passport) {
             passReqToCallback : true
         },
         function(req, username, password, done) {
-            var res = userAuthentication(username, password);
-
-            if (res.found) {
-                if (res.match) {
-                    return done(null, res.user);
+            userController.authenticateUser(username, password, function(userExist, passwordMatch, user) {
+                if (userExist) {
+                    if (passwordMatch) {
+                        done(null, user);
+                    } else {
+                        done(null, false, { message: 'Incorrect password.'});
+                    }
                 } else {
-                    return done(null, false, { message: 'Incorrect password.'});
+                    done(null, false, { message: 'Incorrect username.'});
                 }
-            } else {
-                return done(null, false, { message: 'Incorrect username.'});
-
-            }
+            });
         }
-
     ));
 
     passport.serializeUser(function(user, done) {
-        console.log('serializing user: ');
+        console.log('serializing user:... ');
         console.log(user);
-        done(null, user.username);
+        done(null, user._id);
     });
 
-    passport.deserializeUser(function(username, done) {
-        var res = findUser(username);
-        if (res.found) {
-            console.log("Find a user");
-            done(null, res.user);
-        } else {
-            done({'error': 'user is not available!'}, res.user);
-        }
+    passport.deserializeUser(function(userId, done) {
+        console.log('deserializing user:... ')
+        userController.findUser2(userId, function(user) {
+            if (user) done(null, user);
+            else  done({'error': 'user is not available!'}, null);
+        });
     });
 }
 
