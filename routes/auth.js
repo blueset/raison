@@ -9,7 +9,11 @@ const {sanitizeBody} = require('express-validator/filter');
 /* GET home page. */
 router.get('/login', function (req, res) {
     var message = req.flash('error')[0];
-    res.render('auth/login', {title: 'Log in — Raison', message: message});
+    res.render('auth/login', {
+        title: 'Log in — Raison', 
+        message: message,
+        userInput: req.flash('userInput')[0],
+    });
 });
 
 

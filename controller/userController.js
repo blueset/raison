@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const gravatar = require('gravatar');
 const projectController = require('./projectController');
 const User = mongoose.model('users');
 const passwordHash = require('password-hash');
@@ -14,7 +13,6 @@ var createUser = function(req, callback) {
         name: req.body.displayname,
         bio: "",
         role: req.body.role,
-        // image: 'http:' + gravatar.url(req.body.email, {s: '200', r: 'pg', d: '404'}),
         projects: [],
         activity: []
     });
@@ -120,5 +118,4 @@ module.exports = {
     saveUser: saveUser,
     addNewProject: addNewProject,
     getProjects: getProjects
-
 }

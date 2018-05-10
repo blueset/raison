@@ -21,7 +21,12 @@ function configPassport(app, passport) {
                         done(null, user);
                     }
                 }
-                done(null, false, { message: 'Incorrect combination of username/email and password.' });
+                req.flash('userInput', {
+                    username: username
+                });
+                done(null, false, { 
+                    message: 'Incorrect combination of username/email and password.',
+                });
             });
         }
     ));
