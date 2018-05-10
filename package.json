@@ -2,8 +2,7 @@
   "name": "info30005-project",
   "version": "0.0.0",
   "babel": {
-    "presets": [
-    ]
+    "presets": []
   },
   "private": true,
   "scripts": {

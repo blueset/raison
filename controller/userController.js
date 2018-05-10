@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 
 var gravatar = require('gravatar');
 
+var projectController = require('./projectController');
+
 var User = mongoose.model('users');
 
 var createUser = function(req, callback) {
@@ -78,7 +80,7 @@ var authenticateUser = function(identity, password, callback) {
         });
     } else {
         User.findOne({ 'authentication.username': identity}, function(err, user) {
-            if (err) {callback(false, false, null); return;}
+            if (!user) {callback(false, false, null); return;}
             if (user.authentication.password === password) {
                 callback(true, true, user);
             } else {
@@ -98,12 +100,27 @@ var saveUser = function(user, callback) {
     });
 }
 
+var getProjects = async function(user) {
+    var projects = [];
+    for (var i = 0; i < user.projects.length; i++) {
+        var promise = new Promise((resolve, reject) => {
+            projectController.getProject(user.projects[i], function(project) {
+             resolve(project);
+            });
+        });
+
+        projects.push(await promise);
+    }
+    return projects;
+}
+
 module.exports = {
     createUser: createUser,
     findUser: findUser,
     findUser2: findUser2,
     authenticateUser: authenticateUser,
     saveUser: saveUser,
-    addNewProject: addNewProject
+    addNewProject: addNewProject,
+    getProjects: getProjects
 
 }

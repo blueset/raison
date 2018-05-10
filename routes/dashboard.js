@@ -4,6 +4,7 @@ var router = express.Router();
 var db = require('../models/db');
 
 var userController = require('../controller/userController');
+var projectController = require('../controller/projectController');
 
 router.get('/dashboard', function (req, res, next) {
     res.render('dashboard/dashboard', { title: 'Dashboard — Raison' });
@@ -42,7 +43,7 @@ router.post('/profile', function(req, res, next) {
 });
 
 router.get('/projects', function (req, res, next) {
-    res.locals.projects = db.getProjectUser(res.locals.user.username);
+    res.locals.projects = userController.getProjects(res.locals.user);
     res.render('dashboard/projects', { title: 'Projects — Raison' });
 });
 
