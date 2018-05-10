@@ -3,6 +3,8 @@ const projectController = require('./projectController');
 const User = mongoose.model('users');
 const passwordHash = require('password-hash');
 
+var User = mongoose.model('users');
+
 var createUser = function(req, callback) {
     var user = new User({
         authentication: {
@@ -52,14 +54,18 @@ var findUser2 = function(userId, callback) {
     });
 }
 
-var addNewProject = function(projectId, username) {
-    findUser(username, function(user) {
-        if (user)
-            user.projects.unshift(projectId);
+var addNewProject = function(projectId, user, callback) {
+
+        user.projects.unshift(projectId);
+        user.activity.unshift({
+            content: "You created a new project",
+            link: "/interaction/" + projectId,
+            time: Date.now()
+        });
+
         user.save(function(err) {
-            console.log(err);
-        })
-    });
+            callback(err);
+        });
 }
 
 
@@ -72,7 +78,6 @@ var authenticateUser = function(identity, password, callback) {
             } else {
                 callback(true, false, null);
             }
-
         });
     } else {
         User.findOne({ 'authentication.username': identity}, function(err, user) {
@@ -97,17 +102,20 @@ var saveUser = function(user, callback) {
 }
 
 var getProjects = async function(user) {
+
     var projects = [];
     for (var i = 0; i < user.projects.length; i++) {
         var promise = new Promise((resolve, reject) => {
-            projectController.getProject(user.projects[i], function(project) {
-             resolve(project);
+            projectController.getProject(user.projects[i], function (project) {
+                resolve(project);
             });
         });
-
         projects.push(await promise);
+        if (i == user.projects.length - 1) {
+            console.log(projects);
+            return projects;
+        }
     }
-    return projects;
 }
 
 module.exports = {
@@ -117,5 +125,8 @@ module.exports = {
     authenticateUser: authenticateUser,
     saveUser: saveUser,
     addNewProject: addNewProject,
-    getProjects: getProjects
+    getProjects: getProjects,
 }
+
+
+var projectController = require('./projectController');

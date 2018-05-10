@@ -31,7 +31,6 @@
                     <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
                         <%= locals.message || 'Email/username is required.' %></p>
                 </div>
-
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field">
                         <input type="password" required value="<%= (locals.userInput && locals.userInput.username) === undefined ? '12345abcde' : '' %>" id="password" class="mdc-text-field__input"
