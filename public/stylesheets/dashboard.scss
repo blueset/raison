@@ -4,7 +4,7 @@
 @import "@material/theme/_color-palette";
 @import "@material/layout-grid/mdc-layout-grid";
 
-.dashbaord-content {
+.dashboard-content {
     @include make-grid();
     flex-grow: 1;
     padding-bottom: 3em;

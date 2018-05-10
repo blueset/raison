@@ -16,7 +16,7 @@ var projectSchema = new mongoose.Schema( {
         }
     ],
     title: String,
-    subtitle: String,
+    banner: String,
     desc: String,
     totalFunds: Number,
     categories: [String],
