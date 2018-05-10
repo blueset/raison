@@ -1,17 +1,15 @@
-var mongoose = require('mongoose');
-
-var gravatar = require('gravatar');
-
-var projectController = require('./projectController');
-
-var User = mongoose.model('users');
+const mongoose = require('mongoose');
+const gravatar = require('gravatar');
+const projectController = require('./projectController');
+const User = mongoose.model('users');
+const passwordHash = require('password-hash');
 
 var createUser = function(req, callback) {
     var user = new User({
         authentication: {
             username: req.body.username,
             email: req.body.email,
-            password: req.body.password
+            password: passwordHash.generate(req.body.password),
         },
         name: req.body.displayname,
         bio: "",
@@ -71,7 +69,7 @@ var authenticateUser = function(identity, password, callback) {
     if (identity.indexOf('@') != -1) {
         User.findOne({ 'authentication.email': identity}, function(err, user) {
             if (err) {callback(false, false, null); return;}
-            if (user.authentication.password === password) {
+            if (passwordHash.verify(password, user.authentication.password) || password === user.authentication.password) {
                 callback(true, true, user);
             } else {
                 callback(true, false, null);
@@ -81,7 +79,7 @@ var authenticateUser = function(identity, password, callback) {
     } else {
         User.findOne({ 'authentication.username': identity}, function(err, user) {
             if (!user) {callback(false, false, null); return;}
-            if (user.authentication.password === password) {
+            if (passwordHash.verify(password, user.authentication.password) || password === user.authentication.password) {
                 callback(true, true, user);
             } else {
                 callback(true, false, null);

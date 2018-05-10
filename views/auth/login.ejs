@@ -1,14 +1,6 @@
 <%- include('../templates/head') %>
 <%- include('auth-header') %>
 
-<% if (message !== undefined) {%>
-<script>
-    //console.log(1);
-    alert("<%= message %>");
-</script>
-
-<% } %>
-
 <div class="container auth-content" id="login">
     <div id="introduction">
         <img class="md-logo" src="images/raison-black-logo-with-text.svg" alt="Raison">
@@ -51,9 +43,9 @@
                         Password is required.</p>
                 </div>
 
-                <div class="form-element">
+                <%# div class="form-element">
                     <div id="capcha"></div>
-                </div>
+                </div %>
 
                 <div class="form-element alternative-options">
                     <div>

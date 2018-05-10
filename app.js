@@ -90,6 +90,7 @@ app.use('/charities', charities);
 app.use('/donators', donators);
 app.use('/dashboard', function(req, res, next) {
     if (!req.user) {
+        req.session.redirectTo = req.originalUrl;
         res.redirect('/login');
     }
     next();

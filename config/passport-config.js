@@ -19,12 +19,9 @@ function configPassport(app, passport) {
                 if (userExist) {
                     if (passwordMatch) {
                         done(null, user);
-                    } else {
-                        done(null, false, { message: 'Incorrect password.'});
                     }
-                } else {
-                    done(null, false, { message: 'Incorrect username.'});
                 }
+                done(null, false, { message: 'Incorrect combination of username/email and password.' });
             });
         }
     ));

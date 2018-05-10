@@ -14,10 +14,23 @@ router.get('/login', function (req, res) {
 
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/startups',
     failureRedirect: '/login',
     failureFlash: true
-}));
+}), (req, res) => {
+    let redirectTo = req.session.redirectTo ? req.session.redirectTo : undefined;
+    if (redirectTo !== undefined) {
+        delete req.session.redirectTo;
+        res.redirect(redirectTo);
+    } else {
+        const redirectionMapping = {
+            "Startup": "/investors",
+            "Investor": "/startups",
+            "Donator": "/investors",
+            "Investor": "/donators"
+        }
+        res.redirectTo(redirectionMapping[req.user.role]);
+    }
+});
 
 router.get('/signup', function (req, res, next) {
     res.render('auth/signup', {title: 'Sign Up — Raison', errors: null});
@@ -46,7 +59,7 @@ router.post('/signup', [
     }).withMessage('Email is already taken!'),
     check('confirm_password')
         .custom((value, {req}) => value === req.body.password)
-        .withMessage('passwordConfirmation field must have the same value as the password field')
+        .withMessage('Password confirmation field must have the same value as the password field')
 ], function (req, res, next) {
     const errors = validationResult(req).mapped();
     console.log(errors);
