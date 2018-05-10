@@ -95,6 +95,7 @@ for (let i = 0; i < 20; i++) {
     var idPicture2 = Math.floor(Math.random() * 300) + 600;
     var interaction = {
         id: i,
+        url: `/interaction/${i}`,
         thumbnail: "https://picsum.photos/" + idPicture,
         thumbnail2: "https://picsum.photos/" + idPicture2,
         title: faker.commerce.productName(),
