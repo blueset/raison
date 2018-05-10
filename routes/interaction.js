@@ -28,7 +28,7 @@ async function getComments(project) {
         var promise = new Promise((resolve, reject) => {
             userController.findUser2(project.comments[i].commenter, function(commenter) {
                 var commenter = {
-                    'image': gravatar.url(commenter.authentication.email, {protocol: 'https'}),
+                    'image': gravatar.url(commenter.authentication.email, {protocol: 'https', d: 'retro'}),
                     'name': commenter.name
                 }
                 resolve(commenter);
