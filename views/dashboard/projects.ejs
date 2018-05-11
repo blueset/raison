@@ -10,12 +10,16 @@
                 <a href="/dashboard/projects/new" class="mdc-button mdc-button--raised">Create</a>
             </div>
             <ul class="mdc-list table-list">
+                <% if (!projects || projects.length == 0) {%>
+                <li class="mdc-list-item no-ripple">
+                    <span class="title" style="font-style: italics; opacity: 0.6;">There's no project yet, create one now!</span>
+                </li>
+                <% } else { %> 
                 <li class="mdc-list-item no-ripple title-row">
                     <span class="title">Title</span>
                     <span class="time">Time</span>
                 </li>
                 <% for (var i = 0; i < projects.length; i++) { %>
-
                 <li class="mdc-list-item no-ripple">
                     <span class="title">
                          <a href="/dashboard/projects/<%= projects[i]._id %>">
@@ -24,7 +28,7 @@
                     </span>
                     <span class="time">6 Dec</span>
                 </li>
-                <% } %>
+                <% } } %>
 
             </ul>
         </section>

@@ -26,6 +26,7 @@
     "ejs": "~2.5.7",
     "express": "~4.15.5",
     "express-print-routes": "^1.0.0",
+    "express-sanitizer": "^1.0.4",
     "express-session": "^1.15.6",
     "express-validator": "^5.1.2",
     "get-json": "^1.0.0",
