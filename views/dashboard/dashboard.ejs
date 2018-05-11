@@ -23,16 +23,16 @@
         <section>
             <h1>Recent activities</h1>
             <ul class="recent-activities">
+                <% for (var i = 0; i < user.activity.length; i++) {%>
                 <li>
                     <img src="<%= user.image %>" class="avatar"
                          alt="Person Name">
-                    <strong>You</strong> liked Christopher Thomas’s share “Lorem ipsum dolor sit amet”.
+                    <a href="<%= user.activity[i].link %>">
+                        <%= user.activity[i].content %>
+                    </a>
+                    - <%= user.activity[i].time.toDateString()%>
                 </li>
-                <li>
-                    <img src="<%= user.image %>"" class="avatar"
-                         alt="Person Name">
-                    <strong>You</strong> liked your share “Lorem ipsum dolor sit amet”.
-                </li>
+                <% } %>
             </ul>
         </section>
     </div>
