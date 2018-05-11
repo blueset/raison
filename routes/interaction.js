@@ -28,7 +28,7 @@ async function getComments(project) {
         var promise = new Promise((resolve, reject) => {
             userController.findUser2(project.comments[i].commenter, function(commenter) {
                 var commenter = {
-                    'image': gravatar.url(commenter.authentication.email, {protocol: 'https'}),
+                    'image': gravatar.url(commenter.authentication.email, {protocol: 'https', d: 'retro'}),
                     'name': commenter.name
                 }
                 resolve(commenter);
@@ -81,7 +81,7 @@ router.get('/:id', function (req, res, next) {
 
 router.post('/:id', function(req, res, next) {
     var projectId = mongoose.Types.ObjectId(req.params.id);
-    projectController.addcomment(projectId, res.locals.user._id, req.body.comment, function(saved) {
+    projectController.addComment(projectId, res.locals.user._id, req.body.comment, function(saved) {
         if (saved) {
             res.redirect('/interaction/' + req.params.id);
         }

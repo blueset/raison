@@ -9,15 +9,32 @@ const {sanitizeBody} = require('express-validator/filter');
 /* GET home page. */
 router.get('/login', function (req, res) {
     var message = req.flash('error')[0];
-    res.render('auth/login', {title: 'Log in — Raison', message: message});
+    res.render('auth/login', {
+        title: 'Log in — Raison', 
+        message: message,
+        userInput: req.flash('userInput')[0],
+    });
 });
 
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/startups',
     failureRedirect: '/login',
     failureFlash: true
-}));
+}), (req, res) => {
+    let redirectTo = req.session.redirectTo ? req.session.redirectTo : undefined;
+    if (redirectTo !== undefined) {
+        delete req.session.redirectTo;
+        return res.redirect(redirectTo);
+    } else {
+        const redirectionMapping = {
+            "Startup": "/investors",
+            "Investor": "/startups",
+            "Donator": "/charities",
+            "Charity": "/donators"
+        }
+        return res.redirect(redirectionMapping[req.user.role]);
+    }
+});
 
 router.get('/signup', function (req, res, next) {
     res.render('auth/signup', {title: 'Sign Up — Raison', errors: null});
@@ -25,7 +42,11 @@ router.get('/signup', function (req, res, next) {
 
 
 router.post('/signup', [
-    check('username').custom(async (value) => {
+    check('displayname').exists(),
+    check('username')
+    .isLength({min: 6, max: 32})
+    .matches(/[a-zA-Z]{[a-zA-Z0-9-_]{5,31}/i)
+    .custom(async (value) => {
         var x = new Promise((resolve, reject) => {
             userController.findUser(value, function (user) {
                 resolve(user);
@@ -35,7 +56,9 @@ router.post('/signup', [
         console.log(user);
         return user == null;
     }).withMessage('User is already taken!'),
-    check('email').custom(async (value) => {
+    check('email')
+        .isEmail().withMessage("Email entered is not valid.").trim().normalizeEmail()
+        .custom(async (value) => {
         var x = new Promise((resolve, reject) => {
             userController.findUser(value, function (user) {
                 resolve(user);
@@ -44,14 +67,15 @@ router.post('/signup', [
         var user = await x;
         return user == null;
     }).withMessage('Email is already taken!'),
+    check('password').exists().isLength({min: 6}),
     check('confirm_password')
+        .exists()
         .custom((value, {req}) => value === req.body.password)
-        .withMessage('passwordConfirmation field must have the same value as the password field')
+        .withMessage('Password confirmation field must have the same value as the password field')
 ], function (req, res, next) {
     const errors = validationResult(req).mapped();
-    console.log(errors);
     if (Object.keys(errors).length != 0)
-        res.render('auth/signup', {title: 'Sign Up — Raison', errors: errors});
+        res.render('auth/signup', {title: 'Sign Up — Raison', errors: errors, userInput: req.body});
     else {
         userController.createUser(req, function (saved) {
             if (saved) res.redirect('/email-confirm');
@@ -60,8 +84,6 @@ router.post('/signup', [
 });
 
 router.get('/current-user', function(req, res) {
-    // console.log('omegalul');
-    // console.log(res.user);
     if (!req.user) {
         res.json({});
     } else {

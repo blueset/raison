@@ -18,13 +18,15 @@ function configPassport(app, passport) {
             userController.authenticateUser(username, password, function(userExist, passwordMatch, user) {
                 if (userExist) {
                     if (passwordMatch) {
-                        done(null, user);
-                    } else {
-                        done(null, false, { message: 'Incorrect password.'});
+                        return done(null, user);
                     }
-                } else {
-                    done(null, false, { message: 'Incorrect username.'});
                 }
+                done(null, false, { 
+                    message: 'Incorrect combination of username/email and password.',
+                });
+                req.flash('userInput', {
+                    username: username
+                });
             });
         }
     ));

@@ -12,7 +12,7 @@ var userSchema = new mongoose.Schema( {
     image: String,
     // Project Id
     projects: [mongoose.Schema.ObjectId],
-    notification: [
+    notifications: [
         {
             content: String,
             link: String,

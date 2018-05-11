@@ -9,7 +9,7 @@
                 <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to projects
             </a>
             <div class="title-row">
-                <% if (project) { %>
+                <% if (locals.project) { %>
                 <h1>Edit project</h1>
                 <% } else { %>
                 <h1>New project</h1>
@@ -17,56 +17,69 @@
             </div>
             <form action="?" method="post">
                 <div class="mdc-form-control form-element">
-                    <div class="mdc-text-field large-text-field">
+                    <div class="mdc-text-field large-text-field<%= (locals.error && locals.error['project-title'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="project-title"
-                               <% if (project) {%>
-                                value = "<%= project.title %>"
-                                <% }%>
-
+                               value="<%= (locals.userInput && locals.userInput.title) || (locals.project && locals.project.title) %>"
                                name="project-title" class="mdc-text-field__input">
                         <label class="mdc-floating-label" for="project-title">Project title</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                        <%= (locals.error && locals.error['project-title'] && locals.error['project-title'].msg) || '' %>
+                    </p>
                 </div>
                 <div class="form-element">
-                    <div class="mdc-text-field chip-text-field">
+                    <div class="mdc-text-field chip-text-field<%= (locals.error && locals.error['project-tags'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="project-tags"
-                                <% if (project) {%>
-                               value = "<%= project.categories %>"
-                                <% }%>
+                               value="<%= (locals.userInput && locals.userInput.tags) || (locals.project && locals.project.tags) %>"
                                name="project-tags">
                         <label class="mdc-floating-label" for="project-tags">Tags</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                        <%= (locals.error && locals.error['project-tags'] && locals.error['project-tags'].msg) || '' %>
+                    </p>
                 </div>
                 <div class="mdc-form-control form-element">
-                    <div class="mdc-text-field">
+                    <div class="mdc-text-field<%= (locals.error && locals.error['banner-url'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="banner-url" class="mdc-text-field__input"
                                aria-controls="banner-url-helper-text"
                                aria-describedby="banner-url-helper-text"
-                                <% if (project) {%>
-                               value = "<%= project.banner %>"
-                                <% }%>
+                               value="<%= (locals.userInput && locals.userInput.banner) || (locals.project && locals.project.banner) %>"
                                name="banner-url">
                         <label class="mdc-floating-label" for="banner-url">Banner Image URL</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
                     <p class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg"
                        id="banner-url-helper-text">
+                        <%= (locals.error && locals.error['banner-image'] && locals.error['banner-image'].msg) || '' %>
                         We recommend you to upload images through public image hosting services such as <a href="https://imgur.com">imgur</a>.
                     </p>
                 </div>
                 <div id="banner-preview">
                 </div>
 
-                <textarea id="bodyContent" class="article-content"
-                          name="body-content"></textarea>
+                <textarea id="bodyContent" class="article-content" required
+                          name="body-content"><%= (locals.userInput && locals.userInput['body-content']) || (locals.project && locals.project['body-content']) %></textarea>
 
                 <button type="submit" class="mdc-button mdc-button--raised">Publish</button>
             </form>
         </section>
     </div>
 </div>
+
+<datalist id="tags-list">
+    <option value="science">Science</option>
+    <option value="economy">Economy</option>
+    <option value="agriculture">Agriculture</option>
+    <option value="it">IT</option>
+    <option value="computing">Computing</option>
+    <option value="military">Military</option>
+    <option value="food">Food</option>
+    <option value="sports">Sports</option>
+</datalist>
+
+<%- include('../components/snackbar') %>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
 <script src="/javascripts/taginput.js"></script>
@@ -86,6 +99,7 @@
         var tagsInput = $(el).children("input");
         tagsInput.tagsinput({
             tagClass: "mdc-chip",
+            datalist: "tags-list",
         });
         var label = el.querySelector("label.mdc-floating-label");
         var mdcTF = new mdc.textField.MDCTextField(el);
@@ -123,6 +137,14 @@
             height: 300,
         });
     });
+
+    <% if (locals.message) { %>
+    snackbar.show({
+        message: "<%= locals.message %>",
+        actionText: "Dismiss",
+        actionHandler: () => {}
+    });
+    <% } %>
 </script>
 
 <%- include('../components/footer') %>

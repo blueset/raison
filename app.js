@@ -9,6 +9,7 @@ var importOnce = require('node-sass-import-once');
 var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
+var expressSanitizer = require('express-sanitizer');
 
 // Custom middleware
 var authenticateUser = require('./controllers/authenticationMiddleware');
@@ -42,13 +43,13 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressSanitizer());
 app.use(session({
     secret: 'info30005',
     resave: false,
     saveUninitialized: false
 }));
 app.use(flash());
-
 
 app.use(cookieParser());
 
@@ -92,6 +93,7 @@ app.use('/donators', donators);
 app.use('/interaction', interaction);
 app.use('/dashboard', function(req, res, next) {
     if (!req.user) {
+        req.session.redirectTo = req.originalUrl;
         res.redirect('/login');
     }
     next();

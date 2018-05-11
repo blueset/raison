@@ -13,9 +13,9 @@ var createProject = function(req, callback) {
         progress: [],
         title: req.body['project-title'],
         banner: req.body['banner-url'],
-        desc: req.body['body-content'],
+        desc: req.sanitize(req.body['body-content']),
         totalFunds: 0,
-        categories: [req.body['project-tags']],
+        categories: req.body['project-tags'],
         comments: [],
         ratings: {
             sumRate: 0,
@@ -25,11 +25,11 @@ var createProject = function(req, callback) {
 
     project.save(function(err) {
         if (err) {
-            callback(false);
+            callback(false, project);
         } else {
             userController.addNewProject(project._id, req.user, function(err2) {
-                if (err2) callback(false);
-                else callback(true);
+                if (err2) callback(false, project);
+                else callback(true, project);
             })
         }
     });
@@ -47,20 +47,20 @@ var getProject = function(projectId, callback) {
 var updateProject = function(projectId, featureChanges, callback) {
     getProject(projectId, function(project) {
         if (project) {
-            for (var  i = 0; i < featureChanges.length; i++) {
+            for (var i = 0; i < featureChanges.length; i++) {
                 project[featureChanges[i]['name']] = featureChanges[i]['value'];
             }
             project.save(function(err) {
-                if (err) callback(false);
-                else callback(true);
+                if (err) callback(false, project);
+                else callback(true, project);
             })
         } else {
-            callback(false);
+            callback(false, project);
         }
     });
 }
 
-var addcomment = function(projectId, userId, comment, callback) {
+var addComment = function(projectId, userId, comment, callback) {
     Project.findOne({'_id': projectId}, function(err, project){
         if (err) callback(false);
         else {
@@ -79,7 +79,7 @@ var addcomment = function(projectId, userId, comment, callback) {
 
 module.exports = {
     createProject: createProject,
-    addcomment: addcomment,
+    addComment: addComment,
     getProject: getProject,
     updateProject: updateProject
 }

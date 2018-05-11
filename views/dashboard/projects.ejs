@@ -1,6 +1,10 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
-
+<%
+const TimeAgo = require('javascript-time-ago');
+const timeAgoEn = require('javascript-time-ago/locale/en');
+TimeAgo.locale(timeAgoEn); 
+%>
 <div class="dashboard-content container">
     <%- include('nav-aside', {path: 'projects'}) %>
     <div class="content">
@@ -10,21 +14,25 @@
                 <a href="/dashboard/projects/new" class="mdc-button mdc-button--raised">Create</a>
             </div>
             <ul class="mdc-list table-list">
+                <% if (!projects || projects.length == 0) {%>
+                <li class="mdc-list-item no-ripple">
+                    <span class="title" style="font-style: italics; opacity: 0.6;">There's no project yet, create one now!</span>
+                </li>
+                <% } else { %> 
                 <li class="mdc-list-item no-ripple title-row">
                     <span class="title">Title</span>
                     <span class="time">Time</span>
                 </li>
                 <% for (var i = 0; i < projects.length; i++) { %>
-
                 <li class="mdc-list-item no-ripple">
                     <span class="title">
                          <a href="/dashboard/projects/<%= projects[i]._id %>">
                         <%= projects[i].title %>
                          </a>
                     </span>
-                    <span class="time">6 Dec</span>
+                    <span class="time"><%= TimeAgo.format(projects[i].datePosted) %></span>
                 </li>
-                <% } %>
+                <% } } %>
 
             </ul>
         </section>
