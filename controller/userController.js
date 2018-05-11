@@ -3,8 +3,6 @@ const projectController = require('./projectController');
 const User = mongoose.model('users');
 const passwordHash = require('password-hash');
 
-var User = mongoose.model('users');
-
 var createUser = function(req, callback) {
     var user = new User({
         authentication: {
@@ -128,5 +126,3 @@ module.exports = {
     getProjects: getProjects,
 }
 
-
-var projectController = require('./projectController');
