@@ -1,11 +1,16 @@
 <div class="comments-list">
+<%
+const TimeAgo = require('javascript-time-ago');
+const timeAgoEn = require('javascript-time-ago/locale/en');
+TimeAgo.locale(timeAgoEn); 
+%>
     <% for (var i =0; i < comments.length; i++) {%>
     <div class="comment-section">
         <div class="commenter">
             <img src="<%= comments[i].author.image %>" alt="">
             <div class="commenter-text">
                 <div class="comment-author"> <%= comments[i].author.name %></div>
-                <div class="comment-time"> <%= (new Date(comments[i].date)).toDateString() %></div>
+                <div class="comment-time"> <%= TimeAgo.format(comments[i].date) %></div>
             </div>
         </div>
 
