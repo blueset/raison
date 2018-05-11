@@ -68,6 +68,17 @@
     </div>
 </div>
 
+<datalist id="tags-list">
+<option value="science">Science</option>
+<option value="economy">Economy</option>
+<option value="agriculture">Agriculture</option>
+<option value="it">IT</option>
+<option value="computing">Computing</option>
+<option value="military">Military</option>
+<option value="food">Food</option>
+<option value="sports">Sports</option>
+</datalist>
+
 <%- include('../components/snackbar') %>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
@@ -88,6 +99,7 @@
         var tagsInput = $(el).children("input");
         tagsInput.tagsinput({
             tagClass: "mdc-chip",
+            datalist: "tags-list",
         });
         var label = el.querySelector("label.mdc-floating-label");
         var mdcTF = new mdc.textField.MDCTextField(el);

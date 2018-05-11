@@ -32,6 +32,13 @@
     </div>
 </div>
 
+<datalist id="users-list">
+    <option value="johnDoe">John Doe</option>
+    <option value="pheobeM">Pheobe Maritan</option>
+    <option value="cosmos123">Carol Flamingo</option>
+    <option value="username">Display Name</option>
+</datalist>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
 <script src="/javascripts/taginput.js"></script>
 <script>
@@ -40,6 +47,7 @@ var mdcTagInput = function (el) {
     tagsInput.tagsinput({
         maxTags: 1,
         tagClass: "mdc-chip",
+        datalist: "users-list",
     });
     var label = el.querySelector("label.mdc-floating-label");
     var mdcTF = new mdc.textField.MDCTextField(el);
