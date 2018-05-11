@@ -17,25 +17,31 @@
             </div>
             <form action="?" method="post">
                 <div class="mdc-form-control form-element">
-                    <div class="mdc-text-field large-text-field">
+                    <div class="mdc-text-field large-text-field<%= (locals.error && locals.error['project-title'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="project-title"
                                value="<%= (locals.userInput && locals.userInput.title) || (locals.project && locals.project.title) %>"
                                name="project-title" class="mdc-text-field__input">
                         <label class="mdc-floating-label" for="project-title">Project title</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                        <%= (locals.error && locals.error['project-title'] && locals.error['project-title'].msg) || '' %>
+                    </p>
                 </div>
                 <div class="form-element">
-                    <div class="mdc-text-field chip-text-field">
+                    <div class="mdc-text-field chip-text-field<%= (locals.error && locals.error['project-tags'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="project-tags"
                                value="<%= (locals.userInput && locals.userInput.tags) || (locals.project && locals.project.tags) %>"
                                name="project-tags">
                         <label class="mdc-floating-label" for="project-tags">Tags</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                        <%= (locals.error && locals.error['project-tags'] && locals.error['project-tags'].msg) || '' %>
+                    </p>
                 </div>
                 <div class="mdc-form-control form-element">
-                    <div class="mdc-text-field">
+                    <div class="mdc-text-field<%= (locals.error && locals.error['banner-url'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="banner-url" class="mdc-text-field__input"
                                aria-controls="banner-url-helper-text"
                                aria-describedby="banner-url-helper-text"
@@ -46,6 +52,7 @@
                     </div>
                     <p class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg"
                        id="banner-url-helper-text">
+                        <%= (locals.error && locals.error['banner-image'] && locals.error['banner-image'].msg) || '' %>
                         We recommend you to upload images through public image hosting services such as <a href="https://imgur.com">imgur</a>.
                     </p>
                 </div>
@@ -60,6 +67,8 @@
         </section>
     </div>
 </div>
+
+<%- include('../components/snackbar') %>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
 <script src="/javascripts/taginput.js"></script>
