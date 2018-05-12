@@ -13,6 +13,7 @@ var expressSanitizer = require('express-sanitizer');
 
 // Custom middleware
 var authenticateUser = require('./controllers/authenticationMiddleware');
+var timeAgoMiddleware = require('./controllers/timeAgoMiddleware');
 
 // Create database
 require('./models/db1.js');
@@ -80,8 +81,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Config
 configPassport(app, passport);
 
-
 app.use(authenticateUser);
+app.use(timeAgoMiddleware);
 
 // Binding routes
 app.use('/', index);

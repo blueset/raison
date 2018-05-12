@@ -39,10 +39,7 @@ section (optional): {
                                 <a href="#!" id="menu-bar-notification-clear" class="mdc-icon-toggle"><i class="mdi mdi-notification-clear-all"></i></a>
                             </div>
                             <ul class="notification-list">
-                                <% if (locals.user.notifications && user.notifications.length > 0) { 
-                                    const TimeAgo = require('javascript-time-ago');
-                                    const timeAgoEn = require('javascript-time-ago/locale/en');
-                                    TimeAgo.locale(timeAgoEn);
+                                <% if (locals.user.notifications && user.notifications.length > 0) {
                                     for (var notification of locals.user.notifications) { %>
                                     <a href="<%= notification.link %>" class="notification-card mdc-card">
                                         <div class="texts">
