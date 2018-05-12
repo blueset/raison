@@ -10,6 +10,7 @@ var userSchema = new mongoose.Schema( {
     bio: String,
     role: String,
     image: String,
+    totalFunds: Number,
     // Project Id
     projects: [mongoose.Schema.ObjectId],
     notifications: [

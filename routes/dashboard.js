@@ -46,7 +46,6 @@ router.post('/profile', function(req, res, next) {
 
 router.get('/projects', async function (req, res, next) {
     res.locals.projects = await userController.getProjects(res.locals.user);
-    console.log(res.locals.projects);
     res.render('dashboard/projects', { title: 'Projects — Raison' });
 });
 
@@ -55,20 +54,12 @@ router.get('/projects/new', function (req, res, next) {
     res.render('dashboard/projects-edit', { title: 'New Project — Raison' });
 });
 
-router.post('/projects/new', [
-    check('title').exists(),
-    check('banner').exists(),
-    check('desc').exists(),
-    check('project-tags').exists()
-], function (req, res, next) {
-    const errors = validationResult(req).mapped();
-    if (Object.keys(errors).length != 0)
-        return res.render('/projects/projects-edit', { title: 'New project — Raison', errors: errors, userInput: req.body });
+router.post('/projects/new', function (req, res, next) {
     projectController.createProject(req, function(successful, project) {
         if (!successful) {
-            res.render('/projects/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project', userInput: req.body});
+            res.render('/projects/new', {title: 'New project — Raison', message: 'Errors in saving Project', userInput: req.body});
         } else {
-            res.redirect(`/dashboard/projects/${project.id}`);
+            res.redirect('/dashboard/projects');
         }
     })
 });

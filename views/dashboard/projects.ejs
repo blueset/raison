@@ -1,10 +1,6 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
-<%
-const TimeAgo = require('javascript-time-ago');
-const timeAgoEn = require('javascript-time-ago/locale/en');
-TimeAgo.locale(timeAgoEn); 
-%>
+
 <div class="dashboard-content container">
     <%- include('nav-aside', {path: 'projects'}) %>
     <div class="content">
@@ -30,7 +26,7 @@ TimeAgo.locale(timeAgoEn);
                         <%= projects[i].title %>
                          </a>
                     </span>
-                    <span class="time"><%= TimeAgo.format(projects[i].datePosted) %></span>
+                    <span class="time"><%= projects[i].datePosted.toDateString() %></span>
                 </li>
                 <% } } %>
 

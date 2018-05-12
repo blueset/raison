@@ -1,15 +1,15 @@
 <%- include('../templates/head') %>
 <%- include('../components/navbar', {theme: "dark", section:
-{name: user.role, url: user.role.toLowerCase()}, state: user.role})
+{name: user_profile.role, url: user_profile.role.toLowerCase()}, state: user_profile.role})
 %>
 
 <div class="container">
     <div class="individual-profile-body">
         <div class="profile-header profile-picture">
-            <img src="<%= user.image %>" alt="<%= user.name %>">
+            <img src="<%= profile_image %>" alt="<%= user_profile.name %>">
         </div>
         <div class="profile-header profile-name">
-            <div class="name"> <%= user.name %></div>
+            <div class="name"> <%= user_profile.name %></div>
             <div class="tagline">Joined on 1 January 1970</div>
         </div>
         <div class="profile-header profile-action">
@@ -18,7 +18,7 @@
         <div class="sections">
             <section>
                 <h1>About me</h1>
-                <p> <%= user.bio %></p>
+                <p> <%= user_profile.bio %></p>
             </section>
             <section>
                 <h1>Recent activities</h1>

@@ -24,9 +24,9 @@
             </div>
 
             <%# Loop card starts. %>
-            <% for (var i = 1; i < locals.authors.length; i++) {%>
-            <% author = locals.authors[i] %>
-            <%- include('../components/author-card', author) %>
+            <% for (var i = 1; i < projects.length; i++) {%>
+            <% project = projects[i] %>
+            <%- include('../components/author-card', project) %>
             <% } %>
 
         </section>
@@ -35,8 +35,8 @@
                 <h1>Highlights</h1>
                 <a href="#!" class="mdc-button">More</a>
             </div>
-            <% author = locals.authors[0] %>
-            <%- include('../components/author-card', author) %>
+            <% project = projects[0] %>
+            <%- include('../components/author-card', project) %>
 
         </section>
         <section id="top-donators">
@@ -47,16 +47,20 @@
 
             <div class="top-donators-list">
                 <ol class="mdc-list mdc-list--avatar-list">
-                    <% for (var i = 0; i < locals.donators.length; i++){%>
-                    <li class="mdc-list-item" style="cursor: pointer">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            <%= locals.donators[i].name %>
-                            <span class="mdc-list-item__secondary-text">
-                                <%= locals.donators[i].username %>
+                    <% for (var i = 0; i < donators.length; i++){%>
+
+                    <a href="profile/<%= donators[i].authentication.username %>" style="text-decoration: none; color: inherit">
+                        <li class="mdc-list-item" style="cursor: pointer">
+                            <div class="mdc-list-item__graphic"></div>
+                            <div class="mdc-list-item__text">
+                                <%= donators[i].name %>
+                                <span class="mdc-list-item__secondary-text">
+                                <%= donators[i].bio %>
                             </span>
-                        </div>
-                    </li>
+                            </div>
+                        </li>
+                    </a>
+
                     <% } %>
 
                 </ol>

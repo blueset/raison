@@ -1,7 +1,26 @@
 const mongoose = require('mongoose');
-const projectController = require('./projectController');
+
 const User = mongoose.model('users');
 const passwordHash = require('password-hash');
+
+var getTopUser = async function(typeUser, num_top) {
+
+    var promise = new Promise((resolve, reject)=>{
+        User.find({}, function(err, users) {
+            var tmp_users = [];
+            users.forEach(function(user) {
+                if (typeUser == null || user.role === typeUser)
+                    tmp_users.push(user);
+            });
+            tmp_users.sort(function(a, b) {
+                return b.totalFunds - a.totalFunds;
+            })
+            resolve(tmp_users.slice(0, num_top));
+        });
+    });
+
+    return await promise;
+}
 
 var createUser = function(req, callback) {
     var user = new User({
@@ -12,6 +31,7 @@ var createUser = function(req, callback) {
         },
         name: req.body.displayname,
         bio: "",
+        totalFunds: 0,
         role: req.body.role,
         projects: [],
         activity: []
@@ -124,5 +144,8 @@ module.exports = {
     saveUser: saveUser,
     addNewProject: addNewProject,
     getProjects: getProjects,
+    getTopUser: getTopUser
 }
+
+const projectController = require('./projectController');
 

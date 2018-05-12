@@ -3,11 +3,10 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 
-
 var userController = require('../controller/userController');
 var projectController = require('../controller/projectController');
 var gravatar = require('gravatar');
-var getJSON = require('get-json')
+var getJSON = require('get-json');
 
 router.post('/createProject', function(req, res) {
     projectController.createProject(req, function(created) {
