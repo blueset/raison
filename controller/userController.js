@@ -46,6 +46,41 @@ var createUser = function(req, callback) {
     });
 }
 
+var createUserOauth = function(username, email, displayName, callback) {
+    var crypto = require("crypto");
+    var password = crypto.randomBytes(20).toString('hex');
+
+    var user = new User({
+        authentication: {
+            username: username,
+            email: email,
+            password: passwordHash.generate(password),
+        },
+        name: displayName,
+        bio: "",
+        totalFunds: 0,
+        role: "donator",
+        projects: [],
+        activity: []
+    });
+
+    user.save(function (err) {
+        if (!err) {
+            callback(user);
+        } else {
+            callback(null);
+        }
+    });
+}
+
+// Find user by arbitrary key
+var findUserByKey = function(key, value, callback) {
+    User.findOne({key: value}, function (err, user) {
+        if (err) callback(null);
+        else callback(user);
+    });
+}
+
 // Find the user with username / email
 var findUser = function(userIdentity, callback) {
     if (userIdentity.indexOf('@') != -1) {
@@ -144,7 +179,9 @@ module.exports = {
     saveUser: saveUser,
     addNewProject: addNewProject,
     getProjects: getProjects,
-    getTopUser: getTopUser
+    getTopUser: getTopUser,
+    findUserByKey: findUserByKey,
+    createUserOauth: createUserOauth,
 }
 
 const projectController = require('./projectController');

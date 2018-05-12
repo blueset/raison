@@ -190,6 +190,15 @@
         .ssibtn-telegram {@include mdc-button-container-fill-color(#1DA1F2);}
         .ssibtn-google {@include mdc-button-container-fill-color(#D33D34);}
 
+        iframe#telegram-login-ehnotifierbot {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
         .tos {
             @include mdc-theme-prop(color, text-hint-on-light);
             font-size: .8em;

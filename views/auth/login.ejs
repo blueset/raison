@@ -58,16 +58,22 @@
         </div>
         <div class="auth-section">
             <div class="auth-section-name">Or sign in with...</div>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-facebook"><i
-                        class="mdi mdi-facebook"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-twitter"><i
-                        class="mdi mdi-twitter"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-github"><i
-                        class="mdi mdi-github-circle"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-telegram"><i
-                        class="mdi mdi-telegram"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-google"><i
-                        class="mdi mdi-google"></i></button>
+            <a href="/auth/facebook" class="mdc-button mdc-button--raised social-sign-in-button ssibtn-facebook">
+                <i class="mdi mdi-facebook"></i>
+            </a>
+            <a href="/auth/twitter" class="mdc-button mdc-button--raised social-sign-in-button ssibtn-twitter">
+                <i class="mdi mdi-twitter"></i>
+            </a>
+            <a href="/auth/github" class="mdc-button mdc-button--raised social-sign-in-button ssibtn-github">
+                <i class="mdi mdi-github-circle"></i>
+            </a>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-telegram">
+                <i class="mdi mdi-telegram"></i>
+                <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="ehnotifierbot" data-size="large" data-userpic="false" data-radius="5" data-auth-url="/auth/telegram" data-request-access="write"></script>
+            </button>
+            <a href="/auth/google" class="mdc-button mdc-button--raised social-sign-in-button ssibtn-google">
+                <i class="mdi mdi-google"></i>
+            </a>
         </div>
     </div>
 </div>
