@@ -56,17 +56,18 @@ router.get('/projects/new', function (req, res, next) {
 });
 
 router.post('/projects/new', [
-    check('title').exists(),
-    check('banner').exists(),
-    check('desc').exists(),
+    check('project-title').exists(),
+    check('banner-url').exists(),
+    check('body-content').exists(),
     check('project-tags').exists()
 ], function (req, res, next) {
     const errors = validationResult(req).mapped();
+    console.log(req.body, errors);
     if (Object.keys(errors).length != 0)
-        return res.render('/projects/projects-edit', { title: 'New project — Raison', errors: errors, userInput: req.body });
+        return res.render('dashboard/projects-edit', { title: 'New project — Raison', errors: errors, userInput: req.body });
     projectController.createProject(req, function(successful, project) {
         if (!successful) {
-            res.render('/projects/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project', userInput: req.body});
+            res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project', userInput: req.body});
         } else {
             res.redirect(`/dashboard/projects/${project.id}`);
         }

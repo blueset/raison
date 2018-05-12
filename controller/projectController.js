@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var Project = mongoose.model('project');
-
-
+var userController = require('./userController');
+console.log("ON_IMPORT: USER_CONTROLLER @ ADD_NEW_PROJECT", userController, userController.addNewProject);
 
 var createProject = function(req, callback) {
     var project = new Project({
@@ -27,6 +27,7 @@ var createProject = function(req, callback) {
         if (err) {
             callback(false, project);
         } else {
+            console.log("USER_CONTROLLER @ ADD_NEW_PROJECT", userController, userController.addNewProject);
             userController.addNewProject(project._id, req.user, function(err2) {
                 if (err2) callback(false, project);
                 else callback(true, project);
@@ -83,9 +84,6 @@ module.exports = {
     getProject: getProject,
     updateProject: updateProject
 }
-
-var userController = require('./userController');
-
 
 
 
