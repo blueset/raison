@@ -5,7 +5,7 @@
             <img src="<%= comments[i].author.image %>" alt="">
             <div class="commenter-text">
                 <div class="comment-author"> <%= comments[i].author.name %></div>
-                <div class="comment-time"> <%= (new Date(comments[i].date)).toDateString() %></div>
+                <div class="comment-time"> <%= TimeAgo.format(comments[i].date) %></div>
             </div>
         </div>
 
