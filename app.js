@@ -26,6 +26,7 @@ var donators = require('./routes/donators');
 var statics = require('./routes/statics');
 var auth = require('./routes/auth');
 var dashboard = require('./routes/dashboard');
+var interaction = require('./routes/interaction');
 
 // Config
 var configPassport = require('./config/passport-config');
@@ -89,6 +90,7 @@ app.use('/startups', startups);
 app.use('/investors', investors);
 app.use('/charities', charities);
 app.use('/donators', donators);
+app.use('/interaction', interaction);
 app.use('/dashboard', function(req, res, next) {
     if (!req.user) {
         req.session.redirectTo = req.originalUrl;

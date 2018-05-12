@@ -4,7 +4,6 @@
 <div id="startup-project-content" class="container">
     <div class="title">
         <h1><%= locals.interaction.title %></h1>
-        <div class="subtitle"><%= interaction.subtitle %></div>
     </div>
 
     <div class="author">
@@ -12,6 +11,7 @@
         <div class="author-info"> <%= author.name %><br> <%= interaction.datePosted.toDateString()%></div>
     </div>
     <div class="description article-content">
+        <img class="featuring-image" width="100%" src="<%= interaction.banner %>" alt="First slide">
         <%- interaction.desc %>
     </div>
 

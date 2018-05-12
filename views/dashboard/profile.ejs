@@ -49,22 +49,22 @@
             <div class="mdc-form-control form-element">
                 <div class="mdc-select">
                     <select class="mdc-select__native-control" name="role">
-                        <option value="Startup"
-                                <% if (user.role == "Startup") { %>
+                        <option value="Startups"
+                                <% if (user.role == "Startups") { %>
                                 selected
                                 <% } %>
                         >Startup
                         </option>
-                        <option value="Investor"
-                                <% if (user.role == "Investor") { %>
+                        <option value="Investors"
+                                <% if (user.role == "Investors") { %>
                                 selected
                                 <% } %>
                         >Investor
                         </option>
-                        <option value="Donator"
-                                <% if (user.role == "Donator") { %> selected <% } %>>Donator</option>
-                        <option value="Charity"
-                                <% if (user.role == "Charity") { %> selected <% } %>>Charity</option>
+                        <option value="Donators"
+                                <% if (user.role == "Donators") { %> selected <% } %>>Donator</option>
+                        <option value="Charities"
+                                <% if (user.role == "Charities") { %> selected <% } %>>Charity</option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
                     <div class="mdc-select__bottom-line"></div>
