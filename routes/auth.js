@@ -27,10 +27,10 @@ router.post('/login', passport.authenticate('local', {
         return res.redirect(redirectTo);
     } else {
         const redirectionMapping = {
-            "Startup": "/investors",
-            "Investor": "/startups",
-            "Donator": "/charities",
-            "Charity": "/donators"
+            "Startups": "/investors",
+            "Investors": "/startups",
+            "Donators": "/charities",
+            "Charities": "/donators"
         }
         return res.redirect(redirectionMapping[req.user.role]);
     }

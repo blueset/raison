@@ -46,7 +46,6 @@ router.post('/profile', function(req, res, next) {
 
 router.get('/projects', async function (req, res, next) {
     res.locals.projects = await userController.getProjects(res.locals.user);
-    console.log(res.locals.projects);
     res.render('dashboard/projects', { title: 'Projects — Raison' });
 });
 
@@ -69,7 +68,7 @@ router.post('/projects/new', [
         if (!successful) {
             res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project', userInput: req.body});
         } else {
-            res.redirect(`/dashboard/projects/${project.id}`);
+            res.redirect('/dashboard/projects');
         }
     })
 });

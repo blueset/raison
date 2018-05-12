@@ -28,6 +28,7 @@ var statics = require('./routes/statics');
 var auth = require('./routes/auth');
 var dashboard = require('./routes/dashboard');
 var interaction = require('./routes/interaction');
+var profile = require('./routes/profile');
 
 // Config
 var configPassport = require('./config/passport-config');
@@ -91,6 +92,7 @@ app.use('/startups', startups);
 app.use('/investors', investors);
 app.use('/charities', charities);
 app.use('/donators', donators);
+app.use('/profile', profile);
 app.use('/interaction', interaction);
 app.use('/dashboard', function(req, res, next) {
     if (!req.user) {
@@ -122,4 +124,6 @@ app.use(function (err, req, res, next) {
 });
 
 
-module.exports = app;
+app.listen(3000);
+
+//module.exports = app;

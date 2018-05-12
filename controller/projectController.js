@@ -4,7 +4,33 @@ var Project = mongoose.model('project');
 var userController = require('./userController');
 console.log("ON_IMPORT: USER_CONTROLLER @ ADD_NEW_PROJECT", userController, userController.addNewProject);
 
+
+var getTopProject = async function(typeProject, num_top) {
+
+    var promise = new Promise((resolve, reject)=>{
+        Project.find({}, function(err, projects) {
+            var tmp_projects = [];
+            projects.forEach(function(project) {
+                if (typeProject == null || project.categories[0] === typeProject)
+                    tmp_projects.push(project);
+            });
+            tmp_projects.sort(function(a, b) {
+                return b.comments.length - a.comments.length;
+            })
+            resolve(tmp_projects.slice(0, num_top));
+        });
+    });
+
+    return await promise;
+}
+
+
 var createProject = function(req, callback) {
+    var typeProject;
+    if (req.user.role === 'Startups' || req.user.role === 'Investors')
+        typeProject = "Investment";
+    else
+        typeProject = "Donation";
     var project = new Project({
         author: req.user._id,
         investor: null,
@@ -15,7 +41,7 @@ var createProject = function(req, callback) {
         banner: req.body['banner-url'],
         desc: req.sanitize(req.body['body-content']),
         totalFunds: 0,
-        categories: req.body['project-tags'],
+        categories: [typeProject].concat(req.body['project-tags'].split(',')),
         comments: [],
         ratings: {
             sumRate: 0,
@@ -82,7 +108,8 @@ module.exports = {
     createProject: createProject,
     addComment: addComment,
     getProject: getProject,
-    updateProject: updateProject
+    updateProject: updateProject,
+    getTopProject: getTopProject
 }
 
 
