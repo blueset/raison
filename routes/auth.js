@@ -27,10 +27,10 @@ router.post('/login', passport.authenticate('local', {
         return res.redirect(redirectTo);
     } else {
         const redirectionMapping = {
-            "Startups": "/investors",
-            "Investors": "/startups",
-            "Donators": "/charities",
-            "Charities": "/donators"
+            "Startups": "/investment",
+            "Investors": "/investment",
+            "Donators": "/donation",
+            "Charities": "/donation"
         }
         return res.redirect(redirectionMapping[req.user.role]);
     }
@@ -45,7 +45,6 @@ router.post('/signup', [
     check('displayname').exists(),
     check('username')
     .isLength({min: 6, max: 32})
-    .matches(/[a-zA-Z]{[a-zA-Z0-9-_]{5,31}/i)
     .custom(async (value) => {
         var x = new Promise((resolve, reject) => {
             userController.findUser(value, function (user) {
@@ -53,7 +52,6 @@ router.post('/signup', [
             })
         });
         var user = await x;
-        console.log(user);
         return user == null;
     }).withMessage('User is already taken!'),
     check('email')

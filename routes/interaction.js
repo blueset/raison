@@ -45,16 +45,14 @@ router.get('/:id', function (req, res, next) {
     projectController.getProject(req.params.id, function(project) {
         if (project) {
             res.locals.interaction = project;
-            if (project.location) {
-                getJSON('http://maps.googleapis.com/maps/api/geocode/json?latlng='
-                    + project.location.lat + ','
-                    + project.location.long + '?sensor=false',
-                    function (error, response) {
-                        console.log('wit');
-                        console.log(error);
-                        console.log(response);
-                    })
-            }
+            // if (project.location) {
+            //     getJSON('http://maps.googleapis.com/maps/api/geocode/json?latlng='
+            //         + project.location.lat + ','
+            //         + project.location.long + '?sensor=false',
+            //         function (error, response) {
+            //
+            //         })
+            // }
 
             userController.findUser2(project.author, async function(author) {
                 if (author)  {
@@ -62,9 +60,24 @@ router.get('/:id', function (req, res, next) {
                     var promise = new Promise((resolve, reject)=> {
                         resolve(getComments(project));
                     });
-
+                    var investor = null;
+                    if (project.investor) {
+                        var promise2 = new Promise((resolve, reject) => {
+                            userController.findUser2(project.investor, function(investor) {
+                                resolve(investor);
+                            })
+                        });
+                        investor = await promise2;
+                    }
+                    if (investor) {
+                        res.locals.investorName = investor.name;
+                        res.locals.investorImage = gravatar.url(investor.authentication.email, {
+                            protocol: 'https',
+                            d: 'retro'
+                        });
+                        res.locals.investorUsername = investor.authentication.username;
+                    }
                     res.locals.comments = await promise;
-                    console.log(res.locals.comments);
                     res.render('interaction/tmp_interaction', { title: 'Interactions' });
                 } else {
                     res.send('Oops');
@@ -75,8 +88,9 @@ router.get('/:id', function (req, res, next) {
             res.send('oops');
         }
     })
-
 });
+
+
 
 router.post('/:id', function(req, res, next) {
     var projectId = mongoose.Types.ObjectId(req.params.id);

@@ -17,6 +17,10 @@ var userSchema = new mongoose.Schema( {
         {
             content: String,
             link: String,
+            from: {
+                image: String,
+                name: String
+            },
             read: Boolean,
             time: {
                 type: Date,

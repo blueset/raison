@@ -88,15 +88,7 @@ router.get('/projects/:id',projectAuthentication, function (req, res, next) {
     });
 });
 
-router.post('/projects/:id', projectAuthentication, [
-    check('title').exists(),
-    check('banner').exists(),
-    check('desc').exists(),
-    check('project-tags').exists()
-], function (req, res, next) {
-    const errors = validationResult(req).mapped();
-    if (Object.keys(errors).length != 0)
-        return res.render('/projects/projects-edit', { title: `Edit — ${project.title} — Raison`, errors: errors, userInput: req.body });
+router.post('/projects/:id', projectAuthentication,  function (req, res, next) {
     projectController.updateProject(mongoose.Types.ObjectId(req.params['id']),
     [{'title': req.body['project-title']}, {'banner': req.body['banner-url']},
         {'desc': req.body['body-content']}, {'categories': [req.body['project-tags']]}],
@@ -107,6 +99,16 @@ router.post('/projects/:id', projectAuthentication, [
             res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`,
                 message: 'There is an error in saving process! Try again later!', userInput: req.body});
         }
+    });
+});
+
+router.get('/projects/:id/offers', 
+            //  projectAuthentication, 
+            function (req, res, next) {
+    projectController.getOffers(mongoose.Types.ObjectId(req.params['id']), function(offers) {
+        res.locals.offers = offers;
+        res.locals.linkProject = req.params['id'];
+        res.render('dashboard/projects-offers', { title: 'Offers page'});
     });
 });
 

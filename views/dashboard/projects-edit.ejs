@@ -42,7 +42,7 @@
                 </div>
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field<%= (locals.error && locals.error['banner-url'] && ' mdc-text-field--invalid') || '' %>">
-                        <input required type="text" id="banner-url" class="mdc-text-field__input"
+                        <input required type="url" id="banner-url" class="mdc-text-field__input"
                                aria-controls="banner-url-helper-text"
                                aria-describedby="banner-url-helper-text"
                                value="<%= (locals.userInput && locals.userInput.banner) || (locals.project && locals.project.banner) %>"

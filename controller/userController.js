@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const gravatar = require('gravatar');
+
 const User = mongoose.model('users');
 const passwordHash = require('password-hash');
 
@@ -9,11 +11,18 @@ var getTopUser = async function(typeUser, num_top) {
         User.find({}, function(err, users) {
             var tmp_users = [];
             users.forEach(function(user) {
-                if (typeUser == null || user.role === typeUser)
+                if (typeUser == null || user.role === typeUser) {
+                    user.image = gravatar.url(user.authentication.email, {protocol: 'https', d: 'retro'});
                     tmp_users.push(user);
+                }
+
             });
             tmp_users.sort(function(a, b) {
-                return b.totalFunds - a.totalFunds;
+                if (a.totalFunds === b.totalFunds) {
+                    return b.projects.length - a.projects.length;
+                } else {
+                    return b.totalFunds - a.totalFunds;
+                }
             })
             resolve(tmp_users.slice(0, num_top));
         });
@@ -87,6 +96,7 @@ var addNewProject = function(projectId, user, callback) {
 }
 
 
+
 var authenticateUser = function(identity, password, callback) {
     if (identity.indexOf('@') != -1) {
         User.findOne({ 'authentication.email': identity}, function(err, user) {
@@ -134,6 +144,10 @@ var getProjects = async function(user) {
             return projects;
         }
     }
+}
+
+var notifyAction = function(sender, receiver, message, link) {
+
 }
 
 module.exports = {

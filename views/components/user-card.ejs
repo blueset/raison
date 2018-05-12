@@ -1,0 +1,19 @@
+<div class="detail-card mdc-card" style="height: 14rem">
+    <a href="/profile/<%= tmp_user.authentication.username %>" class="detail-card-media-action mdc-card__primary-action">
+        <div class="mdc-card__media mdc-card__media--9-16" style="background-image: url('<%= tmp_user.image %>')"></div>
+    </a>
+    <div class="detail-card-content">
+        <a href="/profile/<%= tmp_user.authentication.username %>" class="detail-card-content-action mdc-card__primary-action">
+            <div class="detail-card-author">
+                <div class="detail-card-author-text">
+                    <div class="mdc-typography-overflow-ellipsis"><%= tmp_user.name %></div>
+                </div>
+            </div>
+            <div class="detail-card-summary">
+                Total Funds: <%= tmp_user.totalFunds %>
+                <br>
+                Total Projects: <%= tmp_user.projects.length %>
+            </div>
+        </a>
+    </div>
+</div>

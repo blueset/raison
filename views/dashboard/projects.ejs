@@ -7,17 +7,41 @@
         <section>
             <div class="title-row">
                 <h1>My projects</h1>
+                <% if (user.role === "Charities" || user.role === "Startups") { %>
                 <a href="/dashboard/projects/new" class="mdc-button mdc-button--raised">Create</a>
+                <% } %>
             </div>
             <ul class="mdc-list table-list">
-                <% if (!projects || projects.length == 0) {%>
+                <% if (!projects || projects.length == 0) { %>
                 <li class="mdc-list-item no-ripple">
                     <span class="title" style="font-style: italics; opacity: 0.6;">There's no project yet, create one now!</span>
                 </li>
-                <% } else { %> 
+                <% } else { %>
+                <% if (user.role === 'Donators' || user.role === 'Investors') { %>
                 <li class="mdc-list-item no-ripple title-row">
                     <span class="title">Title</span>
                     <span class="time">Time</span>
+                    <span class="totalFunds">Total Funds</span>
+                </li>
+                <% for (var i = 0; i < projects.length; i++) { %>
+                <li class="mdc-list-item no-ripple">
+                    <span class="title">
+                         <a href="/interaction/<%= projects[i]._id %>">
+                        <%= projects[i].title %>
+                         </a>
+                    </span>
+
+                    <span class="time"><%= projects[i].datePosted.toDateString() %></span>
+                    <span class="totalFunds">$ <%= projects[i].totalFunds %></span>
+                </li>
+                <% } %>
+                <% } else { %>
+                <li class="mdc-list-item no-ripple title-row">
+                    <span class="title">Title</span>
+                    <span class="time">Time</span>
+                    <span class="offers">Offers</span>
+                    <span class="status"> Status </span>
+                    <span class="totalFunds">Total Funds</span>
                 </li>
                 <% for (var i = 0; i < projects.length; i++) { %>
                 <li class="mdc-list-item no-ripple">
@@ -26,10 +50,24 @@
                         <%= projects[i].title %>
                          </a>
                     </span>
-                    <span class="time"><%= projects[i].datePosted.toDateString() %></span>
-                </li>
-                <% } } %>
 
+                    <span class="time"><%= projects[i].datePosted.toDateString() %></span>
+                    <span class="offers">
+                        <a href="/dashboard/projects/<%= projects[i]._id %>/offers"
+                           class="mdc-button"><%= projects[i].offers.length %></a>
+                    </span>
+                    <span class="status">
+                        <% if (projects[i].investor || projects[i].categories[0] === "Donation") { %>
+                        Implemented
+                        <% } else { %>
+                        Pending
+                        <% } %>
+                    </span>
+                    <span class="totalFunds">$ <%= projects[i].totalFunds %></span>
+                </li>
+                <% } %>
+                <% } %>
+                <% } %>
             </ul>
         </section>
     </div>

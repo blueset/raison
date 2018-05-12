@@ -21,49 +21,49 @@
     <div id="form">
         <form method="POST" action="/signup">
             <div class="mdc-form-control form-element">
-                <div class="mdc-text-field<%= (locals.error.displayname && ' mdc-text-field--invalid') || '' %>">
-                    <input type="text" required id="display_name" value="<%=locals.userInput && locals.userInput.displayname %>" 
+                <div class="mdc-text-field<%= (errors && errors.displayname && ' mdc-text-field--invalid') || '' %>">
+                    <input type="text" required id="display_name" value="<%=locals.userInput && locals.userInput.displayname %>"
                         class="mdc-text-field__input" name="displayname">
                     <label class="mdc-floating-label" for="display_name">Display name</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
                 <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
-                    <%= (locals.error.displayname && locals.error.displayname.msg) || 'Your name used to show other members.' %>
+                    <%= (errors && errors.displayname && errors.displayname.msg) || 'Your name used to show other members.' %>
                 </p>
             </div>
 
             <div class="mdc-form-control form-element">
-                <div class="mdc-text-field<%= (locals.error.username && ' mdc-text-field--invalid') || '' %>">
+                <div class="mdc-text-field<%= (errors && errors.username && ' mdc-text-field--invalid') || '' %>">
                     <input type="text" required id="username"
                            name="username" class="mdc-text-field__input" value="<%=locals.userInput && locals.userInput.username %>" pattern="[a-zA-Z]{[a-zA-Z0-9-_]{5,31}">
                     <label class="mdc-floating-label" for="username">Username</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
                 <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
-                    <%= (locals.error.username && locals.error.username.msg) || '6 ~ 32 characters of only alphabets, numbers, dash (-) and underscores(_). Must start with an alphabet.' %>
-                    
+                    <%= (errors && errors.username && errors.username.msg) || '6 ~ 32 characters of only alphabets, numbers, dash (-) and underscores(_). Must start with an alphabet.' %>
+
                 </p>
             </div>
 
             <div class="mdc-form-control form-element">
-                <div class="mdc-text-field<%= (locals.error.email && ' mdc-text-field--invalid') || '' %>">
+                <div class="mdc-text-field<%= (errors && errors.email && ' mdc-text-field--invalid') || '' %>">
                     <input type="email" required id="email" value="<%=locals.userInput && locals.userInput.email %>" name="email" class="mdc-text-field__input">
                     <label class="mdc-floating-label" for="email">Email</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
                 <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
-                    <%= (locals.error.email && locals.error.email.msg) || 'A valid address email is required.' %>
+                    <%= (errors && errors.email && errors.email.msg) || 'A valid address email is required.' %>
                 </p>
             </div>
 
             <div class="mdc-form-control form-element">
-                <div class="mdc-text-field<%= (locals.error.password && ' mdc-text-field--invalid') || '' %>">
+                <div class="mdc-text-field<%= (errors && errors.password && ' mdc-text-field--invalid') || '' %>">
                     <input type="password" name="password" required id="password" class="mdc-text-field__input" minlength="6">
                     <label class="mdc-floating-label" for="password">Password</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
                 <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
-                    <%= (locals.error.password && locals.error.password.msg) || 'Password must be 6 characters or longer.' %>
+                    <%= (errors && errors.password && errors.password.msg) || 'Password must be 6 characters or longer.' %>
                     <div id="password-strength-indicator" data-strength="-1"></div>
                     <div id="password-strength-name">Strength: N/A</div>
                     <div id="password-strength-hint"></div>
@@ -71,23 +71,23 @@
             </div>
 
             <div class="mdc-form-control form-element">
-                <div class="mdc-text-field<%= (locals.error.confirm_password && ' mdc-text-field--invalid') || '' %>">
+                <div class="mdc-text-field<%= (errors && errors.confirm_password && ' mdc-text-field--invalid') || '' %>">
                     <input type="password" name="confirm_password" required id="confirm_password" class="mdc-text-field__input">
                     <label class="mdc-floating-label" for="confirm_password" minlength="6">Confirm password</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
                 <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
-                <%= (locals.error.confirm_password && locals.error.confirm_password.msg) || '' %>
+                <%= (errors && errors.confirm_password && locals.errors.confirm_password.msg) || '' %>
                 </p>
             </div>
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-select">
                     <select class="mdc-select__native-control" name="role">
-                        <option value="startup"<%= (locals.userInput && locals.userInput.role === "startup") ? " selected" : "" %>>Startup</option>
-                        <option value="investor"<%= (locals.userInput && locals.userInput.role === "investor") ? " selected" : "" %>>Investor</option>
-                        <option value="donator"<%= (locals.userInput && locals.userInput.role === "donator") ? " selected" : "" %>>Donator</option>
-                        <option value="charity"<%= (locals.userInput && locals.userInput.role === "charity") ? " selected" : "" %>>Charity</option>
+                        <option value="Startups"<%= (locals.userInput && locals.userInput.role === "Startups") ? " selected" : "" %>>Startup</option>
+                        <option value="Investors"<%= (locals.userInput && locals.userInput.role === "Investors") ? " selected" : "" %>>Investor</option>
+                        <option value="Donators"<%= (locals.userInput && locals.userInput.role === "Donators") ? " selected" : "" %>>Donator</option>
+                        <option value="Charities"<%= (locals.userInput && locals.userInput.role === "Charities") ? " selected" : "" %>>Charity</option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
                     <div class="mdc-select__bottom-line"></div>
