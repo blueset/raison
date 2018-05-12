@@ -15,12 +15,15 @@ router.get('/:username', function (req, res, next) {
         } else {
             res.redirect('/startups', { message: 'User not found!'});
         }
-
     });
 });
 
 router.get('/information-technologies-web-project/1', function(req, res, next) {
-    res.render('startups/project', { title: 'Project Name — Startups — Raison'});
+    res.render('startups/project', { title: 'Web Information Technology project — Startups — Raison'});
+});
+
+router.get('/information-technologies-web-project/1/offer', function (req, res, next) {
+    res.render('startups/project-offer', { title: 'Make an offer — Web Information Technology project — Startups — Raison' });
 });
 
 module.exports = router;

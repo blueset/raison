@@ -1,0 +1,50 @@
+<%- include('../templates/head') %>
+<%- include('../components/navbar', {theme: "dark", section: {name: "Startup", url: "/startups"}}) %>
+
+<div id="startup-project-offer-content" class="container">
+    <a href="/startups/information-technologies-web-project/1" class="mdc-button">
+        <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to the project
+    </a>
+    <h1>Make an offer</h1>
+    <p>Offer to project "Information Technologies: Web Project".</p>
+
+    <form action="#!">
+        <div class="mdc-form-control form-element">
+            <div class="mdc-text-field large-text-field mdc-text-field--with-leading-icon">
+                <i class="mdi mdi-currency-usd mdc-text-field__icon" tabindex="0" role="button"></i>
+                <input required type="number" id="thread-title" class="mdc-text-field__input">
+                <label class="mdc-floating-label" for="thread-title">Amount to offer</label>
+                <div class="mdc-line-ripple"></div>
+            </div>
+        </div>
+
+        <textarea id="bodyContent" class="article-content" required
+                          name="body-content"></textarea>
+           
+        <button class="mdc-button mdc-button--raised">Make offer</button>
+    </form>
+</div>
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
+
+<script>
+$(function() {
+    $("#bodyContent").summernote({
+        placeholder: "A detailed description of your offer.",
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['level', ['style']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['picture', 'link', 'table', 'hr']]
+        ],
+        styleTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        height: 300,
+    });
+});
+</script>
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>

@@ -18406,6 +18406,11 @@ footer {
       /* @alternate */
       color: var(--mdc-theme-text-secondary-on-light, rgba(0, 0, 0, 0.54)); }
 
+#startup-project-offer-content {
+  padding-bottom: 3em; }
+  #startup-project-offer-content .note-editor {
+    margin: 2em 0; }
+
 /**
  * The css property used for elevation. In most cases this should not be changed. It is exposed
  * as a variable for abstraction / easy use when needing to reference the property directly, for
@@ -19848,6 +19853,46 @@ footer {
         z-index: -1; }
     .dashboard-content > .content section.project-editor .note-editor.note-frame {
       margin: 1em 0; }
+    .dashboard-content > .content .no-item {
+      width: 100%;
+      text-align: center;
+      font-style: italic;
+      opacity: 0.6;
+      padding: 2em 0; }
+    .dashboard-content > .content .offer-card {
+      padding: 1em;
+      margin: 1em 0; }
+      .dashboard-content > .content .offer-card.accepted {
+        background-color: #FFA000;
+        color: white; }
+      .dashboard-content > .content .offer-card.not-accepted {
+        background-color: #ccc; }
+        .dashboard-content > .content .offer-card.not-accepted summary, .dashboard-content > .content .offer-card.not-accepted .details {
+          opacity: 0.6; }
+      .dashboard-content > .content .offer-card summary {
+        display: flex;
+        flex-direction: row;
+        align-items: center; }
+        .dashboard-content > .content .offer-card summary img.investor-logo {
+          height: 3em;
+          width: 3em;
+          border-radius: 50%;
+          margin-right: 1em; }
+        .dashboard-content > .content .offer-card summary .info {
+          flex-grow: 1; }
+          .dashboard-content > .content .offer-card summary .info .time {
+            opacity: 0.6; }
+          .dashboard-content > .content .offer-card summary .info .investor-name {
+            font-weight: bold;
+            font-size: 1.2em; }
+        .dashboard-content > .content .offer-card summary .value {
+          font-weight: bold;
+          font-size: 1.5em;
+          text-align: right; }
+          .dashboard-content > .content .offer-card summary .value span.unit {
+            font-size: 0.8em; }
+        .dashboard-content > .content .offer-card summary button.mdc-button {
+          width: 8em; }
 
 :root {
   --mdc-theme-primary: #243B55;

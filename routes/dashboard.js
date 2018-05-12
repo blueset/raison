@@ -120,6 +120,13 @@ router.post('/projects/:id', projectAuthentication, [
     });
 });
 
+router.get('/projects/:id/offers', 
+            //  projectAuthentication, 
+            function (req, res, next) {
+    let project = { title: "Random project" }
+    res.render('dashboard/projects-offers', { title: `Offers — ${project.title} — Raison` });
+});
+
 
 
 router.get('/security', function (req, res, next) {
