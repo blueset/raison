@@ -3,7 +3,7 @@ const timeAgoEn = require('javascript-time-ago/locale/en');
 TimeAgo.locale(timeAgoEn);
 
 function timeAgoMiddleware(req, res, next) {
-    res.locals.timeAgo = new TimeAgo('en_US');
+    res.locals.TimeAgo = new TimeAgo('en-US');
     next();
 }
 

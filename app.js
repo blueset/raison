@@ -12,23 +12,23 @@ var flash = require('connect-flash');
 var expressSanitizer = require('express-sanitizer');
 
 // Custom middleware
-var authenticateUser = require('./controllers/authenticationMiddleware');
-var timeAgoMiddleware = require('./controllers/timeAgoMiddleware');
+var authenticateUser = require('./middleware/authenticationMiddleware');
+var timeAgoMiddleware = require('./middleware/timeAgoMiddleware');
 
 // Create database
-require('./models/db1.js');
+require('./models/db.js');
 
 // Routings
 var index = require('./routes/index');
-var startups = require('./routes/startups');
-var investors = require('./routes/investors');
-var charities = require('./routes/charities');
-var donators = require('./routes/donators');
+var donation = require('./routes/donation');
+var investment = require('./routes/investment');
 var statics = require('./routes/statics');
 var auth = require('./routes/auth');
 var dashboard = require('./routes/dashboard');
 var interaction = require('./routes/interaction');
 var profile = require('./routes/profile');
+var makeOffer = require('./routes/makeOffer');
+var chooseOffer = require('./routes/chooseOffer');
 
 // Config
 var configPassport = require('./config/passport-config');
@@ -88,12 +88,12 @@ app.use(timeAgoMiddleware);
 // Binding routes
 app.use('/', index);
 app.use('/', auth);
-app.use('/startups', startups);
-app.use('/investors', investors);
-app.use('/charities', charities);
-app.use('/donators', donators);
+app.use('/investment', investment);
+app.use('/donation', donation);
 app.use('/profile', profile);
 app.use('/interaction', interaction);
+app.use('/make_offer', makeOffer);
+app.use('/choose-offer', chooseOffer);
 app.use('/dashboard', function(req, res, next) {
     if (!req.user) {
         req.session.redirectTo = req.originalUrl;

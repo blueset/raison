@@ -2,17 +2,21 @@
 <%- include('../components/navbar', {theme: "dark", section: {name: "Startup", url: "/startups"}}) %>
 
 <div id="startup-project-offer-content" class="container">
-    <a href="/startups/information-technologies-web-project/1" class="mdc-button">
+    <a href="/interaction/<%= projectId %>" class="mdc-button">
         <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to the project
     </a>
     <h1>Make an offer</h1>
-    <p>Offer to project "Information Technologies: Web Project".</p>
+    <% if (type === 'Donation') {%>
+    <p>Donation to project <%= title%></p>
+    <% } else { %>
+    <p>Offer to project <%= title%></p>
+    <% } %>
 
-    <form action="#!">
+    <form action="?projectId=<%= projectId%>&type=<%= type%>" method="POST">
         <div class="mdc-form-control form-element">
             <div class="mdc-text-field large-text-field mdc-text-field--with-leading-icon">
                 <i class="mdi mdi-currency-usd mdc-text-field__icon" tabindex="0" role="button"></i>
-                <input required type="number" id="thread-title" class="mdc-text-field__input">
+                <input required type="number" id="thread-title" class="mdc-text-field__input" name="moneyOffer">
                 <label class="mdc-floating-label" for="thread-title">Amount to offer</label>
                 <div class="mdc-line-ripple"></div>
             </div>
@@ -21,7 +25,7 @@
         <textarea id="bodyContent" class="article-content" required
                           name="body-content"></textarea>
            
-        <button class="mdc-button mdc-button--raised">Make offer</button>
+        <button type="submit" class="mdc-button mdc-button--raised">Make offer</button>
     </form>
 </div>
 

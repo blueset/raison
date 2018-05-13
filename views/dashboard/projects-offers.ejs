@@ -1,68 +1,81 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
+
+<script>
+    function chooseOffer(offerId) {
+
+        var projectId = document.getElementById("hidden-project-id").innerText;
+
+        $.post("/choose-offer",
+            {
+                projectId: projectId,
+                offerId: offerId
+            },
+            function(data, status){
+                alert(data);
+                window.location.reload(false);
+            });
+
+
+    }
+
+
+</script>
+
+
 <div class="dashboard-content container">
     <%- include('nav-aside', {path: 'projects'}) %>
+    <div id="hidden-project-id" style="display: none"><%= linkProject %></div>
     <div class="content">
         <section>
-            <a href="/dashboard/projcects/" class="mdc-button">
+            <a href="/dashboard/projects/" class="mdc-button">
                 <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to the projects list
             </a>
             <div class="title-row">
-                <h1>Offers to PROJECT_NAME_GOES_HERE</h1>
+                <a href="/interaction/<%= linkProject %>"
+                style="text-decoration: none"> <h1>Offers to the project </h1></a>
             </div>
-            <%# No offer #%>
+            <% if (offers.length === 0) { %>
             <div class="no-item">No offer here yet.</div>
+            <% } %>
 
-            <%# Offer pending to be accepted %>
-            <details class="mdc-card offer-card">
+            <% for (var i = 0; i < offers.length; i++) { %>
+            <details class="mdc-card offer-card
+                 <% if (offers[i].accepted === 1) { %>
+                 accepted
+                <% } else if (offers[i].accepted === 0) { %>
+                non-accepted
+                <% } %>
+                ">
                 <summary>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Wikimedia-logo.svg" alt="Wikimedia Foundatation" class="investor-logo">
+                    <img src="<%= offers[i].funderImage%>" alt="Offer" class="investor-logo">
                     <div class="info">
-                        <div class="time">2 weeks ago</div>
-                        <div class="investor-name">Wikimedia Foundatation</div>
+                        <div class="time"> <%= offers[i].dateOffered.toDateString() %></div>
+                        <div class="investor-name"> <%= offers[i].funder%></div>
                     </div>
-                    <div class="value"><span class="unit">$</span>1.25<span class="unit">k</span></div>
-                    <button href="#!" class="mdc-button">Accept</button>
+                    <div class="value"><span class="unit">$</span> <%= offers[i].fundOffer %></div>
+                    <% if (offers[i].type === "Investment") {%>
+                    <button onclick="chooseOffer('<%= offers[i].offerId%>')"
+                            <% if (offers[i].accepted !== 2) {%>
+                            disabled
+                            <% } %>
+                            class="mdc-button">
+                        <% if (offers[i].accepted == 2) {%>
+                        Accept
+                        <% } else if (offers[i].accepted == 0) { %>
+                        Rejected
+                        <% } else { %>
+                        Accepted
+                        <% } %>
+                    </button>
+                    <% } %>
                 </summary>
                 <div class="details article-content">
-                    <p>Semper venenatis vestibulum leo curabitur ridiculus luctus rutrum senectus orci fusce ligula, elementum sagittis dictumst molestie mauris potenti odio justo nunc blandit, sit ante mus tincidunt pretium sociis dapibus sociosqu congue vitae. Pretium mattis habitant augue integer ullamcorper mauris sollicitudin tortor vitae nibh nam mi, suspendisse placerat pharetra commodo eros sem porta fermentum imperdiet platea molestie. Semper litora cum eleifend enim commodo massa condimentum senectus, aptent dictumst tempor ut diam quisque placerat curae suspendisse, eros ligula facilisis ante fusce mauris leo. Id congue blandit praesent fringilla felis commodo platea hendrerit consectetur neque tortor, erat vulputate montes quam nulla ultricies dictumst ridiculus tempus laoreet. Ultricies vivamus dolor fermentum cubilia semper nullam donec sapien tempus, pulvinar justo non lobortis potenti et sodales mattis nisi, volutpat porta primis a suscipit risus mus taciti. Nisi pulvinar fringilla platea proin torquent penatibus vestibulum est magnis placerat luctus, donec integer habitasse odio velit ac suscipit diam facilisi erat curabitur, ornare maecenas ipsum consectetur vehicula eleifend etiam hac nunc mauris. Porta pharetra sollicitudin nascetur euismod vivamus purus senectus elementum fusce, sociosqu semper ad lacus blandit aliquet cubilia placerat felis, nostra ullamcorper turpis vitae dignissim dolor ultricies egestas. Dictumst est magna eros pharetra a mus integer gravida, ullamcorper enim suspendisse mattis hendrerit platea orci, lectus senectus penatibus eu lacus taciti montes. Nam sociosqu volutpat et tincidunt dictumst porta taciti tempor mollis, luctus parturient mus cras adipiscing quis pellentesque ligula, amet a tellus vestibulum etiam phasellus convallis enim.</p>
-                    <p>Ullamcorper etiam porttitor blandit aliquet rutrum suscipit facilisis platea viverra porta taciti volutpat, inceptos vitae magna parturient sapien consectetur imperdiet euismod pharetra enim malesuada, mi dictumst vel risus nullam auctor cubilia placerat nunc natoque semper. Fermentum ultrices condimentum tortor urna volutpat semper eget, enim consequat pretium nulla aptent dapibus adipiscing, ultricies vitae tristique ipsum a feugiat.</p>
-                </div>
-            </details>
+                    <%- offers[i].proposal %>
 
-            <%# Offer accepted %>
-            <details class="mdc-card offer-card accepted">
-                <summary>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Wikimedia-logo.svg" alt="Wikimedia Foundatation" class="investor-logo">
-                    <div class="info">
-                        <div class="time">2 weeks ago</div>
-                        <div class="investor-name">Wikimedia Foundatation</div>
-                    </div>
-                    <div class="value"><span class="unit">$</span>1.25<span class="unit">k</span></div>
-                    <button href="#!" disabled class="mdc-button">Accepted</button>
-                </summary>
-                <div class="details article-content">
-                    <p>Semper venenatis vestibulum leo curabitur ridiculus luctus rutrum senectus orci fusce ligula, elementum sagittis dictumst molestie mauris potenti odio justo nunc blandit, sit ante mus tincidunt pretium sociis dapibus sociosqu congue vitae. Pretium mattis habitant augue integer ullamcorper mauris sollicitudin tortor vitae nibh nam mi, suspendisse placerat pharetra commodo eros sem porta fermentum imperdiet platea molestie. Semper litora cum eleifend enim commodo massa condimentum senectus, aptent dictumst tempor ut diam quisque placerat curae suspendisse, eros ligula facilisis ante fusce mauris leo. Id congue blandit praesent fringilla felis commodo platea hendrerit consectetur neque tortor, erat vulputate montes quam nulla ultricies dictumst ridiculus tempus laoreet. Ultricies vivamus dolor fermentum cubilia semper nullam donec sapien tempus, pulvinar justo non lobortis potenti et sodales mattis nisi, volutpat porta primis a suscipit risus mus taciti. Nisi pulvinar fringilla platea proin torquent penatibus vestibulum est magnis placerat luctus, donec integer habitasse odio velit ac suscipit diam facilisi erat curabitur, ornare maecenas ipsum consectetur vehicula eleifend etiam hac nunc mauris. Porta pharetra sollicitudin nascetur euismod vivamus purus senectus elementum fusce, sociosqu semper ad lacus blandit aliquet cubilia placerat felis, nostra ullamcorper turpis vitae dignissim dolor ultricies egestas. Dictumst est magna eros pharetra a mus integer gravida, ullamcorper enim suspendisse mattis hendrerit platea orci, lectus senectus penatibus eu lacus taciti montes. Nam sociosqu volutpat et tincidunt dictumst porta taciti tempor mollis, luctus parturient mus cras adipiscing quis pellentesque ligula, amet a tellus vestibulum etiam phasellus convallis enim.</p>
-                    <p>Ullamcorper etiam porttitor blandit aliquet rutrum suscipit facilisis platea viverra porta taciti volutpat, inceptos vitae magna parturient sapien consectetur imperdiet euismod pharetra enim malesuada, mi dictumst vel risus nullam auctor cubilia placerat nunc natoque semper. Fermentum ultrices condimentum tortor urna volutpat semper eget, enim consequat pretium nulla aptent dapibus adipiscing, ultricies vitae tristique ipsum a feugiat.</p>
                 </div>
             </details>
-
-            <%# Offer not accepted %>
-            <details class="mdc-card offer-card not-accepted">
-                <summary>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Wikimedia-logo.svg" alt="Wikimedia Foundatation" class="investor-logo">
-                    <div class="info">
-                        <div class="time">2 weeks ago</div>
-                        <div class="investor-name">Wikimedia Foundatation</div>
-                    </div>
-                    <div class="value"><span class="unit">$</span>1.25<span class="unit">k</span></div>
-                    <button href="#!" disabled class="mdc-button">Accept</button>
-                </summary>
-                <div class="details article-content">
-                    <p>Semper venenatis vestibulum leo curabitur ridiculus luctus rutrum senectus orci fusce ligula, elementum sagittis dictumst molestie mauris potenti odio justo nunc blandit, sit ante mus tincidunt pretium sociis dapibus sociosqu congue vitae. Pretium mattis habitant augue integer ullamcorper mauris sollicitudin tortor vitae nibh nam mi, suspendisse placerat pharetra commodo eros sem porta fermentum imperdiet platea molestie. Semper litora cum eleifend enim commodo massa condimentum senectus, aptent dictumst tempor ut diam quisque placerat curae suspendisse, eros ligula facilisis ante fusce mauris leo. Id congue blandit praesent fringilla felis commodo platea hendrerit consectetur neque tortor, erat vulputate montes quam nulla ultricies dictumst ridiculus tempus laoreet. Ultricies vivamus dolor fermentum cubilia semper nullam donec sapien tempus, pulvinar justo non lobortis potenti et sodales mattis nisi, volutpat porta primis a suscipit risus mus taciti. Nisi pulvinar fringilla platea proin torquent penatibus vestibulum est magnis placerat luctus, donec integer habitasse odio velit ac suscipit diam facilisi erat curabitur, ornare maecenas ipsum consectetur vehicula eleifend etiam hac nunc mauris. Porta pharetra sollicitudin nascetur euismod vivamus purus senectus elementum fusce, sociosqu semper ad lacus blandit aliquet cubilia placerat felis, nostra ullamcorper turpis vitae dignissim dolor ultricies egestas. Dictumst est magna eros pharetra a mus integer gravida, ullamcorper enim suspendisse mattis hendrerit platea orci, lectus senectus penatibus eu lacus taciti montes. Nam sociosqu volutpat et tincidunt dictumst porta taciti tempor mollis, luctus parturient mus cras adipiscing quis pellentesque ligula, amet a tellus vestibulum etiam phasellus convallis enim.</p>
-                    <p>Ullamcorper etiam porttitor blandit aliquet rutrum suscipit facilisis platea viverra porta taciti volutpat, inceptos vitae magna parturient sapien consectetur imperdiet euismod pharetra enim malesuada, mi dictumst vel risus nullam auctor cubilia placerat nunc natoque semper. Fermentum ultrices condimentum tortor urna volutpat semper eget, enim consequat pretium nulla aptent dapibus adipiscing, ultricies vitae tristique ipsum a feugiat.</p>
-                </div>
-            </details>
+            <% } %>
         </section>
     </div>
 </div>

@@ -1,5 +1,16 @@
 <%- include('../templates/head') %>
-<%- include('../components/navbar', {theme: "dark", section: {name: "Interaction", url: "/startups"}}) %>
+<% if (author.role === 'Startups' || author.role === 'Investors') { %>
+<%- include('../components/navbar', {theme: "dark", section: {name: 'Investment', url: 'investment'}}) %>
+<% } else { %>
+<%- include('../components/navbar', {theme: "dark", section: {name: 'Donation', url: 'donation'}}) %>
+<% } %>
+
+
+<script>
+    function makeOffer(typeOffer) {
+       window.location = '/make_offer?projectId=<%= interaction._id%>&title=<%= interaction.title%>&type=' + typeOffer;
+    }
+</script>
 
 <div id="startup-project-content" class="container">
     <div class="title">
@@ -7,7 +18,10 @@
     </div>
 
     <div class="author">
-        <img class='author-avatar' src="<%= author.image %>" alt="">
+        <a href="/profile/<%= author.authentication.username%>">
+            <img class='author-avatar' src="<%= author.image %>" alt="">
+        </a>
+
         <div class="author-info"> <%= author.name %><br> <%= interaction.datePosted.toDateString()%></div>
     </div>
     <div class="description article-content">
@@ -20,30 +34,39 @@
         <section class="information-section" id="investor-information">
             <div class="investor-information-entry">
                 <div class="title">Status</div>
-                <% if (interaction.investor) {%>
+                <% if (interaction.investor || interaction.categories[0] === "Donation") {%>
                 <div class="content">Implemented </div>
                 <% } else { %>
-                <div class="content"> In progress </div>
+                <div class="content"> Pending </div>
                 <% } %>
-            </div>
-            <div class="investor-information-entry">
-                <div class="title"> Location </div>
-                <div class="content"> <%= interaction.location %> </div>
             </div>
             <% if (interaction.investor) {%>
                 <div class="investor-information-entry">
                     <div class="title">Invested By</div>
-                    <img src="<%= investor.image %>" style="border-radius: 50%" class="picture" alt="Company Logo">
-                <div class="content"> <%= investor.name %> </div>
+                    <img src="<%= investorImage %>" style="border-radius: 50%" class="picture" alt="Company Logo">
+                <div class="content"><a style="text-decoration: none"
+                            href="/profile/<%= investorUsername%>"> <%= investorName %></a> </div>
             </div>
             <% } %>
-
+            <div class="investor-information-entry">
+                <div class="title">Total Funds</div>
+                <div class="content">$ <%= interaction.totalFunds%> </div>
+            </div>
         </section>
         <section class="actions">
-            <button class="mdc-button mdc-button--raised primary-action-button">
+            <% if (!interaction.investor && user && ((author.role === 'Startups' && user.role === 'Investors'))) { %>
+            <button class="mdc-button mdc-button--raised primary-action-button" onclick="makeOffer('Investment')">
                 <i class="mdc-button__icon mdi mdi-star-outline"></i>
-                Add to favorites
+                Make an offer
             </button>
+            <% } %>
+
+            <% if (user && ((author.role === 'Charities' && user.role === 'Donators'))) { %>
+            <button class="mdc-button mdc-button--raised primary-action-button" onclick="makeOffer('Donation')">
+                <i class="mdc-button__icon mdi mdi-star-outline"></i>
+                Make a donation
+            </button>
+            <% } %>
             <button class="mdc-button mdc-button--raised secondary-action-button">
                 <i class="mdc-button__icon mdi mdi-message-reply-text"></i>
                 Request contact details

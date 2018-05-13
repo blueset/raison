@@ -5,7 +5,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const userAuthentication = require('../models/db').authenticate;
 const findUser = require('../models/db').findUser;
 
-const userController = require('../controllers/userController');
+
+const userController = require('../databaseController/userController');
 
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;

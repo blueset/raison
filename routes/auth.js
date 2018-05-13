@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var userController = require('../controllers/userController');
+
+var userController = require('../databaseController/userController');
 
 const {check, body, validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
@@ -24,10 +25,10 @@ const afterLoginAction = (req, res) => {
     } else {
         req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
         const redirectionMapping = {
-            "Startups": "/investors",
-            "Investors": "/startups",
-            "Donators": "/charities",
-            "Charities": "/donators"
+            "Startups": "/investment",
+            "Investors": "/investment",
+            "Donators": "/donation",
+            "Charities": "/donation"
         }
         return res.redirect(redirectionMapping[req.user.role]);
     }
@@ -47,7 +48,6 @@ router.post('/signup', [
     check('displayname').exists(),
     check('username')
     .isLength({min: 6, max: 32})
-    .matches(/[a-zA-Z]{[a-zA-Z0-9-_]{5,31}/i)
     .custom(async (value) => {
         var x = new Promise((resolve, reject) => {
             userController.findUser(value, function (user) {

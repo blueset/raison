@@ -27,9 +27,7 @@
                 <li>
                     <img src="<%= user.image %>" class="avatar"
                          alt="Person Name">
-                    <a href="<%= user.activity[i].link %>">
-                        <%= user.activity[i].content %>
-                    </a>
+                        <%- user.activity[i].content %>
                     - <%= user.activity[i].time.toDateString()%>
                 </li>
                 <% } %>

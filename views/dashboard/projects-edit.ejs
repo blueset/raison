@@ -30,7 +30,7 @@
                 <div class="form-element">
                     <div class="mdc-text-field chip-text-field<%= (locals.error && locals.error['project-tags'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="project-tags"
-                               value="<%= (locals.userInput && locals.userInput.tags) || (locals.project && locals.project.categories) %>"
+                               value="<%= (locals.userInput && locals.userInput.tags) || (locals.project && project.categories.slice(1,).join()) %>"
                                name="project-tags">
                         <label class="mdc-floating-label" for="project-tags">Tags</label>
                         <div class="mdc-line-ripple"></div>
@@ -59,7 +59,10 @@
                 </div>
 
                 <textarea id="bodyContent" class="article-content" required
-                          name="body-content"><%= (locals.userInput && locals.userInput['body-content']) || (locals.project && locals.project['desc']) %></textarea>
+
+                          name="body-content">
+                    <%- (locals.userInput && locals.userInput['body-content']) || (project && project.desc) %></textarea>
+
 
                 <button type="submit" class="mdc-button mdc-button--raised">Publish</button>
             </form>
