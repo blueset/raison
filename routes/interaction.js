@@ -94,7 +94,7 @@ router.get('/:id', function (req, res, next) {
 
 router.post('/:id', function(req, res, next) {
     var projectId = mongoose.Types.ObjectId(req.params.id);
-    projectController.addComment(projectId, res.locals.user._id, req.body.comment, function(saved) {
+    projectController.addComment(projectId, res.locals.user, req.body.comment, function(saved) {
         if (saved) {
             res.redirect('/interaction/' + req.params.id);
         }

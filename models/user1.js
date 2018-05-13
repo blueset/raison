@@ -16,9 +16,10 @@ var userSchema = new mongoose.Schema( {
     notifications: [
         {
             content: String,
+            project: mongoose.Schema.ObjectId,
             link: String,
             from: {
-                image: String,
+                email: String,
                 name: String
             },
             read: Boolean,
@@ -31,7 +32,6 @@ var userSchema = new mongoose.Schema( {
     activity: [
         {
             content: String,
-            link: String,
             time: {
                 type: Date,
                 default: Date.now()

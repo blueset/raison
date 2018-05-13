@@ -11,7 +11,9 @@ var mongoose = require('mongoose');
 router.post('/', function(req, res, next) {
     var projectId = req.body['projectId'];
     var offerId = req.body['offerId'];
-    projectController.chooseOffer(mongoose.Types.ObjectId(projectId), offerId);
+    projectController.chooseOffer(req.user, mongoose.Types.ObjectId(projectId), offerId, function(message){
+        res.send(message);
+    });
 });
 
 module.exports = router;

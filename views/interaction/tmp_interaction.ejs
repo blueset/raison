@@ -1,5 +1,10 @@
 <%- include('../templates/head') %>
-<%- include('../components/navbar', {theme: "dark", section: {name: author.role, url: author.role.toLowerCase()}}) %>
+<% if (author.role === 'Startups' || author.role === 'Investors') { %>
+<%- include('../components/navbar', {theme: "dark", section: {name: 'Investment', url: 'investment'}}) %>
+<% } else { %>
+<%- include('../components/navbar', {theme: "dark", section: {name: 'Donation', url: 'donation'}}) %>
+<% } %>
+
 
 <script>
     function makeOffer(typeOffer) {
@@ -13,7 +18,10 @@
     </div>
 
     <div class="author">
-        <img class='author-avatar' src="<%= author.image %>" alt="">
+        <a href="/profile/<%= author.authentication.username%>">
+            <img class='author-avatar' src="<%= author.image %>" alt="">
+        </a>
+
         <div class="author-info"> <%= author.name %><br> <%= interaction.datePosted.toDateString()%></div>
     </div>
     <div class="description article-content">
@@ -40,7 +48,10 @@
                             href="/profile/<%= investorUsername%>"> <%= investorName %></a> </div>
             </div>
             <% } %>
-
+            <div class="investor-information-entry">
+                <div class="title">Total Funds</div>
+                <div class="content">$ <%= interaction.totalFunds%> </div>
+            </div>
         </section>
         <section class="actions">
             <% if (!interaction.investor && user && ((author.role === 'Startups' && user.role === 'Investors'))) { %>

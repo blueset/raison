@@ -1,6 +1,8 @@
 <%- include('../templates/head') %>
 <%- include('../components/navbar', {theme: "dark", section:
-{name: user_profile.role, url: user_profile.role.toLowerCase()}, state: user_profile.role})
+{name: user_profile.role,
+url: (user_profile.role === 'Startups' || user_profile.role === 'Investors') ? 'investment' : 'donation'
+, state: user_profile.role}})
 %>
 
 <div class="container">
@@ -10,7 +12,8 @@
         </div>
         <div class="profile-header profile-name">
             <div class="name"> <%= user_profile.name %></div>
-            <div class="tagline">Joined on 1 January 1970</div>
+            <div class="tagline">Total funds: $<%= user_profile.totalFunds %></div>
+            <div class="tagline">Total projects: <%= user_profile.projects.length %></div>
         </div>
         <div class="profile-header profile-action">
             <span class="mdc-icon-toggle" data-mdc-auto-init="MDCIconToggle"><i class="mdi mdi-send"></i></span>
@@ -23,70 +26,21 @@
             <section>
                 <h1>Recent activities</h1>
                 <ul class="activity-list">
+                    <% for (var i = 0; i <user_profile.activity.length; i++) { %>
                     <li>
-                        <div class="time">12 hours ago</div>
-                        <div class="content">Created project <a href="#!">Lorem ipsum dolor sit amet</a>.</div>
+                        <div class="time"> <%= TimeAgo.format(user_profile.activity[i].time) %> </div>
+                        <% content = user_profile.activity[i].content.replace('You', user_profile.name) %>
+                        <div class="content"> <%- content%></div>
                     </li>
-                    <li>
-                        <div class="time">2 days ago</div>
-                        <div class="content">Created project <a href="#!">Lorem ipsum dolor sit amet</a>.</div>
-                    </li>
-                    <li>
-                        <div class="time">10 days ago</div>
-                        <div class="content">Created project <a href="#!">Lorem ipsum dolor sit amet</a>.</div>
-                    </li>
-                    <li>
-                        <div class="time">2 months ago</div>
-                        <div class="content">Project <a href="#!">Consecutrer amet rectulus</a> is funded by <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Wikimedia-logo.svg" alt="logo" class="inline-logo"> <a href="/investors/wikimedia-foundation/1">Wikimedia Foundation</a>.</div>
-                    </li>
-                    <li>
-                        <div class="time">20 April 2016</div>
-                        <div class="content">Project <a href="#!">Consecutrer amet rectulus</a> is funded by <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Wikimedia-logo.svg" alt="logo" class="inline-logo"> <a href="/investors/wikimedia-foundation/1">Wikimedia Foundation</a>.</div>
-                    </li>
+                    <% } %>
                 </ul>
             </section>
             <section>
                 <h1>Initiated projects</h1>
-                <%- include('../components/detail-card', {
-                image: "https://picsum.photos/300",
-                title: "Aenean lacinia id metu",
-                summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
-                author: {
-                name: "Lauren Arnold",
-                avatar: "https://picsum.photos/100"
-                },
-                url: "/startups/information-technologies-web-project/1"
-                }) %>
-                <%- include('../components/detail-card', {
-                image: "https://picsum.photos/300",
-                title: "Aenean lacinia id metu",
-                summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
-                author: {
-                name: "Lauren Arnold",
-                avatar: "https://picsum.photos/100"
-                },
-                url: "/startups/information-technologies-web-project/1"
-                }) %>
-                <%- include('../components/detail-card', {
-                image: "https://picsum.photos/300",
-                title: "Aenean lacinia id metu",
-                summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
-                author: {
-                name: "Lauren Arnold",
-                avatar: "https://picsum.photos/100"
-                },
-                url: "/startups/information-technologies-web-project/1"
-                }) %>
-                <%- include('../components/detail-card', {
-                image: "https://picsum.photos/300",
-                title: "Aenean lacinia id metu",
-                summary: "Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl. Fusce iaculis dictum dolor id rhoncus. Mauris finibus a purus a mattis. Sed in nibh ullamcorper, luctus lectus non, maximus lorem. Nunc sed ipsum ligula. Mauris pharetra euismod augue non dictum. Vestibulum sed feugiat dui. Mauris a nisl.",
-                author: {
-                name: "Lauren Arnold",
-                avatar: "https://picsum.photos/100"
-                },
-                url: "/startups/information-technologies-web-project/1"
-                }) %>
+                <% for (var j = 0; j < projects.length; j++) {%>
+                <% project = projects[j] %>
+                <%- include('../components/author-project-card', project) %>
+                <% } %>
             </section>
         </div>
     </div>

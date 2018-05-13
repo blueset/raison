@@ -11,7 +11,7 @@ var gravatar = require('gravatar');
 
 router.get('/', preProcess, async function (req, res) {
     res.locals.donators = await userController.getTopUser("Donators", 8);
-    res.locals.projects = await projectController.getTopProject(null, 5);
+    res.locals.projects = await projectController.getTopProject(null, 5, "top");
     res.render('landing/landing', {title: 'Raison — Connecting Investors, Startups, Donators & Charities.'});
 });
 

@@ -13,10 +13,10 @@ function topProjectComparator(a, b) {
 }
 
 function latestComparator(a, b) {
-    return b.datePosted - a.datePosted;
+    return b.content.datePosted - a.content.datePosted;
 }
 
-var getTopProject = async function (typeProject, num_top, criteria = "top") {
+var getTopProject = async function (typeProject, num_top, criteria) {
 
     var promise = new Promise((resolve, reject) => {
         var count = 0;
@@ -26,8 +26,8 @@ var getTopProject = async function (typeProject, num_top, criteria = "top") {
             var tmp_projects = [];
             projects.forEach(async function (project) {
                 if (typeProject == null || project.categories[0] === typeProject) {
-                    const promise2 = new Promise((resolve, reject)=>{
-                        userController.findUser2(project.author, function(author) {
+                    const promise2 = new Promise((resolve, reject) => {
+                        userController.findUser2(project.author, function (author) {
                             resolve(author);
                         });
                     });
@@ -57,53 +57,54 @@ var getTopProject = async function (typeProject, num_top, criteria = "top") {
 }
 
 
-var chooseOffer = function(projectId, offerId) {
-    getProject(projectId, function(project){
-       for (var i = 0; i < project.offers.length; i++) {
-           (function(i_tmp) {
-               offerController.getOffer(project.offers[i_tmp], function(offer){
+var chooseOffer = function (author, projectId, offerId, callback) {
+    getProject(projectId, function (project) {
+        var count = 0;
+        for (var i = 0; i < project.offers.length; i++) {
+            (function (i_tmp) {
+                offerController.getOffer(project.offers[i_tmp], function (offer) {
+                    userController.findUser2(offer.actor, function (investor) {
+                        var link = "/interaction/" + projectId;
+                        var content;
+                        if (offer._id.toString() === offerId) {
+                            investor.projects.unshift(projectId);
+                            content = `${author.name} accepted your offer for project ` + project.title;
+                        } else {
+                            content = `${author.name} rejected your offer for project ` + project.title;
+                        }
+                        var link = `/interaction/${projectId}`;
+                        userController.notifyUser(null, investor, content, link, projectId, author);
+                    });
                     if (offer._id.toString() === offerId) {
                         offer.accepted = 1;
                         project.investor = offer.actor;
                         project.totalFunds += offer.fundOffer;
-                        project.save(function(err) {
-                            console.log('Project saving: ' + err);
-                        });
-                        userController.findUser2(project.investor, function(investor) {
-                            investor.projects.unshift(projectId);
-                            investor.activity.unshift({
-                                content: "Your proposal is accepted",
-                                link: "/interaction/" + projectId,
-                                time: Date.now()
-                            });
-                            investor.totalFunds += offer.fundOffer;
-                            investor.save(function(err) {
-                                console.log('Investor saving: ' + err);
-                            })
+                        project.save(function (err) {
                         });
 
-                        userController.findUser2(project.author, function(author) {
-                            author.activity.unshift({
-                                content: "You have accepted one proposal!",
-                                link: "/interaction/" + projectId,
-                                time: Date.now()
-                            });
-                            author.totalFunds += offer.fundOffer;
-                            author.save(function(err) {
-                                console.log('Author saving: ' + err);
-                            })
-                        });
 
+                        var link = "/interaction/" + projectId;
+                        var content = "You accepted a proposal for a project <a href=" + link + ">" + project.title + "</a>";
+                        author.activity.unshift({
+                            content: content,
+                            time: Date.now()
+                        });
+                        author.totalFunds += offer.fundOffer;
+                        author.save(function (err) {
+                        });
 
                     } else {
                         offer.accepted = 0;
                     }
-                    offer.save(function(err) {
-                        console.log('Offer saving: ' + err);
+                    offer.save(function (err) {
                     });
-               });
-           })(i);
-       }
+                    count++;
+                    if (count === project.offers.length) {
+                        callback("You have accept the offer: " + offerId);
+                    }
+                });
+            })(i);
+        }
     });
 }
 
@@ -144,25 +145,49 @@ var createProject = function (req, callback) {
     });
 }
 
+function checkFinish(taskDone, taskNeed, callback, err) {
+    if (taskDone === taskNeed) {
+        if (err) callback(false);
+        else callback(true);
+    }
+}
+
 var addOffer = function (project, offer, callback) {
+    var taskNeed = 3;
+    var taskDone = 0;
     project.offers.unshift(offer._id);
     if (project.categories[0] === 'Donation') {
         project.totalFunds += offer.fundOffer;
-        userController.findUser2(project.author, function(author) {
+        userController.findUser2(project.author, function (author) {
             author.totalFunds += offer.fundOffer;
-            author.save(function(err) {
+            author.save(function (err) {
+                taskDone++;
+                checkFinish(taskDone, taskNeed, callback, err);
             });
         });
 
-        userController.findUser2(offer.actor, function(actor) {
+        userController.findUser2(offer.actor, function (actor) {
+            var found = false;
+            for (var i = 0; i < actor.projects.length; i++) {
+                if (actor.projects[i].toString() === project._id.toString()) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                actor.projects.unshift(project._id);
             actor.totalFunds += offer.fundOffer;
-            actor.save(function(err) {
+            actor.save(function (err) {
+                taskDone++;
+                checkFinish(taskDone, taskNeed, callback, err);
             });
+
+
         });
     }
     project.save(function (err) {
-        if (err) callback(false);
-        else callback(true);
+        taskDone++;
+        checkFinish(taskDone, taskNeed, callback, err);
     });
 }
 
@@ -174,8 +199,8 @@ var getOffers = async function (projectId, callback) {
             callback([]);
         }
         for (var i = 0; i < project.offers.length; i++) {
-            (async function(i_tmp) {
-                var promise1 = new Promise((resolve, reject)=> {
+            (async function (i_tmp) {
+                var promise1 = new Promise((resolve, reject) => {
                     offerController.getOffer(mongoose.Types.ObjectId(project.offers[i_tmp]), async function (offer) {
                         var promise2 = new Promise((resolve2, reject) => {
                             userController.findUser2(offer.actor, function (user) {
@@ -190,19 +215,20 @@ var getOffers = async function (projectId, callback) {
                             proposal: offer.proposal,
                             dateOffered: offer.dateOffered,
                             accepted: offer.accepted,
-                            offerId: offer._id
+                            offerId: offer._id,
+                            type: offer.type
                         });
                     });
                 });
                 offers.push(await promise1);
                 count++;
                 if (count === project.offers.length) {
-                    offers.sort(function(a, b) {
-                       return b.dateOffered - a.dateOffered;
+                    offers.sort(function (a, b) {
+                        return b.dateOffered - a.dateOffered;
                     });
                     callback(offers);
                 }
-            }) (i);
+            })(i);
         }
 
     });
@@ -216,12 +242,14 @@ var getProject = function (projectId, callback) {
     });
 }
 
-var updateProject = function (projectId, featureChanges, callback) {
+var updateProject = function (req, projectId, callback) {
     getProject(projectId, function (project) {
         if (project) {
-            for (var i = 0; i < featureChanges.length; i++) {
-                project[featureChanges[i]['name']] = featureChanges[i]['value'];
-            }
+            project.title = req.body['project-title'];
+            project.banner = req.body['banner-url'];
+            project.desc = req.body['body-content'];
+            project.categories = [project.categories[0]].concat(req.body['project-tags'].split(","));
+
             project.save(function (err) {
                 if (err) callback(false, project);
                 else callback(true, project);
@@ -232,18 +260,33 @@ var updateProject = function (projectId, featureChanges, callback) {
     });
 }
 
-var addComment = function (projectId, userId, comment, callback) {
+var addComment = function (projectId, commenter, comment, callback) {
     Project.findOne({'_id': projectId}, function (err, project) {
         if (err) callback(false);
         else {
             project.comments.unshift({
-                commenter: userId,
+                commenter: commenter._id,
                 comment: comment,
                 date: Date.now()
             });
             project.save(function (err) {
                 if (err) callback(false);
-                else callback(true);
+                else {
+                    var content = `You made a comment on project <a href=/interaction/${projectId}> ${project.title} </a>.`;
+                    userController.addActivity(commenter, content);
+                    if (commenter._id.toString() !== project.author.toString()) {
+                        userController.findUser2(project.author, function (author) {
+                            if (author) {
+                                var author_content = `${commenter.name} commented on project ${project.title}`
+                                var link = `/interaction/${project._id}`;
+                                userController.notifyUser(null, author, author_content, link, project._id, commenter);
+                                callback(true);
+                            } else {
+                                callback(false);
+                            }
+                        });
+                    } else callback(true);
+                }
             })
         }
     });

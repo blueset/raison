@@ -89,10 +89,9 @@ router.get('/projects/:id',projectAuthentication, function (req, res, next) {
 });
 
 router.post('/projects/:id', projectAuthentication,  function (req, res, next) {
-    projectController.updateProject(mongoose.Types.ObjectId(req.params['id']),
-    [{'title': req.body['project-title']}, {'banner': req.body['banner-url']},
-        {'desc': req.body['body-content']}, {'categories': [req.body['project-tags']]}],
+    projectController.updateProject(req, mongoose.Types.ObjectId(req.params['id']),
     function(successful, project) {
+        res.locals.project = project;
         if (successful) {
             res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`});
         } else {

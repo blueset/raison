@@ -27,12 +27,11 @@ router.post('/', function(req, res, next) {
             if (!project) {
                 res.redirect('/');
             } else {
-                offerController.createOffer(req, project, req.user._id, req.query['type'], function(successful) {
+                offerController.createOffer(req, project, req.user, req.query['type'], function(successful) {
                     if (successful) {
-                        var newlink = '/interaction/'+project._id
-                        res.redirect(newlink);
+                        res.redirect(`/interaction/${project._id}`);
                     } else {
-                        res.redirect('/interaction/'+project._id, {message: "There is an error! You cannot make an offer"});
+                        res.redirect('/');
                     }
                 });
             }
