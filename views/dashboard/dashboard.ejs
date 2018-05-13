@@ -1,7 +1,7 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
 
-<div class="dashbaord-content container">
+<div class="dashboard-content container">
     <%- include('nav-aside', {path: 'dashboard'}) %>
     <div class="content">
         <div class="numbers">
@@ -23,16 +23,14 @@
         <section>
             <h1>Recent activities</h1>
             <ul class="recent-activities">
+                <% for (var i = 0; i < user.activity.length; i++) {%>
                 <li>
                     <img src="<%= user.image %>" class="avatar"
                          alt="Person Name">
-                    <strong>You</strong> liked Christopher Thomas’s share “Lorem ipsum dolor sit amet”.
+                        <%- user.activity[i].content %>
+                    - <%= user.activity[i].time.toDateString()%>
                 </li>
-                <li>
-                    <img src="<%= user.image %>"" class="avatar"
-                         alt="Person Name">
-                    <strong>You</strong> liked your share “Lorem ipsum dolor sit amet”.
-                </li>
+                <% } %>
             </ul>
         </section>
     </div>

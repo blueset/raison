@@ -1,0 +1,25 @@
+<div class="detail-card mdc-card">
+    <a href="/interaction/<%= project._id %>" class="detail-card-media-action mdc-card__primary-action">
+        <div class="mdc-card__media mdc-card__media--9-16" style="background-image: url('<%= project.banner %>')"></div>
+    </a>
+    <div class="detail-card-content">
+        <a href="/interaction/<%= project._id %>" class="detail-card-content-action mdc-card__primary-action">
+            <div class="detail-card-author">
+                <div class="detail-card-author-text">
+                    <div class="mdc-typography-overflow-ellipsis"><%= project.title %></div>
+                </div>
+            </div>
+            <div class="detail-card-summary">
+                <%- project.desc %>
+            </div>
+        </a>
+        <div class="mdc-card__actions">
+            <div class="mdc-card__action-buttons">
+                <a class="mdc-button">
+                    <i class="mdi mdi-message-reply-text mdc-button__icon"></i>
+                    <%= project.comments.length %>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<%- include('../templates/head') %>
+<%- include('navbar') %>
+
+<div class="dashboard-content container">
+    <%- include('nav-aside', {path: 'inbox'}) %>
+    <div class="content thread-content">
+        <div class="header">
+            <a href="/dashboard/inbox" class="mdc-button">
+                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to inbox
+            </a>
+            <div class="title-row">
+                <h1>Queries regarding project Lorem Ipsum</h1>
+            </div>
+        </div>
+        <div class="messages">
+            <div class="message">
+                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/themrdave/128.jpg" alt="John Doe" class="avatar">
+                <div class="content">
+                    <div class="sender">
+                        <span class="author">John Doe</span>
+                        <span class="time">10 days</span>
+                    </div>
+                    <div class="body">Gravida laoreet facilisis vitae elit enim aliquet platea netus, lacus tellus nec eleifend bibendum natoque tortor taciti penatibus, tempus dapibus volutpat cras mus in velit.</div>
+                </div>
+            </div>
+            <div class="message">
+                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/themrdave/128.jpg" alt="John Doe" class="avatar">
+                <div class="content">
+                    <div class="sender">
+                        <span class="author">John Doe</span>
+                        <span class="time">9 days</span>
+                    </div>
+                    <div class="body">Gravida laoreet facilisis vitae elit enim aliquet platea netus, lacus tellus nec eleifend bibendum natoque tortor taciti penatibus, tempus dapibus volutpat cras mus in velit.</div>
+                </div>
+            </div>
+            <div class="message">
+                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Anderson Quarista" class="avatar">
+                <div class="content">
+                    <div class="sender">
+                        <span class="author">Anderson Quarista</span>
+                        <span class="time">8 days</span>
+                    </div>
+                    <div class="body">Gravida laoreet facilisis vitae elit enim aliquet platea netus, lacus tellus nec eleifend bibendum natoque tortor taciti penatibus, tempus dapibus volutpat cras mus in velit.</div>
+                </div>
+            </div>
+            <div class="message">
+                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Anderson Quarista" class="avatar">
+                <div class="content">
+                    <div class="sender">
+                        <span class="author">Anderson Quarista</span>
+                        <span class="time">5 days</span>
+                    </div>
+                    <div class="body">Gravida laoreet facilisis vitae elit enim aliquet platea netus, lacus tellus nec eleifend bibendum natoque tortor taciti penatibus, tempus dapibus volutpat cras mus in velit.</div>
+                </div>
+            </div>
+            <div class="message">
+                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/themrdave/128.jpg" alt="John Doe" class="avatar">
+                <div class="content">
+                    <div class="sender">
+                        <span class="author">John Doe</span>
+                        <span class="time">yesterday</span>
+                    </div>
+                    <div class="body">Gravida laoreet facilisis vitae elit enim aliquet platea netus, lacus tellus nec eleifend bibendum natoque tortor taciti penatibus, tempus dapibus volutpat cras mus in velit.</div>
+                </div>
+            </div>
+            <div class="message">
+                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Anderson Quarista" class="avatar">
+                <div class="content">
+                    <div class="sender">
+                        <span class="author">Anderson Quarista</span>
+                        <span class="time">8 hours</span>
+                    </div>
+                    <div class="body">Gravida laoreet facilisis vitae elit enim aliquet platea netus, lacus tellus nec eleifend bibendum natoque tortor taciti penatibus, tempus dapibus volutpat cras mus in velit.</div>
+                </div>
+            </div>
+            <div class="message">
+                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Anderson Quarista" class="avatar">
+                <div class="content">
+                    <div class="sender">
+                        <span class="author">Anderson Quarista</span>
+                        <span class="time">4 hours</span>
+                    </div>
+                    <div class="body">Gravida laoreet facilisis vitae elit enim aliquet platea netus, lacus tellus nec eleifend bibendum natoque tortor taciti penatibus, tempus dapibus volutpat cras mus in velit.</div>
+                </div>
+            </div>
+        </div>
+        <div class="send-message">
+            <div class="message">
+                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/themrdave/128.jpg" alt="Anderson Quarista" class="avatar">
+                <div class="send-form">
+                    <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+                        <input type="text" id="thread-title" class="mdc-text-field__input" placeholder="Write a message...">
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <a href="#!" class="mdc-icon-toggle"><i class="mdi mdi-send"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>

@@ -1,0 +1,76 @@
+<%- include('../templates/head') %>
+<%- include('navbar') %>
+
+<div class="dashboard-content container">
+    <%- include('nav-aside', {path: 'inbox'}) %>
+    <div class="content">
+        <section>
+            <a href="/dashboard/inbox" class="mdc-button">
+                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to inbox
+            </a>
+            <div class="title-row">
+                <h1>New thread</h1>
+            </div>
+            <form action="#!">
+                <div class="mdc-form-control form-element">
+                    <div class="mdc-text-field large-text-field">
+                        <input required type="text" id="thread-title" class="mdc-text-field__input">
+                        <label class="mdc-floating-label" for="thread-title">Thread title</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
+                <div class="form-element">
+                    <div class="mdc-text-field chip-text-field">
+                        <input required type="text" id="thread-receipent">
+                        <label class="mdc-floating-label" for="thread-receipent">Receipent</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
+                <button type="submit" class="mdc-button mdc-button--raised">Create</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<datalist id="users-list">
+    <option value="johnDoe">John Doe</option>
+    <option value="pheobeM">Pheobe Maritan</option>
+    <option value="cosmos123">Carol Flamingo</option>
+    <option value="username">Display Name</option>
+</datalist>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
+<script src="/javascripts/taginput.js"></script>
+<script>
+var mdcTagInput = function (el) {
+    var tagsInput = $(el).children("input");
+    tagsInput.tagsinput({
+        maxTags: 1,
+        tagClass: "mdc-chip",
+        datalist: "users-list",
+    });
+    var label = el.querySelector("label.mdc-floating-label");
+    var mdcTF = new mdc.textField.MDCTextField(el);
+    mdcTF.foundation_.getNativeInput_().validity = {badInput: false, isValid: true};
+    var input = el.querySelector(".bootstrap-tagsinput input");
+    $(input).on({
+        focusin: function () {
+            mdcTF.getLabelAdapterMethods_().floatLabel(true);
+            mdcTF.getLineRippleAdapterMethods_().activateLineRipple()
+        },
+        focusout: function () {
+            mdcTF.getLineRippleAdapterMethods_().deactivateLineRipple()
+            if (!tagsInput.tagsinput('items').length) {
+                mdcTF.getLabelAdapterMethods_().floatLabel(false);
+            }
+        }
+    });
+}
+
+$(function() {
+    mdcTagInput(document.querySelector(".chip-text-field"));
+});
+</script>
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>

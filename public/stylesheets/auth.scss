@@ -1,6 +1,7 @@
 @import "@material/typography/mdc-typography";
 @import "@material/button/mdc-button";
 @import "@material/theme/mdc-theme";
+@import "@material/theme/_color-palette";
 @import "functions";
 @import "variables";
 
@@ -20,6 +21,37 @@
     @include make-grid();
     align-content: center;
 
+    #password-strength-indicator {
+        width: 100%;
+        height: 5px;
+        margin-top: 10px;
+        background-color: $material-color-grey-300;
+        &::before {
+            content: "";
+            display: block;
+            height: 100%;
+        }
+        &[data-strength="0"]::before {
+            background-color: $material-color-red-700;
+            width: 20%;
+        }
+        &[data-strength="1"]::before {
+            background-color: $material-color-orange-700;
+            width: 40%;
+        }
+        &[data-strength="2"]::before {
+            background-color: $material-color-yellow-700;
+            width: 60%;
+        }
+        &[data-strength="3"]::before {
+            background-color: $material-color-lime-700;
+            width: 80%;
+        }
+        &[data-strength="4"]::before {
+            background-color: $material-color-green-700;
+            width: 100%;
+        }
+    }
 
     .md-logo {
         height: 3em;
@@ -157,6 +189,15 @@
         .ssibtn-github {@include mdc-button-container-fill-color(#000000);}
         .ssibtn-telegram {@include mdc-button-container-fill-color(#1DA1F2);}
         .ssibtn-google {@include mdc-button-container-fill-color(#D33D34);}
+
+        iframe#telegram-login-ehnotifierbot {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+        }
 
         .tos {
             @include mdc-theme-prop(color, text-hint-on-light);

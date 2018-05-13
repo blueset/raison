@@ -1,14 +1,43 @@
-class User {
-    constructor(username, name, password, role, email, image, logo) {
-        this.username = username;
-        this.name = name;
-        this.password = password;
-        this.role = role;
-        this.email = email;
-        this.image = image;
-        this.projects = [];
-        this.totalFunds = 0;
-    }
-}
+var mongoose = require('mongoose');
 
-module.exports = User;
+var userSchema = new mongoose.Schema( {
+    authentication: {
+        username: String,
+        email: String,
+        password: String
+    },
+    name: String,
+    bio: String,
+    role: String,
+    image: String,
+    totalFunds: Number,
+    // Project Id
+    projects: [mongoose.Schema.ObjectId],
+    notifications: [
+        {
+            content: String,
+            project: mongoose.Schema.ObjectId,
+            link: String,
+            from: {
+                email: String,
+                name: String
+            },
+            read: Boolean,
+            time: {
+                type: Date,
+                default: Date.now()
+            }
+        }
+    ],
+    activity: [
+        {
+            content: String,
+            time: {
+                type: Date,
+                default: Date.now()
+            }
+        }
+    ]
+});
+
+mongoose.model('users', userSchema);

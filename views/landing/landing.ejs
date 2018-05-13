@@ -24,9 +24,9 @@
             </div>
 
             <%# Loop card starts. %>
-            <% for (var i = 1; i < locals.authors.length; i++) {%>
-            <% author = locals.authors[i] %>
-            <%- include('../components/author-card', author) %>
+            <% for (var i = 1; i < projects.length; i++) {%>
+            <% project = projects[i] %>
+            <%- include('../components/author-card', project) %>
             <% } %>
 
         </section>
@@ -35,8 +35,8 @@
                 <h1>Highlights</h1>
                 <a href="#!" class="mdc-button">More</a>
             </div>
-            <% author = locals.authors[0] %>
-            <%- include('../components/author-card', author) %>
+            <% project = projects[0] %>
+            <%- include('../components/author-card', project) %>
 
         </section>
         <section id="top-donators">
@@ -47,39 +47,31 @@
 
             <div class="top-donators-list">
                 <ol class="mdc-list mdc-list--avatar-list">
-                    <% for (var i = 0; i < locals.donators.length; i++){%>
-                    <li class="mdc-list-item" style="cursor: pointer">
-                        <div class="mdc-list-item__graphic"></div>
-                        <div class="mdc-list-item__text">
-                            <%= locals.donators[i].name %>
-                            <span class="mdc-list-item__secondary-text">
-                                <%= locals.donators[i].username %>
+                    <% for (var i = 0; i < donators.length; i++){%>
+
+                    <a href="profile/<%= donators[i].authentication.username %>" style="text-decoration: none; color: inherit">
+                        <li class="mdc-list-item" style="cursor: pointer">
+                            <div class="mdc-list-item__graphic"></div>
+                            <div class="mdc-list-item__text">
+                                <%= donators[i].name %>
+                                <span class="mdc-list-item__secondary-text">
+                                <%= donators[i].bio %>
                             </span>
-                        </div>
-                    </li>
+                            </div>
+                        </li>
+                    </a>
+
                     <% } %>
 
                 </ol>
             </div>
-        </section>
-        <section id="participating-investors">
-            <div class="section-title">
-                <h1>Participating investors</h1>
-                <a href="#!" class="mdc-button">More</a>
-            </div>
-
-            <ul class="participating-investors-list">
-                <% for (var i = 0; i < locals.companies.length; i++){ %>
-                    <li><img src="<%= locals.companies[i].image%>" alt="Company"></li>
-                <% } %>
-            </ul>
         </section>
     </div>
 </div>
 
 <div class="landing-lower-banner" style="background-image: url('https://picsum.photos/1200x600?image=26')">
     <div class="container">
-        <h2>Join us for <br>semper gravida rhoncus</h2>
+        <h2>Join us for <br> improve the society</h2>
         <div class="call-to-action">
             <a href="/signup" class="mdc-button mdc-button--raised">Sign up for free</a>
         </div>

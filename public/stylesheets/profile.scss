@@ -1,0 +1,70 @@
+@import "@material/theme/mdc-theme";
+@import "@material/layout-grid/mdc-layout-grid";
+@import "functions";
+@import "variables";
+
+.individual-profile-body {
+    @include make-grid();
+    padding-bottom: 3em;
+    .profile-header {
+        &.profile-picture {
+            @include mdc-layout-grid-resp-cell(2, 2, 6);
+            img {
+                width: 100%;
+                max-width: 12.5em;
+                border-radius: 50%;
+            }
+        }
+        &.profile-name {
+            align-self: center;
+            @include mdc-layout-grid-resp-cell(9, 5, 6);
+            .name, .tagline {
+                margin: 0.5rem 0;
+            }
+            .name {
+                font-size: 3em;
+                color: $color-brand-bright;
+            }
+            .tagline {
+                font-size: 1.25em;
+                opacity: 0.6;
+            }
+        }
+        &.profile-action {
+            align-self: flex-end;
+            @include mdc-layout-grid-resp-cell(1, 1, 6);
+        }
+    }
+    .sections {
+        @include mdc-layout-grid-resp-cell(10, 8, 6);
+        @include mdc-layout-grid-media-query_(desktop) {
+            grid-column-start: 3;
+        }
+        ul.activity-list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            li {
+                margin: 1rem 0;
+                .time {
+                    opacity: 0.6;
+                }
+                .content {
+                    font-size: 1.2em;
+                    img {
+                        height: 1.5em;
+                        vertical-align: middle;
+                        border-radius: 50%;
+                    }
+                    
+                    a {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        .detail-card {
+            margin: 18px 0;
+        }
+    }
+}

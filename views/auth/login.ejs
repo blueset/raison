@@ -1,14 +1,6 @@
 <%- include('../templates/head') %>
 <%- include('auth-header') %>
 
-<% if (message !== undefined) {%>
-<script>
-    //console.log(1);
-    alert("<%= message %>");
-</script>
-
-<% } %>
-
 <div class="container auth-content" id="login">
     <div id="introduction">
         <img class="md-logo" src="images/raison-black-logo-with-text.svg" alt="Raison">
@@ -31,18 +23,17 @@
             <div class="auth-section-name">Sign in with Email / username...</div>
             <form method="POST" action="/login">
                 <div class="mdc-form-control form-element">
-                    <div class="mdc-text-field<%= (message && ' mdc-text-field--invalid') || '' %>">
-                        <input type="text" required id="email" value="johndoe" class="mdc-text-field__input" name="inputEmail">
+                    <div class="mdc-text-field<%= (locals.message && ' mdc-text-field--invalid') || '' %>">
+                        <input type="text" required id="email" value="<%= locals.userInput && locals.userInput.username || 'johnDoe' %>" class="mdc-text-field__input" name="inputEmail">
                         <label class="mdc-floating-label" for="email">Email/Username</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
                     <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
-                        <%= message || 'Email/username is required.' %></p>
+                        <%= locals.message || 'Email/username is required.' %></p>
                 </div>
-
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field">
-                        <input type="password" required value="12345abcde" id="password" class="mdc-text-field__input"
+                        <input type="password" required value="<%= (locals.userInput && locals.userInput.username) === undefined ? '12345abcde' : '' %>" id="password" class="mdc-text-field__input"
                                name="inputPassword">
                         <label class="mdc-floating-label" for="password">Password</label>
                         <div class="mdc-line-ripple"></div>
@@ -51,9 +42,9 @@
                         Password is required.</p>
                 </div>
 
-                <div class="form-element">
+                <%# div class="form-element">
                     <div id="capcha"></div>
-                </div>
+                </div %>
 
                 <div class="form-element alternative-options">
                     <div>
@@ -67,16 +58,22 @@
         </div>
         <div class="auth-section">
             <div class="auth-section-name">Or sign in with...</div>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-facebook"><i
-                        class="mdi mdi-facebook"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-twitter"><i
-                        class="mdi mdi-twitter"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-github"><i
-                        class="mdi mdi-github-circle"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-telegram"><i
-                        class="mdi mdi-telegram"></i></button>
-            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-google"><i
-                        class="mdi mdi-google"></i></button>
+            <a href="/auth/facebook" class="mdc-button mdc-button--raised social-sign-in-button ssibtn-facebook">
+                <i class="mdi mdi-facebook"></i>
+            </a>
+            <a href="/auth/twitter" class="mdc-button mdc-button--raised social-sign-in-button ssibtn-twitter">
+                <i class="mdi mdi-twitter"></i>
+            </a>
+            <a href="/auth/github" class="mdc-button mdc-button--raised social-sign-in-button ssibtn-github">
+                <i class="mdi mdi-github-circle"></i>
+            </a>
+            <button class="mdc-button mdc-button--raised social-sign-in-button ssibtn-telegram">
+                <i class="mdi mdi-telegram"></i>
+                <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="ehnotifierbot" data-size="large" data-userpic="false" data-radius="5" data-auth-url="/auth/telegram" data-request-access="write"></script>
+            </button>
+            <a href="/auth/google" class="mdc-button mdc-button--raised social-sign-in-button ssibtn-google">
+                <i class="mdi mdi-google"></i>
+            </a>
         </div>
     </div>
 </div>

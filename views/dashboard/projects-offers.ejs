@@ -1,0 +1,84 @@
+<%- include('../templates/head') %>
+<%- include('navbar') %>
+
+<script>
+    function chooseOffer(offerId) {
+
+        var projectId = document.getElementById("hidden-project-id").innerText;
+
+        $.post("/choose-offer",
+            {
+                projectId: projectId,
+                offerId: offerId
+            },
+            function(data, status){
+                alert(data);
+                window.location.reload(false);
+            });
+
+
+    }
+
+
+</script>
+
+
+<div class="dashboard-content container">
+    <%- include('nav-aside', {path: 'projects'}) %>
+    <div id="hidden-project-id" style="display: none"><%= linkProject %></div>
+    <div class="content">
+        <section>
+            <a href="/dashboard/projects/" class="mdc-button">
+                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to the projects list
+            </a>
+            <div class="title-row">
+                <a href="/interaction/<%= linkProject %>"
+                style="text-decoration: none"> <h1>Offers to the project </h1></a>
+            </div>
+            <% if (offers.length === 0) { %>
+            <div class="no-item">No offer here yet.</div>
+            <% } %>
+
+            <% for (var i = 0; i < offers.length; i++) { %>
+            <details class="mdc-card offer-card
+                 <% if (offers[i].accepted === 1) { %>
+                 accepted
+                <% } else if (offers[i].accepted === 0) { %>
+                non-accepted
+                <% } %>
+                ">
+                <summary>
+                    <img src="<%= offers[i].funderImage%>" alt="Offer" class="investor-logo">
+                    <div class="info">
+                        <div class="time"> <%= offers[i].dateOffered.toDateString() %></div>
+                        <div class="investor-name"> <%= offers[i].funder%></div>
+                    </div>
+                    <div class="value"><span class="unit">$</span> <%= offers[i].fundOffer %></div>
+                    <% if (offers[i].type === "Investment") {%>
+                    <button onclick="chooseOffer('<%= offers[i].offerId%>')"
+                            <% if (offers[i].accepted !== 2) {%>
+                            disabled
+                            <% } %>
+                            class="mdc-button">
+                        <% if (offers[i].accepted == 2) {%>
+                        Accept
+                        <% } else if (offers[i].accepted == 0) { %>
+                        Rejected
+                        <% } else { %>
+                        Accepted
+                        <% } %>
+                    </button>
+                    <% } %>
+                </summary>
+                <div class="details article-content">
+                    <%- offers[i].proposal %>
+
+                </div>
+            </details>
+            <% } %>
+        </section>
+    </div>
+</div>
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>

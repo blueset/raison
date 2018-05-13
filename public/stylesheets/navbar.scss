@@ -1,5 +1,6 @@
 @import "@material/button/mdc-button";
 @import "@material/theme/mdc-theme";
+@import "@material/theme/_color-palette";
 @import "@material/layout-grid/mdc-layout-grid";
 @import "variables";
 
@@ -67,6 +68,67 @@ nav {
         font-size: 24px;
         @include mdc-layout-grid-media-query_(desktop) {
             display: none;
+        }
+    }
+    .notification-have-unread::after {
+        content: "";
+        background-color: $material-color-red-700;
+        border: 2px solid white;
+        height: 10px;
+        width: 10px;
+        display: block;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        border-radius: 50%;
+    }
+    #menu-bar-notification {
+        .mbn-header {
+            display: flex;
+            flex-direction: row;
+            .mbn-header-title {
+                flex-grow: 1;
+                align-self: center;
+                padding: 0 0.5em;
+            }
+        }
+        ul.notification-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            .no-notification {
+                opacity: 0.6;
+                padding: 2em;
+                font-style: italic;
+                text-align: center;
+            }
+            .notification-card {
+                margin: 0.5em;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                width: 500px;
+                img.avatar, .texts {
+                    margin: 0.5em;
+                }
+                img.avatar {
+                    height: 4em;
+                    width: 4em;
+                    border-radius: 50%;
+                }
+                .texts {
+                    flex-grow: 1;
+                    width: 0;
+                    .time {
+                        opacity: 0.6;
+                        font-size: 0.9em;
+                        line-height: 1;
+                    }
+                    .text {
+                        height: 1.2em;
+                    }
+                }
+            }
         }
     }
 }

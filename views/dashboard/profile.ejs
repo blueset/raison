@@ -1,10 +1,10 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
 
-<div class="dashbaord-content container">
+<div class="dashboard-content container">
     <%- include('nav-aside', {path: 'profile'}) %>
     <div class="content">
-        <section>
+        <form method="post" action="/dashboard/profile">
             <div class="title-row">
                 <h1>My profile</h1>
             </div>
@@ -17,7 +17,7 @@
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
                     <input type="text" required id="display_name" value="<%= user.name %>"
-                           class="mdc-text-field__input">
+                           class="mdc-text-field__input" name="displayname">
                     <label class="mdc-floating-label" for="display_name">Display Name</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -35,8 +35,10 @@
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
                     <input type="text" required id="bio"
-                           value="Euismod parturient scelerisque ligula iaculis ante nostra."
-                           class="mdc-text-field__input">
+                           value= "<%= user.bio %>"
+                           class="mdc-text-field__input"
+                            name="bio"
+                            maxlength="50">
                     <label class="mdc-floating-label" for="bio">Bio</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -46,31 +48,31 @@
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-select">
-                    <select class="mdc-select__native-control">
-                        <option value="startup"
+                    <select class="mdc-select__native-control" name="role">
+                        <option value="Startups"
                                 <% if (user.role == "Startups") { %>
                                 selected
                                 <% } %>
                         >Startup
                         </option>
-                        <option value="investor"
+                        <option value="Investors"
                                 <% if (user.role == "Investors") { %>
                                 selected
                                 <% } %>
                         >Investor
                         </option>
-                        <option value="donator"
+                        <option value="Donators"
                                 <% if (user.role == "Donators") { %> selected <% } %>>Donator</option>
-                        <option value="charity"
+                        <option value="Charities"
                                 <% if (user.role == "Charities") { %> selected <% } %>>Charity</option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
                     <div class="mdc-select__bottom-line"></div>
                 </div>
             </div>
-            <a href="#!" class="mdc-button mdc-button--raised submit-button">Save changes</a>
+            <button type="submit" class="mdc-button mdc-button--raised submit-button">Save changes</button>
 
-        </section>
+        </form>
     </div>
 </div>
 

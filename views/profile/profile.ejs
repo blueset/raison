@@ -1,0 +1,50 @@
+<%- include('../templates/head') %>
+<%- include('../components/navbar', {theme: "dark", section:
+{name: user_profile.role,
+url: (user_profile.role === 'Startups' || user_profile.role === 'Investors') ? 'investment' : 'donation'
+, state: user_profile.role}})
+%>
+
+<div class="container">
+    <div class="individual-profile-body">
+        <div class="profile-header profile-picture">
+            <img src="<%= profile_image %>" alt="<%= user_profile.name %>">
+        </div>
+        <div class="profile-header profile-name">
+            <div class="name"> <%= user_profile.name %></div>
+            <div class="tagline">Total funds: $<%= user_profile.totalFunds %></div>
+            <div class="tagline">Total projects: <%= user_profile.projects.length %></div>
+        </div>
+        <div class="profile-header profile-action">
+            <span class="mdc-icon-toggle" data-mdc-auto-init="MDCIconToggle"><i class="mdi mdi-send"></i></span>
+        </div>
+        <div class="sections">
+            <section>
+                <h1>About me</h1>
+                <p> <%= user_profile.bio %></p>
+            </section>
+            <section>
+                <h1>Recent activities</h1>
+                <ul class="activity-list">
+                    <% for (var i = 0; i <user_profile.activity.length; i++) { %>
+                    <li>
+                        <div class="time"> <%= TimeAgo.format(user_profile.activity[i].time) %> </div>
+                        <% content = user_profile.activity[i].content.replace('You', user_profile.name) %>
+                        <div class="content"> <%- content%></div>
+                    </li>
+                    <% } %>
+                </ul>
+            </section>
+            <section>
+                <h1>Initiated projects</h1>
+                <% for (var j = 0; j < projects.length; j++) {%>
+                <% project = projects[j] %>
+                <%- include('../components/author-project-card', project) %>
+                <% } %>
+            </section>
+        </div>
+    </div>
+</div>
+
+<%- include('../components/footer') %>
+<%- include('../templates/foot') %>
