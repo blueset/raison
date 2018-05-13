@@ -50,7 +50,6 @@
                         <%= projects[i].title %>
                          </a>
                     </span>
-
                     <span class="time"><%= projects[i].datePosted.toDateString() %></span>
                     <span class="offers">
                         <a href="/dashboard/projects/<%= projects[i]._id %>/offers"
@@ -64,6 +63,7 @@
                         <% } %>
                     </span>
                     <span class="totalFunds">$ <%= projects[i].totalFunds %></span>
+
                 </li>
                 <% } %>
                 <% } %>

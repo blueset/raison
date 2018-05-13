@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+
 var userController = require('../databaseController/userController');
 
 const {check, body, validationResult} = require('express-validator/check');
@@ -16,16 +17,13 @@ router.get('/login', function (req, res) {
     });
 });
 
-
-router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/login',
-    failureFlash: true
-}), (req, res) => {
+const afterLoginAction = (req, res) => {
     let redirectTo = req.session.redirectTo ? req.session.redirectTo : undefined;
     if (redirectTo !== undefined) {
         delete req.session.redirectTo;
         return res.redirect(redirectTo);
     } else {
+        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
         const redirectionMapping = {
             "Startups": "/investment",
             "Investors": "/investment",
@@ -34,7 +32,12 @@ router.post('/login', passport.authenticate('local', {
         }
         return res.redirect(redirectionMapping[req.user.role]);
     }
-});
+};
+
+router.post('/login', passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: true
+}), afterLoginAction);
 
 router.get('/signup', function (req, res, next) {
     res.render('auth/signup', {title: 'Sign Up — Raison', errors: null});
@@ -133,5 +136,37 @@ router.get('/checkEmail/:email', function (req, res) {
         res.json({'exist': exist});
     });
 });
+
+router.get('/auth/facebook',
+    passport.authenticate('facebook'));
+
+router.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    afterLoginAction);
+
+router.get('/auth/twitter',
+    passport.authenticate('twitter'));
+
+router.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    afterLoginAction);
+
+router.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/plus.login'] }));
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    afterLoginAction);
+
+router.get('/auth/github',
+    passport.authenticate('github'));
+
+router.get('/auth/github/callback',
+    passport.authenticate('github', { failureRedirect: '/login' }),
+    afterLoginAction);
+
+router.get('/auth/telegram',
+    passport.authenticate('telegram'),
+    afterLoginAction);
 
 module.exports = router;

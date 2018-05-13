@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 
 var userController = require('../databaseController/userController');
 var projectController = require('../databaseController/projectController');
+
 var gravatar = require('gravatar');
-var getJSON = require('get-json');
 
 router.post('/createProject', function(req, res) {
     projectController.createProject(req, function(created) {

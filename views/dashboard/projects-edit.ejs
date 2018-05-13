@@ -1,6 +1,5 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
-
 <div class="dashboard-content container">
     <%- include('nav-aside', {path: 'projects'}) %>
     <div class="content">
@@ -60,8 +59,10 @@
                 </div>
 
                 <textarea id="bodyContent" class="article-content" required
+
                           name="body-content">
                     <%- (locals.userInput && locals.userInput['body-content']) || (project && project.desc) %></textarea>
+
 
                 <button type="submit" class="mdc-button mdc-button--raised">Publish</button>
             </form>
@@ -106,15 +107,15 @@
         var mdcTF = new mdc.textField.MDCTextField(el);
         mdcTF.foundation_.getNativeInput_().validity = {badInput: false, isValid: true};
         var input = el.querySelector(".bootstrap-tagsinput input");
+        if (tagsInput.val().length) {
+            mdcTF.getLabelAdapterMethods_().floatLabel(true);
+        }
         $(input).on({
             focusin: function () {
-                console.log("focus in");
                 mdcTF.getLabelAdapterMethods_().floatLabel(true);
                 mdcTF.getLineRippleAdapterMethods_().activateLineRipple()
             },
             focusout: function () {
-                console.log("focus out");
-                console.log(!tagsInput.tagsinput('items').length);
                 mdcTF.getLineRippleAdapterMethods_().deactivateLineRipple()
                 if (!tagsInput.tagsinput('items').length) {
                     mdcTF.getLabelAdapterMethods_().floatLabel(false);

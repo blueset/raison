@@ -1,11 +1,13 @@
 <div class="author-card mdc-card">
     <a href="interaction/<%= project.content._id|| '#!' %>" class="mdc-card__primary-action">
         <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('<%= project.content.banner %>')"></div>
+
         <div class="author-card-content">
-            <img class="author-card-profile-picture" src="<%= project.author.image %>" alt="<%= project.author.name %>">
+            <img class="author-card-profile-picture" src="<%= author.avatar %>" alt="<%= author.name %>">
             <div class="author-card-text">
                 <div class="mdc-typography-overflow-ellipsis"><%= project.content.title %></div>
                 <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis"><%= project.author.name %></div>
+
             </div>
         </div>
     </a>

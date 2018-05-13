@@ -1,5 +1,4 @@
 <%- include('../templates/head') %>
-
 <%- include('auth-header') %>
 
 <div class="container auth-content" id="login">
@@ -22,12 +21,15 @@
         <form method="POST" action="/signup">
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field<%= (errors && errors.displayname && ' mdc-text-field--invalid') || '' %>">
-                    <input type="text" required id="display_name" value="<%=locals.userInput && locals.userInput.displayname %>"
-                        class="mdc-text-field__input" name="displayname">
+                    <input type="text" required id="display_name"
+                           value="<%= locals.userInput && locals.userInput.displayname %>"
+
+                           class="mdc-text-field__input" name="displayname">
                     <label class="mdc-floating-label" for="display_name">Display name</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
-                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
+                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent"
+                   aria-hidden="true">
                     <%= (errors && errors.displayname && errors.displayname.msg) || 'Your name used to show other members.' %>
                 </p>
             </div>
@@ -35,11 +37,15 @@
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field<%= (errors && errors.username && ' mdc-text-field--invalid') || '' %>">
                     <input type="text" required id="username"
-                           name="username" class="mdc-text-field__input" value="<%=locals.userInput && locals.userInput.username %>" pattern="[a-zA-Z]{[a-zA-Z0-9-_]{5,31}">
+                           name="username" class="mdc-text-field__input"
+                           value="<%= locals.userInput && locals.userInput.username %>"
+                           pattern="[a-zA-Z]{[a-zA-Z0-9-_]{5,31}">
                     <label class="mdc-floating-label" for="username">Username</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
-                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
+                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent"
+                   aria-hidden="true">
+
                     <%= (errors && errors.username && errors.username.msg) || '6 ~ 32 characters of only alphabets, numbers, dash (-) and underscores(_). Must start with an alphabet.' %>
 
                 </p>
@@ -47,23 +53,33 @@
 
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field<%= (errors && errors.email && ' mdc-text-field--invalid') || '' %>">
-                    <input type="email" required id="email" value="<%=locals.userInput && locals.userInput.email %>" name="email" class="mdc-text-field__input">
+
+                    <input type="email" required id="email" value="<%= locals.userInput && locals.userInput.email %>"
+                           name="email" class="mdc-text-field__input">
                     <label class="mdc-floating-label" for="email">Email</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
                 <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+
                     <%= (errors && errors.email && errors.email.msg) || 'A valid address email is required.' %>
+
                 </p>
             </div>
 
             <div class="mdc-form-control form-element">
+
                 <div class="mdc-text-field<%= (errors && errors.password && ' mdc-text-field--invalid') || '' %>">
-                    <input type="password" name="password" required id="password" class="mdc-text-field__input" minlength="6">
+
+                    <input type="password" name="password" required id="password" class="mdc-text-field__input"
+                           minlength="6">
                     <label class="mdc-floating-label" for="password">Password</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
-                <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent" aria-hidden="true">
+                <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg mdc-text-field-helper-text--persistent"
+                     aria-hidden="true">
+
                     <%= (errors && errors.password && errors.password.msg) || 'Password must be 6 characters or longer.' %>
+
                     <div id="password-strength-indicator" data-strength="-1"></div>
                     <div id="password-strength-name">Strength: N/A</div>
                     <div id="password-strength-hint"></div>
@@ -71,89 +87,100 @@
             </div>
 
             <div class="mdc-form-control form-element">
+
                 <div class="mdc-text-field<%= (errors && errors.confirm_password && ' mdc-text-field--invalid') || '' %>">
-                    <input type="password" name="confirm_password" required id="confirm_password" class="mdc-text-field__input">
-                    <label class="mdc-floating-label" for="confirm_password" minlength="6">Confirm password</label>
-                    <div class="mdc-line-ripple"></div>
+
+                        <input type="password" name="confirm_password" required id="confirm_password"
+                               class="mdc-text-field__input">
+                        <label class="mdc-floating-label" for="confirm_password" minlength="6">Confirm password</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                        <%= (errors && errors.confirm_password && locals.errors.confirm_password.msg) || '' %>
+                    </p>
                 </div>
-                <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
-                <%= (errors && errors.confirm_password && locals.errors.confirm_password.msg) || '' %>
-                </p>
-            </div>
 
-            <div class="mdc-form-control form-element">
-                <div class="mdc-select">
-                    <select class="mdc-select__native-control" name="role">
-                        <option value="Startups"<%= (locals.userInput && locals.userInput.role === "Startups") ? " selected" : "" %>>Startup</option>
-                        <option value="Investors"<%= (locals.userInput && locals.userInput.role === "Investors") ? " selected" : "" %>>Investor</option>
-                        <option value="Donators"<%= (locals.userInput && locals.userInput.role === "Donators") ? " selected" : "" %>>Donator</option>
-                        <option value="Charities"<%= (locals.userInput && locals.userInput.role === "Charities") ? " selected" : "" %>>Charity</option>
-                    </select>
-                    <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
-                    <div class="mdc-select__bottom-line"></div>
+                <div class="mdc-form-control form-element">
+                    <div class="mdc-select">
+                        <select class="mdc-select__native-control" name="role">
+                            <option value="Startups"<%= (locals.userInput && locals.userInput.role === "Startups") ? " selected" : "" %>>
+                                Startup
+                            </option>
+                            <option value="Investors"<%= (locals.userInput && locals.userInput.role === "Investors") ? " selected" : "" %>>
+                                Investor
+                            </option>
+                            <option value="Donators"<%= (locals.userInput && locals.userInput.role === "Donators") ? " selected" : "" %>>
+                                Donator
+                            </option>
+                            <option value="Charities"<%= (locals.userInput && locals.userInput.role === "Charities") ? " selected" : "" %>>
+                                Charity
+                            </option>
+                        </select>
+                        <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
+                        <div class="mdc-select__bottom-line"></div>
+                    </div>
                 </div>
-            </div>
 
-            <%# div class="form-element">
-                <div id="capcha"></div>
-            </div %>
+                <%# div class="form-element">
+                    <div id="capcha"></div>
+                </div %>
 
-            <div class="form-element alternative-options">
-                <div>
-                    <a href="/login">Already have an account?</a>
+                <div class="form-element alternative-options">
+                    <div>
+                        <a href="/login">Already have an account?</a>
+                    </div>
+                    <button type="submit" class="mdc-button mdc-button--raised">Sign up</button>
                 </div>
-                <button type="submit" class="mdc-button mdc-button--raised">Sign up</button>
-            </div>
 
-            <div class="form-element tos">
-                By Clicking "Sign up", you are agreeing to Raison's
-                <a href="#!">Terms of Service </a>
-            </div>
+                <div class="form-element tos">
+                    By Clicking "Sign up", you are agreeing to Raison's
+                    <a href="#!">Terms of Service </a>
+                </div>
         </form>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js" async></script>
 <script>
-var pwSIndicator = $("#password-strength-indicator");
-var pwSName = $("#password-strength-name");
-var pwSHint = $("#password-strength-hint");
-var pwField = $("#password");
-var pwConfirm = $("#confirm_password");
+    var pwSIndicator = $("#password-strength-indicator");
+    var pwSName = $("#password-strength-name");
+    var pwSHint = $("#password-strength-hint");
+    var pwField = $("#password");
+    var pwConfirm = $("#confirm_password");
 
-var strengthLevels = ["Too guessable", "Very guessable", "Somewhat guessable", "Safely unguessable", "Very unguessable"];
+    var strengthLevels = ["Too guessable", "Very guessable", "Somewhat guessable", "Safely unguessable", "Very unguessable"];
 
-pwField.on('input', () => {
-    if (pwField.val() == "") {
-        pwField[0].setCustomValidity("Password is required");
-        pwSIndicator[0].dataset["strength"] = -1;
-        pwSName.text("Strength: N/A");
-        pwSHint.text("");
-        return;
-    }
-    var user_input = [
-        $("#display_name").val(), $("#username").val(), $("#email").val()
-    ];
-    var result = zxcvbn(pwField.val(), user_input);
-    pwSIndicator[0].dataset["strength"] = result.score;
-    pwSName.text("Strength: " + strengthLevels[result.score]);
-    pwSHint.text([result.feedback.warning].concat(result.feedback.suggestions).join(" "));
-    if (result.score < 2) {
-        pwField[0].setCustomValidity("Password could be more score.");
-    } else if (pwField.val().length < 6) {
-        pwField[0].setCustomValidity("Password must be of length 6 or longer.");
-    } else {
-        pwField[0].setCustomValidity("");
-    }
-});
+    pwField.on('input', () => {
+        if (pwField.val() == "") {
+            pwField[0].setCustomValidity("Password is required");
+            pwSIndicator[0].dataset["strength"] = -1;
+            pwSName.text("Strength: N/A");
+            pwSHint.text("");
+            return;
+        }
+        var user_input = [
+            $("#display_name").val(), $("#username").val(), $("#email").val()
+        ];
+        var result = zxcvbn(pwField.val(), user_input);
+        pwSIndicator[0].dataset["strength"] = result.score;
+        pwSName.text("Strength: " + strengthLevels[result.score]);
+        pwSHint.text([result.feedback.warning].concat(result.feedback.suggestions).join(" "));
+        if (result.score < 2) {
+            pwField[0].setCustomValidity("Password could be more score.");
+        } else if (pwField.val().length < 6) {
+            pwField[0].setCustomValidity("Password must be of length 6 or longer.");
+        } else {
+            pwField[0].setCustomValidity("");
+        }
+    });
 
-pwConfirm.on('input', () => {
-    if (pwField.val() !== pwConfirm.val()) {
-        pwConfirm[0].setCustomValidity("Password confirm is not same as password.");
-    } else {
-        pwConfirm[0].setCustomValidity("");
-    }
-});
+    pwConfirm.on('input', () => {
+        if (pwField.val() !== pwConfirm.val()) {
+            pwConfirm[0].setCustomValidity("Password confirm is not same as password.");
+        } else {
+            pwConfirm[0].setCustomValidity("");
+        }
+    });
 
 </script>
 
