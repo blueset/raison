@@ -27,9 +27,9 @@
                         <%= projects[i].title %>
                          </a>
                     </span>
-                    <span class="time"><%= TimeAgo.format(projects[i].datePosted) %></span>
+                    <span class="time"><%= timeAgo.format(projects[i].datePosted) %></span>
                     <span class="offers">
-                        <a href="/dashboard/projects/<%= projects[i]._id %>/offers" class="mdc-button"><%= project[i].offers.length %></a>
+                        <a href="/dashboard/projects/<%= projects[i]._id %>/offers" class="mdc-button mdc-button--raised"><%= projects[i].offers.length %></a>
                     </span>
                 </li>
                 <% } } %>

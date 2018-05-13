@@ -43,7 +43,7 @@ section (optional): {
                                     for (var notification of locals.user.notifications) { %>
                                     <a href="<%= notification.link %>" class="notification-card mdc-card">
                                         <div class="texts">
-                                            <div class="time"><%= TimeAgo.format(notification.time) %>/div>
+                                            <div class="time"><%= timeAgo.format(notification.time) %>/div>
                                             <div class="text mdc-typography-overflow-ellipsis">
                                                 <% if (notification.read) {%> 
                                                     <%= notification.content %>

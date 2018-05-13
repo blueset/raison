@@ -1,9 +1,6 @@
 var mongoose = require('mongoose');
 
 var Project = mongoose.model('project');
-var userController = require('./userController');
-console.log("ON_IMPORT: USER_CONTROLLER @ ADD_NEW_PROJECT", userController, userController.addNewProject);
-
 
 var getTopProject = async function(typeProject, num_top) {
 
@@ -51,12 +48,12 @@ var createProject = function(req, callback) {
 
     project.save(function(err) {
         if (err) {
-            callback(false, project);
+            callback(err, project);
         } else {
             console.log("USER_CONTROLLER @ ADD_NEW_PROJECT", userController, userController.addNewProject);
             userController.addNewProject(project._id, req.user, function(err2) {
-                if (err2) callback(false, project);
-                else callback(true, project);
+                if (err2) callback(err, project);
+                else callback(err, project);
             })
         }
     });
@@ -78,11 +75,10 @@ var updateProject = function(projectId, featureChanges, callback) {
                 project[featureChanges[i]['name']] = featureChanges[i]['value'];
             }
             project.save(function(err) {
-                if (err) callback(false, project);
-                else callback(true, project);
+                callback(err, project);
             })
         } else {
-            callback(false, project);
+            callback("Project to be edited does not exist.", project);
         }
     });
 }
@@ -112,6 +108,5 @@ module.exports = {
     getTopProject: getTopProject
 }
 
-
-
-
+// Imports moved to the end to avoid dependency cycles
+var userController = require('./userController');

@@ -17023,6 +17023,13 @@ footer {
     background-color: #1DA1F2; }
   .auth-content #form .ssibtn-google:not(:disabled) {
     background-color: #D33D34; }
+  .auth-content #form iframe#telegram-login-ehnotifierbot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1; }
   .auth-content #form .tos {
     color: rgba(0, 0, 0, 0.38);
     /* @alternate */

@@ -4,7 +4,6 @@ const User = mongoose.model('users');
 const passwordHash = require('password-hash');
 
 var getTopUser = async function(typeUser, num_top) {
-
     var promise = new Promise((resolve, reject)=>{
         User.find({}, function(err, users) {
             var tmp_users = [];
@@ -107,17 +106,18 @@ var findUser2 = function(userId, callback) {
     });
 }
 
-var addNewProject = function(projectId, projectName, user, callback) {
-        user.projects.unshift(projectId);
-        user.activity.unshift({
-            content: "You created a new project",
-            link: "/startup/" projectName + "/" + projectId,
-            time: Date.now()
-        });
+var addNewProject = function(projectId, user, callback) {
+    var projectName = "";
+    user.projects.unshift(projectId);
+    user.activity.unshift({
+        content: "You created a new project",
+        link: "/startup/" + projectName + "/" + projectId,
+        time: Date.now()
+    });
 
-        user.save(function(err) {
-            callback(err);
-        });
+    user.save(function(err) {
+        callback(err);
+    });
 }
 
 
@@ -153,8 +153,7 @@ var saveUser = function(user, callback) {
     });
 }
 
-var getProjects = async function(user) {
-
+var getProjects = async function(user) {    
     var projects = [];
     for (var i = 0; i < user.projects.length; i++) {
         var promise = new Promise((resolve, reject) => {
@@ -183,5 +182,6 @@ module.exports = {
     createUserOauth: createUserOauth,
 }
 
+// Imports moved to the end to avoid dependency cycles
 const projectController = require('./projectController');
 

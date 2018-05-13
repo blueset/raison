@@ -3,9 +3,6 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 
-var userController = require('../controllers/userController');
-var projectController = require('../controllers/projectController');
-
 const { check, body, validationResult } = require('express-validator/check');
 
 router.get('/dashboard', function (req, res, next) {
@@ -64,9 +61,10 @@ router.post('/projects/new', [
     console.log(req.body, errors);
     if (Object.keys(errors).length != 0)
         return res.render('dashboard/projects-edit', { title: 'New project — Raison', errors: errors, userInput: req.body });
-    projectController.createProject(req, function(successful, project) {
-        if (!successful) {
-            res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project', userInput: req.body});
+    projectController.createProject(req, function(error, project) {
+        if (error) {
+            console.log(error);
+            res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project: ' + error, userInput: req.body});
         } else {
             res.redirect('/dashboard/projects');
         }
@@ -98,38 +96,42 @@ router.get('/projects/:id',projectAuthentication, function (req, res, next) {
 });
 
 router.post('/projects/:id', projectAuthentication, [
-    check('title').exists(),
-    check('banner').exists(),
-    check('desc').exists(),
+    check('project-title').exists(),
+    check('banner-url').exists(),
+    check('body-content').exists(),
     check('project-tags').exists()
 ], function (req, res, next) {
     const errors = validationResult(req).mapped();
+    console.log("PROJECT_EDIT_FORM_VALIDATION_ERRORS", errors);
     if (Object.keys(errors).length != 0)
-        return res.render('/projects/projects-edit', { title: `Edit — ${project.title} — Raison`, errors: errors, userInput: req.body });
+        return res.render('/projects/projects-edit', { title: `Edit — ${userInput['project-title']} — Raison`, errors: errors, userInput: req.body });
     projectController.updateProject(mongoose.Types.ObjectId(req.params['id']),
     [{'title': req.body['project-title']}, {'banner': req.body['banner-url']},
-        {'desc': req.body['body-content']}, {'categories': [req.body['project-tags']]}],
-    function(successful, project) {
-        if (successful) {
-            res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`});
+        {'desc': req.body['body-content']}, {'categories': req.body['project-tags']}],
+    function(error, project) {
+        console.log(error, project);
+        if (!error) {
+            res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`, project: project});
         } else {
             res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`,
-                message: 'There is an error in saving process! Try again later!', userInput: req.body});
+                message: 'There is an error in saving process! Try again later! ' + error, userInput: req.body, project: project});
         }
     });
 });
 
 router.get('/projects/:id/offers', 
-            //  projectAuthentication, 
+            projectAuthentication, 
             function (req, res, next) {
     let project = { title: "Random project" }
     res.render('dashboard/projects-offers', { title: `Offers — ${project.title} — Raison` });
 });
 
-
-
 router.get('/security', function (req, res, next) {
     res.render('dashboard/security', { title: 'Security — Raison' });
 });
+
+// Imports moved to the end to avoid dependency cycles
+var userController = require('../controllers/userController');
+var projectController = require('../controllers/projectController');
 
 module.exports = router;
