@@ -57,18 +57,10 @@ router.get('/projects/new', function (req, res, next) {
 });
 
 
-router.post('/projects/new', [
-    check('project-title').exists(),
-    check('banner-url').exists(),
-    check('body-content').exists(),
-    check('project-tags').exists()
-], function (req, res, next) {
-    const errors = validationResult(req).mapped();
-    if (Object.keys(errors).length != 0)
-        return res.render('dashboard/projects-edit', { title: 'New project — Raison', errors: errors, userInput: req.body });
-    projectController.createProject(req, function(error, project) {
-        if (error) {
-            res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project: ' + error, userInput: req.body});
+router.post('/projects/new', function (req, res, next) {
+    projectController.createProject(req, function(created, project) {
+        if (!created) {
+            res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project!', userInput: req.body});
         } else {
             res.redirect('/dashboard/projects');
         }

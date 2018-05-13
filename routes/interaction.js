@@ -9,7 +9,7 @@ var projectController = require('../databaseController/projectController');
 var gravatar = require('gravatar');
 
 router.post('/createProject', function(req, res) {
-    projectController.createProject(req, function(created) {
+    projectController.createProject(req, function(created, project) {
         if (created) {
             res.send('yay!');
         } else {
@@ -36,8 +36,6 @@ async function getComments(project) {
         tmp_comment['author'] = await promise;
         comments.push(tmp_comment);
     }
-    console.log('wait a little');
-    console.log(comments);
     return comments;
 }
 

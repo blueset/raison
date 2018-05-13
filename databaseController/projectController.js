@@ -136,16 +136,20 @@ var createProject = function (req, callback) {
         if (err) {
             callback(false, project);
         } else {
-            console.log("USER_CONTROLLER @ ADD_NEW_PROJECT", userController, userController.addNewProject);
             userController.addNewProject(project._id, req.user, function (err2) {
-                if (err2) callback(false, project);
-                else callback(true, project);
+                if (err2) {
+                    callback(false, project);
+                }
+                else {
+                    callback(true, project);
+                }
             })
         }
     });
 }
 
 function checkFinish(taskDone, taskNeed, callback, err) {
+    console.log(taskDone);
     if (taskDone === taskNeed) {
         if (err) callback(false);
         else callback(true);
@@ -153,7 +157,11 @@ function checkFinish(taskDone, taskNeed, callback, err) {
 }
 
 var addOffer = function (project, offer, callback) {
-    var taskNeed = 3;
+    var taskNeed;
+    if (project.categories[0] === 'Donation')
+        taskNeed = 3;
+    else
+        taskNeed = 1;
     var taskDone = 0;
     project.offers.unshift(offer._id);
     if (project.categories[0] === 'Donation') {
