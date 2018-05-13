@@ -7,6 +7,14 @@ section (optional): {
 }
 %>
 
+<script>
+    function goToPage(link) {
+        window.location.href = link;
+    }
+
+
+</script>
+
 <div class="container">
     <nav class="nav-<%= theme %>">
         <div class="nav-logo">
@@ -41,64 +49,66 @@ section (optional): {
                             <a href="#!" id="menu-bar-notification-clear" class="mdc-icon-toggle"><i
                                         class="mdi mdi-notification-clear-all"></i></a>
                         </div>
+
+
                         <ul class="notification-list">
                             <% if (locals.user.notifications && user.notifications.length > 0) {
                                     for (var notification of locals.user.notifications) { %>
-                            <li>
-                                <a href="<%= notification.link %>" class="notification-card mdc-card">
-                                    <div class="texts">
-                                        <div class="time"><%= TimeAgo.format(notification.time) %></div>
-                                        <div class="text mdc-typography-overflow-ellipsis">
-                                            <% if (notification.read) { %>
-                                            <%- notification.content %>
-                                            <% } else { %>
-                                            <strong><%- notification.content %></strong>
-                                            <% } %>
-                                        </div>
+
+                            <li class="notification-card mdc-card"
+                                style="cursor:  pointer"
+                                onclick = "goToPage('<%= notification.link%>')">
+                                <img src="<%= notification.image %>" alt="Amily Arinston"
+                                     class="avatar">
+                                <div class="texts">
+                                    <div class="time"><%= TimeAgo.format(notification.time)%></div>
+                                    <div class="text mdc-typography-overflow-ellipsis"><strong><%- notification.content%> </strong>
                                     </div>
-                                </a>
+                                </div>
                             </li>
                             <% }
                             } else { %>
                             <li class="no-notification">There is no notification.</li>
                             <% } %>
                         </ul>
-                </div>
-            </div>
-
-            <div class="mdc-menu-anchor">
-                <button id="menu-bar-state-button" class="mdc-button"><%= user.role || "Sections" %> <i
-                            class="mdc-button__icon-right mdi mdi-menu-down"></i></button>
-                <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-state-button"
-                     data-anchor-position="BOTTOM_START">
-                    <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
-                        <a class="mdc-list-item" role="menuitem" tabindex="0" href="/investment">Startups</a>
-                        <a class="mdc-list-item" role="menuitem" tabindex="0" href="/investment">Investors</a>
-                        <a class="mdc-list-item" role="menuitem" tabindex="0" href="/donation">Charities</a>
-                        <a class="mdc-list-item" role="menuitem" tabindex="0" href="/donation">Donators</a>
                     </ul>
                 </div>
             </div>
-            <div class="mdc-menu-anchor">
-                <button id="menu-bar-user-button" class="mdc-button">
-                    <%= locals.user.name %>
-                    <img src="<%= locals.user.image %>" alt="<%= locals.user.name %>" class="user-avatar">
-                </button>
-                <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-user-button"
-                     data-anchor-position="BOTTOM_START">
-                    <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
-                        <a class="mdc-list-item" role="menuitem" tabindex="0" href="/dashboard/dashboard">Dashboard</a>
-                        <a class="mdc-list-item" role="menuitem" tabindex="0" href="/dashboard/inbox">Inbox</a>
-                        <a class="mdc-list-item" role="menuitem" tabindex="0" href="/logout">Log out</a>
-                    </ul>
-                </div>
-            </div>
-            <% } %>
         </div>
-        <button href="#" class="navbar-drawer-toggle mdc-toolbar__menu-icon">
-            <i class="mdi mdi-menu"></i>
-        </button>
-    </nav>
+
+        <div class="mdc-menu-anchor">
+            <button id="menu-bar-state-button" class="mdc-button"><%= user.role || "Sections" %> <i
+                        class="mdc-button__icon-right mdi mdi-menu-down"></i></button>
+            <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-state-button"
+                 data-anchor-position="BOTTOM_START">
+                <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
+                    <a class="mdc-list-item" role="menuitem" tabindex="0" href="/investment">Startups</a>
+                    <a class="mdc-list-item" role="menuitem" tabindex="0" href="/investment">Investors</a>
+                    <a class="mdc-list-item" role="menuitem" tabindex="0" href="/donation">Charities</a>
+                    <a class="mdc-list-item" role="menuitem" tabindex="0" href="/donation">Donators</a>
+                </ul>
+            </div>
+        </div>
+        <div class="mdc-menu-anchor">
+            <button id="menu-bar-user-button" class="mdc-button">
+                <%= locals.user.name %>
+                <img src="<%= locals.user.image %>" alt="<%= locals.user.name %>" class="user-avatar">
+            </button>
+            <div class="mdc-menu" id="menu-bar-state-menu" data-anchor="#menu-bar-user-button"
+                 data-anchor-position="BOTTOM_START">
+                <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
+                    <a class="mdc-list-item" role="menuitem" tabindex="0" href="/dashboard/dashboard">Dashboard</a>
+                    <a class="mdc-list-item" role="menuitem" tabindex="0" href="/dashboard/inbox">Inbox</a>
+                    <a class="mdc-list-item" role="menuitem" tabindex="0" href="/logout">Log out</a>
+                </ul>
+            </div>
+        </div>
+        <% } %>
+</div>
+<button href="#" class="navbar-drawer-toggle mdc-toolbar__menu-icon">
+    <i class="mdi mdi-menu"></i>
+</button>
+</nav>
 </div>
 
 <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
