@@ -37,7 +37,23 @@ router.get('/', preProcess, async function (req, res) {
 
 router.get('/search', function (req, res, next) {
     res.locals.user = req.user;
-    res.render('search', {title: 'Search — Raison'});
+    res.render('search', {title: 'Search — Raison', projects: []});
+});
+
+router.post('/search', function (req, res, next) {
+    res.locals.user = req.user;
+    projectController.searchProjects(
+        req.body.query,
+        parseInt(req.body.time),
+        req.body.sort,
+        (err, projects) => {
+        if (!err) {
+            res.render('search', { title: 'Search — Raison', userInput: req.body, projects: projects });
+        } else {
+            res.render('search', { title: 'Search — Raison', userInput: req.body, projects: [] });
+        }
+    });
+    
 });
 
 module.exports = router;

@@ -55,7 +55,6 @@ router.post('/signup', [
             })
         });
         var user = await x;
-        console.log(user);
         return user == null;
     }).withMessage('User is already taken!'),
     check('email')

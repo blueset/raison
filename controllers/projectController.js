@@ -68,15 +68,12 @@ var getProject = function(projectId, callback) {
 }
 
 var updateProject = function(projectId, featureChanges, callback) {
-    console.log("FEATURE_CHANGE", featureChanges);  
     getProject(projectId, function(project) {
-        console.log("UPDATE_PROJECT_GET_PROJECT_PROJECT_OBJ", project);
         if (project) {
             for (var i in featureChanges) {
                 project[i] = featureChanges[i];
             }
             project.save(function(err) {
-                console.log("UPDATE_PROJECT_SAVE_PROJ_CB", err);
                 callback(err, project);
             })
         } else {
@@ -102,12 +99,32 @@ var addComment = function(projectId, userId, comment, callback) {
     });
 }
 
+var searchProjects = function(name, days, sortBy, cb) {
+    const date = Date.now() - 24 * 60 * 60 * days;
+    const sort = {
+        "REL": {}, 
+        "TIME": {datePosted: -1}, 
+        "LIKE": {},
+        "COMMENT": { comments: -1}
+    };
+    Project.find({
+        $or: {
+            title: {$regex: name},
+            desc: {$regex: name}
+        },
+        datePosted: {
+            $gt: date
+        },
+    }).exec(cb);
+}
+
 module.exports = {
     createProject: createProject,
     addComment: addComment,
     getProject: getProject,
     updateProject: updateProject,
-    getTopProject: getTopProject
+    getTopProject: getTopProject,
+    searchProjects: searchProjects
 }
 
 // Imports moved to the end to avoid dependency cycles

@@ -163,7 +163,6 @@ var getProjects = async function(user) {
         });
         projects.push(await promise);
         if (i == user.projects.length - 1) {
-            console.log(projects);
             return projects;
         }
     }
