@@ -202,6 +202,7 @@ var notifyUser = function (userId, user, content, link, projectId, sender) {
                     email: sender.authentication.email,
                     name: sender.name
                 },
+                link: link,
                 read: false,
                 time: Date.now()
             });

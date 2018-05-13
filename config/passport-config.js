@@ -14,6 +14,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github').Strategy;
 const TelegramStrategy = require('passport-telegram-official');
 
+
 function configPassport(app, passport) {
     app.use(passport.initialize());
     app.use(passport.session());
@@ -50,9 +51,9 @@ function configPassport(app, passport) {
             userController.findUserByKey('oAuth.facebook.profile.id', profile.id, (user) => {
                 if (user !== null) {cb(null, user)}
                 else {
-                    userController.createUserOauth("fb_" + profile.username, 
-                                                    profile.emails && profile.emails[0] || `${profile.username}@facebook.com`, 
-                                                    profile.displayName, 
+                    userController.createUserOauth("fb_" + profile.username,
+                                                    profile.emails && profile.emails[0] || `${profile.username}@facebook.com`,
+                                                    profile.displayName,
                                                     (user) => {
                         if (user !== null) {
                             user.oAuth.facebook = {
