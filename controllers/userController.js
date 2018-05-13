@@ -107,12 +107,11 @@ var findUser2 = function(userId, callback) {
     });
 }
 
-var addNewProject = function(projectId, user, callback) {
-
+var addNewProject = function(projectId, projectName, user, callback) {
         user.projects.unshift(projectId);
         user.activity.unshift({
             content: "You created a new project",
-            link: "/interaction/" + projectId,
+            link: "/startup/" projectName + "/" + projectId,
             time: Date.now()
         });
 

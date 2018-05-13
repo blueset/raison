@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var preProcess = require('../controllers/app');
-var projectController = require('../controller/projectController');
-var userController = require('../controller/userController');
+var projectController = require('../controllers/projectController');
+var userController = require('../controllers/userController');
 var gravatar = require('gravatar');
 
 /* GET home page. */

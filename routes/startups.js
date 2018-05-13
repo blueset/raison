@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var userController = require('../controller/userController');
+var userController = require('../controllers/userController');
 
 router.get('/', function (req, res, next) {
     res.render('startups/landing', { title: 'Startups — Raison' });

@@ -3,8 +3,8 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 
-var userController = require('../controller/userController');
-var projectController = require('../controller/projectController');
+var userController = require('../controllers/userController');
+var projectController = require('../controllers/projectController');
 var gravatar = require('gravatar');
 var getJSON = require('get-json');
 
