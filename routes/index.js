@@ -1,15 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-var preProcess = require('../controllers/app');
-var projectController = require('../controller/projectController');
-var userController = require('../controller/userController');
-var gravatar = require('gravatar');
+var projectController = require('../databaseController/projectController');
+var userController = require('../databaseController/userController');
 
 /* GET home page. */
 
 
-router.get('/', preProcess, async function (req, res) {
+router.get('/', async function (req, res) {
     res.locals.donators = await userController.getTopUser("Donators", 8);
     res.locals.projects = await projectController.getTopProject(null, 5, "top");
     res.render('landing/landing', {title: 'Raison — Connecting Investors, Startups, Donators & Charities.'});

@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const userAuthentication = require('../models/db').authenticate;
 const findUser = require('../models/db').findUser;
 
-const userController = require('../controller/userController');
+const userController = require('../databaseController/userController');
 
 function configPassport(app, passport) {
     app.use(passport.initialize());

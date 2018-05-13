@@ -12,11 +12,11 @@ var flash = require('connect-flash');
 var expressSanitizer = require('express-sanitizer');
 
 // Custom middleware
-var authenticateUser = require('./controllers/authenticationMiddleware');
-var timeAgoMiddleware = require('./controllers/timeAgoMiddleware');
+var authenticateUser = require('./middleware/authenticationMiddleware');
+var timeAgoMiddleware = require('./middleware/timeAgoMiddleware');
 
 // Create database
-require('./models/db1.js');
+require('./models/db.js');
 
 // Routings
 var index = require('./routes/index');

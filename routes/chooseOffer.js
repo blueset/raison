@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-var userController = require('../controller/userController');
-var projectController = require('../controller/projectController');
-var offerController = require('../controller/projectOfferController');
+var userController = require('../databaseController/userController');
+var projectController = require('../databaseController/projectController');
+var offerController = require('../databaseController/projectOfferController');
 var mongoose = require('mongoose');
 
 

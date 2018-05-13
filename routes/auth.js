@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var userController = require('../controller/userController');
+var userController = require('../databaseController/userController');
 
 const {check, body, validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');

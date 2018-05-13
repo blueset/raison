@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var userController = require('../controller/userController');
+var userController = require('../databaseController/userController');
 var gravatar = require('gravatar');
 
 router.get('/:username', function (req, res, next) {

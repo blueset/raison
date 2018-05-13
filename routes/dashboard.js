@@ -3,8 +3,8 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 
-var userController = require('../controller/userController');
-var projectController = require('../controller/projectController');
+var userController = require('../databaseController/userController');
+var projectController = require('../databaseController/projectController');
 
 const { check, body, validationResult } = require('express-validator/check');
 
