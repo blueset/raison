@@ -55,13 +55,10 @@ var mdcTagInput = function (el) {
     var input = el.querySelector(".bootstrap-tagsinput input");
     $(input).on({
         focusin: function () {
-            console.log("focus in");
             mdcTF.getLabelAdapterMethods_().floatLabel(true);
             mdcTF.getLineRippleAdapterMethods_().activateLineRipple()
         },
         focusout: function () {
-            console.log("focus out");
-            console.log(!tagsInput.tagsinput('items').length);
             mdcTF.getLineRippleAdapterMethods_().deactivateLineRipple()
             if (!tagsInput.tagsinput('items').length) {
                 mdcTF.getLabelAdapterMethods_().floatLabel(false);

@@ -173,13 +173,10 @@ function configPassport(app, passport) {
 
 
     passport.serializeUser(function(user, done) {
-        console.log('serializing user:... ');
-        console.log(user);
         done(null, user._id);
     });
 
     passport.deserializeUser(function(userId, done) {
-        console.log('deserializing user:... ')
         userController.findUser2(userId, function(user) {
             if (user) done(null, user);
             else  done({'error': 'user is not available!'}, null);

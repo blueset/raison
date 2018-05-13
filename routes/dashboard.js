@@ -58,12 +58,10 @@ router.post('/projects/new', [
     check('project-tags').exists()
 ], function (req, res, next) {
     const errors = validationResult(req).mapped();
-    console.log(req.body, errors);
     if (Object.keys(errors).length != 0)
         return res.render('dashboard/projects-edit', { title: 'New project — Raison', errors: errors, userInput: req.body });
     projectController.createProject(req, function(error, project) {
         if (error) {
-            console.log(error);
             res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project: ' + error, userInput: req.body});
         } else {
             res.redirect('/dashboard/projects');
@@ -102,14 +100,16 @@ router.post('/projects/:id', projectAuthentication, [
     check('project-tags').exists()
 ], function (req, res, next) {
     const errors = validationResult(req).mapped();
-    console.log("PROJECT_EDIT_FORM_VALIDATION_ERRORS", errors);
     if (Object.keys(errors).length != 0)
         return res.render('/projects/projects-edit', { title: `Edit — ${userInput['project-title']} — Raison`, errors: errors, userInput: req.body });
     projectController.updateProject(mongoose.Types.ObjectId(req.params['id']),
-    [{'title': req.body['project-title']}, {'banner': req.body['banner-url']},
-        {'desc': req.body['body-content']}, {'categories': req.body['project-tags']}],
+    {
+        'title': req.body['project-title'], 
+        'banner': req.body['banner-url'], 
+        'desc': req.body['body-content'], 
+        'categories': req.body['project-tags']
+    },
     function(error, project) {
-        console.log(error, project);
         if (!error) {
             res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`, project: project});
         } else {

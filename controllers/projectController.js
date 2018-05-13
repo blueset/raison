@@ -50,7 +50,6 @@ var createProject = function(req, callback) {
         if (err) {
             callback(err, project);
         } else {
-            console.log("USER_CONTROLLER @ ADD_NEW_PROJECT", userController, userController.addNewProject);
             userController.addNewProject(project._id, req.user, function(err2) {
                 if (err2) callback(err, project);
                 else callback(err, project);
@@ -69,12 +68,15 @@ var getProject = function(projectId, callback) {
 }
 
 var updateProject = function(projectId, featureChanges, callback) {
+    console.log("FEATURE_CHANGE", featureChanges);  
     getProject(projectId, function(project) {
+        console.log("UPDATE_PROJECT_GET_PROJECT_PROJECT_OBJ", project);
         if (project) {
-            for (var i = 0; i < featureChanges.length; i++) {
-                project[featureChanges[i]['name']] = featureChanges[i]['value'];
+            for (var i in featureChanges) {
+                project[i] = featureChanges[i];
             }
             project.save(function(err) {
+                console.log("UPDATE_PROJECT_SAVE_PROJ_CB", err);
                 callback(err, project);
             })
         } else {
