@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var projectOfferSchema = new mongoose.Schema( {
-    actor: mongoose.Schema.ObjectId,
-    project: mongoose.Schema.ObjectId,
+    actor: mongoose.Schema.Types.ObjectId,
+    project: mongoose.Schema.Types.ObjectId,
     type: String,
     fundOffer: Number,
     accepted: Number,

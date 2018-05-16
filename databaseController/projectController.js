@@ -82,7 +82,6 @@ var chooseOffer = function (author, projectId, offerId, callback) {
                         project.save(function (err) {
                         });
 
-
                         var link = "/interaction/" + projectId;
                         var content = "You accepted a proposal for a project <a href=" + link + ">" + project.title + "</a>";
                         author.activity.unshift({
@@ -129,7 +128,8 @@ var createProject = function (req, callback) {
         ratings: {
             sumRate: 0,
             numVoters: 0
-        }
+        },
+        location: req.body.location || null
     });
 
     project.save(function (err) {
@@ -149,7 +149,10 @@ var createProject = function (req, callback) {
 }
 
 function checkFinish(taskDone, taskNeed, callback, err) {
-    console.log(taskDone);
+    if (err) {
+        callback(false);
+        return;
+    }
     if (taskDone === taskNeed) {
         if (err) callback(false);
         else callback(true);
@@ -161,7 +164,7 @@ var addOffer = function (project, offer, callback) {
     if (project.categories[0] === 'Donation')
         taskNeed = 3;
     else
-        taskNeed = 1;
+        taskNeed = 2;
     var taskDone = 0;
     project.offers.unshift(offer._id);
     if (project.categories[0] === 'Donation') {
@@ -171,26 +174,38 @@ var addOffer = function (project, offer, callback) {
             author.save(function (err) {
                 taskDone++;
                 checkFinish(taskDone, taskNeed, callback, err);
+                userController.findUser2(offer.actor, function (actor) {
+                    var found = false;
+                    for (var i = 0; i < actor.projects.length; i++) {
+                        if (actor.projects[i].toString() === project._id.toString()) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    actor.projects.unshift(project._id);
+                    actor.offers.push({
+                        project: project._id,
+                        offer: offer._id
+                    });
+                    actor.totalFunds += offer.fundOffer;
+                    actor.save(function (err) {
+                        taskDone++;
+                        checkFinish(taskDone, taskNeed, callback, err);
+                    });
+                });
             });
         });
-
+    } else {
         userController.findUser2(offer.actor, function (actor) {
-            var found = false;
-            for (var i = 0; i < actor.projects.length; i++) {
-                if (actor.projects[i].toString() === project._id.toString()) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found)
-                actor.projects.unshift(project._id);
-            actor.totalFunds += offer.fundOffer;
-            actor.save(function (err) {
+            actor.offers.push({
+                project: project._id,
+                offer: offer._id
+            });
+            actor.save(function(err) {
                 taskDone++;
                 checkFinish(taskDone, taskNeed, callback, err);
             });
-
-
         });
     }
     project.save(function (err) {
@@ -219,6 +234,7 @@ var getOffers = async function (projectId, callback) {
                         resolve({
                             funderImage: gravatar.url(tmp_user.authentication.email, {protocol: 'https', d: 'retro'}),
                             funder: tmp_user.name,
+                            funderUsername: tmp_user.authentication.username,
                             fundOffer: offer.fundOffer,
                             proposal: offer.proposal,
                             dateOffered: offer.dateOffered,

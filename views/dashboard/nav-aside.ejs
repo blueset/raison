@@ -4,4 +4,7 @@
     <a href="/dashboard/profile" class="mdc-button<%= path == 'profile' ? ' active' : '' %>">Profile</a>
     <a href="/dashboard/projects" class="mdc-button<%= path == 'projects' ? ' active' : '' %>">Projects</a>
     <a href="/dashboard/security" class="mdc-button<%= path == 'security' ? ' active' : '' %>">Security</a>
+    <% if (user.role === 'Donators' || user.role === 'Investors') {%>
+    <a href="/dashboard/offers-made" class="mdc-button<%= path == 'offers-made' ? ' active' : '' %>">Offers Made</a>
+    <% } %>
 </aside>

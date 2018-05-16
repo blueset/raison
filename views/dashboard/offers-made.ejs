@@ -1,37 +1,13 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
 
-<script>
-    function chooseOffer(offerId) {
-
-        var projectId = document.getElementById("hidden-project-id").innerText;
-
-        $.post("/choose-offer",
-            {
-                projectId: projectId,
-                offerId: offerId
-            },
-            function(data, status){
-                alert(data);
-                window.location.reload(false);
-            });
-    }
-
-
-</script>
-
 
 <div class="dashboard-content container">
-    <%- include('nav-aside', {path: 'projects'}) %>
-    <div id="hidden-project-id" style="display: none"><%= linkProject %></div>
+    <%- include('nav-aside', {path: 'offers-made'}) %>
     <div class="content">
         <section>
-            <a href="/dashboard/projects/" class="mdc-button">
-                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to the projects list
-            </a>
             <div class="title-row">
-                <a href="/interaction/<%= linkProject %>"
-                style="text-decoration: none"> <h1>Offers to the project </h1></a>
+                <h1>Offers Made  </h1>
             </div>
             <% if (offers.length === 0) { %>
             <div class="no-item">No offer here yet.</div>
@@ -46,24 +22,19 @@
                 <% } %>
                 ">
                 <summary>
-                    <img src="<%= offers[i].funderImage%>" alt="Offer" class="investor-logo">
                     <div class="info">
-                        <div class="time"> <%= offers[i].dateOffered.toDateString() %></div>
+                        <div class="time"> <%= TimeAgo.format(offers[i].dateOffered) %></div>
                         <div class="investor-name">
-                            <a href="/profile/<%= offers[i].funderUsername%>" style="text-decoration: none; color: inherit">
-                                <%= offers[i].funder%>
+                            <a href="/interaction/<%= offers[i].projectId%>" style="text-decoration: none; color: inherit">
+                                <%= offers[i].projectTitle%>
                             </a>
                         </div>
                     </div>
                     <div class="value"><span class="unit">$</span> <%= offers[i].fundOffer %></div>
                     <% if (offers[i].type === "Investment") {%>
-                    <button onclick="chooseOffer('<%= offers[i].offerId%>')"
-                            <% if (offers[i].accepted !== 2) {%>
-                            disabled
-                            <% } %>
-                            class="mdc-button">
+                    <button disabled class="mdc-button">
                         <% if (offers[i].accepted == 2) {%>
-                        Accept
+                        Pending
                         <% } else if (offers[i].accepted == 0) { %>
                         Rejected
                         <% } else { %>

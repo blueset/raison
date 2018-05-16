@@ -33,7 +33,6 @@ router.get('/profile', function (req, res, next) {
 router.post('/profile', function(req, res, next) {
     res.locals.user.name = req.body.displayname;
     res.locals.user.bio = req.body.bio;
-    res.locals.user.role = req.body.role;
 
     userController.saveUser(res.locals.user, function(successful) {
         if (successful) {
@@ -112,6 +111,17 @@ router.get('/projects/:id/offers',
         res.locals.linkProject = req.params['id'];
         res.render('dashboard/projects-offers', { title: 'Offers page'});
     });
+});
+
+router.get('/offers-made', function(req, res, next) {
+    if (req.user.role === 'Donators' || req.user.role === 'Investors') {
+        userController.getOffers(req.user, function(offers) {
+            res.locals.offers = offers;
+            res.render('dashboard/offers-made', {title: 'Offers made - Raison'});
+        });
+    }
+    else
+        res.redirect('/dashboard/dashboard');
 });
 
 router.get('/security', function (req, res, next) {
