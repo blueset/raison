@@ -26,7 +26,12 @@
             <%# Loop card starts. %>
             <% for (var i = 1; i < projects.length; i++) {%>
             <% project = projects[i] %>
-            <%- include('../components/author-card', project) %>
+            <%- include('../components/author-card', {
+                banner: project.content.banner,
+                author: project.author,
+                title: project.content.title,
+                url: `interaction/${project.content._id}`
+            }) %>
             <% } %>
 
         </section>
@@ -36,7 +41,12 @@
                 <a href="#!" class="mdc-button">More</a>
             </div>
             <% project = projects[0] %>
-            <%- include('../components/author-card', project) %>
+            <%- include('../components/author-card', {
+                banner: project.content.banner,
+                author: project.author,
+                title: project.content.title,
+                url: `interaction/${project.content._id}`
+            }) %>
 
         </section>
         <section id="top-donators">
@@ -71,7 +81,7 @@
 
 <div class="landing-lower-banner" style="background-image: url('https://picsum.photos/1200x600?image=26')">
     <div class="container">
-        <h2>Join us for <br> improve the society</h2>
+        <h2>Join us to<br>improve the society</h2>
         <div class="call-to-action">
             <a href="/signup" class="mdc-button mdc-button--raised">Sign up for free</a>
         </div>
