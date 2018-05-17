@@ -73,7 +73,7 @@
             <% if (num_invest !== 0) { %>
             <button class="mdc-button mdc-button--raised primary-action-button">
                 <i class="mdc-button__icon mdi mdi-star-outline"></i>
-                You have made <%= num_invest%> donations for this project!
+                You have made <%= num_invest %> donations for this project!
             </button>
             <button class="mdc-button mdc-button--raised primary-action-button" onclick="makeOffer('Donation')">
                 <i class="mdc-button__icon mdi mdi-star-outline"></i>
@@ -101,7 +101,7 @@
         </section>
         <section class="information-section">
             <h2>Comments</h2>
-            <%- include('../components/comments') %>
+            <%- include('../components/comments', {formAction: `/startups/${project.slug}/${project.id}/comment`}) %>
         </section>
     </div>
 </div>

@@ -22,10 +22,10 @@
                     <% } else {%>
                     ">
                     <% } %>
-                        <a href="/interaction/<%= topProject[i].content._id%>" class="author-card-carousel mdc-ripple-surface">
-                            <img class="d-block w-100" style="height: 500px" src="<%= topProject[i].content.banner%>" alt="First slide">
+                        <a href="/interaction/<%= topProject[i].content.slug %>-<%= topProject[i].content._id %>" class="author-card-carousel mdc-ripple-surface">
+                            <img class="d-block w-100" style="height: 500px" src="<%= topProject[i].content.banner %>" alt="First slide">
                             <div class="author-card-content">
-                                <img class="author-card-profile-picture" src="<%= topProject[i].author.image%>" alt="Lauren Arnold">
+                                <img class="author-card-profile-picture" src="<%= topProject[i].author.image %>" alt="Lauren Arnold">
                                 <div class="author-card-text">
                                     <div class="title mdc-typography-overflow-ellipsis"><%= topProject[i].content.title %></div>
                                     <div class="author-name mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">
@@ -78,7 +78,7 @@
             <% for (var i = 0; i < latestProject.length; i++) {%>
             <% project = latestProject[i]%>
             <%- include('../components/detail-card', {
-                url: `/interaction/${project.content._id}`,
+                url: `/interaction/${project.content.slug}-${project.content._id}`,
                 banner: project.content.banner,
                 title: project.content.title,
                 author: project.author,

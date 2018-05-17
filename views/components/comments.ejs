@@ -18,7 +18,7 @@
     <% if (user) {%>
     <div class="post-comment">
         <img src="<%= user.image %>" alt="<%= user.name %>" class="user-avatar">
-        <form method = "POST" action="?" class="comment-form">
+        <form method="POST" action="<%= formAction %>" class="comment-form">
             <div class="mdc-text-field mdc-text-field--textarea">
                 <textarea id="comment-body" name = "comment" class="mdc-text-field__input" rows="8" cols="40"></textarea>
                 <label for="comment-body" class="mdc-floating-label">Leave some words...</label>

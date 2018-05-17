@@ -8,18 +8,6 @@ var projectController = require('../databaseController/projectController');
 
 var gravatar = require('gravatar');
 
-router.post('/createProject', function(req, res) {
-    projectController.createProject(req, function(created) {
-        if (created) {
-            res.send('yay!');
-        } else {
-            res.send('Ooops!');
-        }
-    })
-})
-
-
-
 async function getComments(project) {
     var comments = [];
     for (var i = 0; i < project.comments.length; i++) {
@@ -39,7 +27,7 @@ async function getComments(project) {
     return comments;
 }
 
-router.get('/:id', function (req, res, next) {
+router.get('/:slug-:id', function (req, res, next) {
     projectController.getProject(req.params.id, function(project) {
         if (project) {
             res.locals.interaction = project;
@@ -76,7 +64,7 @@ router.get('/:id', function (req, res, next) {
                     }
                     res.locals.num_invest = num_invest;
                     res.locals.comments = await promise;
-                    res.render('interaction/tmp_interaction', { title: 'Interactions' });
+                    res.render('interaction/tmp_interaction', { title: 'Interaction?? — Raison' });
                 } else {
                     res.send('Oops');
                 }
@@ -90,11 +78,11 @@ router.get('/:id', function (req, res, next) {
 
 
 
-router.post('/:id', function(req, res, next) {
+router.post('/:slug-:id/comment', function(req, res, next) {
     var projectId = mongoose.Types.ObjectId(req.params.id);
     projectController.addComment(projectId, res.locals.user, req.body.comment, function(error) {
         if (!error) {
-            res.redirect('/interaction/' + req.params.id);
+            res.redirect(`/interaction/${req.params.slug}-${req.params.id}`);
         }
     });
 });
