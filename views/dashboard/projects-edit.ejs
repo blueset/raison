@@ -172,6 +172,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 <script>
 
+    var alert = (message, confirm, callback) => {
+        snackbar.show({
+            message: message,
+            actionText: confirm || 'OK',
+            actionHandler: callback || () => {}
+        });
+    }
     $(document).ready(function() {
         $("#banner-preview").css("background-image", `url('${$("#banner-url").val()}')`);
     });
