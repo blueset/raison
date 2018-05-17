@@ -68,9 +68,11 @@ router.get('/:id', function (req, res, next) {
                         });
                         res.locals.investorUsername = investor.authentication.username;
                     } else {
-                        for (var i = 0; i < req.user.offers.length; i++) {
-                            if (req.user.offers[i].project.toString() === req.params.id) {
-                                num_invest++;
+                        if (req.user) {
+                            for (var i = 0; i < req.user.offers.length; i++) {
+                                if (req.user.offers[i].project.toString() === req.params.id) {
+                                    num_invest++;
+                                }
                             }
                         }
                     }
