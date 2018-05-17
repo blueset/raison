@@ -9,7 +9,7 @@ var projectController = require('../databaseController/projectController');
 var gravatar = require('gravatar');
 
 router.post('/createProject', function(req, res) {
-    projectController.createProject(req, function(created, project) {
+    projectController.createProject(req, function(created) {
         if (created) {
             res.send('yay!');
         } else {
@@ -92,8 +92,8 @@ router.get('/:id', function (req, res, next) {
 
 router.post('/:id', function(req, res, next) {
     var projectId = mongoose.Types.ObjectId(req.params.id);
-    projectController.addComment(projectId, res.locals.user, req.body.comment, function(saved) {
-        if (saved) {
+    projectController.addComment(projectId, res.locals.user, req.body.comment, function(error) {
+        if (!error) {
             res.redirect('/interaction/' + req.params.id);
         }
     });

@@ -134,14 +134,14 @@ var createProject = function (req, callback) {
 
     project.save(function (err) {
         if (err) {
-            callback(false, project);
+            callback(err, project);
         } else {
             userController.addNewProject(project._id, req.user, function (err2) {
                 if (err2) {
-                    callback(false, project);
+                    callback(err, project);
                 }
                 else {
-                    callback(true, project);
+                    callback(err, project);
                 }
             })
         }
@@ -275,18 +275,18 @@ var updateProject = function (req, projectId, callback) {
             project.categories = [project.categories[0]].concat(req.body['project-tags'].split(","));
 
             project.save(function (err) {
-                if (err) callback(false, project);
-                else callback(true, project);
+                if (err) callback(err, project);
+                else callback(err, project);
             })
         } else {
-            callback(false, project);
+            callback(err, project);
         }
     });
 }
 
 var addComment = function (projectId, commenter, comment, callback) {
     Project.findOne({'_id': projectId}, function (err, project) {
-        if (err) callback(false);
+        if (err) callback(err);
         else {
             project.comments.unshift({
                 commenter: commenter._id,
@@ -294,9 +294,9 @@ var addComment = function (projectId, commenter, comment, callback) {
                 date: Date.now()
             });
             project.save(function (err) {
-                if (err) callback(false);
+                if (err) callback(err);
                 else {
-                    var content = `You made a comment on project <a href=/interaction/${projectId}> ${project.title} </a>.`;
+                    var content = `You made a comment on project <a href='/interaction/${projectId}'> ${project.title} </a>.`;
                     userController.addActivity(commenter, content);
                     if (commenter._id.toString() !== project.author.toString()) {
                         userController.findUser2(project.author, function (author) {
@@ -304,12 +304,12 @@ var addComment = function (projectId, commenter, comment, callback) {
                                 var author_content = `${commenter.name} commented on project ${project.title}`
                                 var link = `/interaction/${project._id}`;
                                 userController.notifyUser(null, author, author_content, link, project._id, commenter);
-                                callback(true);
+                                callback(err;
                             } else {
-                                callback(false);
+                                callback(err);
                             }
                         });
-                    } else callback(true);
+                    } else callback(err;
                 }
             })
         }

@@ -56,10 +56,18 @@ router.get('/projects/new', function (req, res, next) {
 });
 
 
-router.post('/projects/new', function (req, res, next) {
-    projectController.createProject(req, function(created, project) {
-        if (!created) {
-            res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project!', userInput: req.body});
+router.post('/projects/new', [
+    check('project-title').exists(),
+    check('banner-url').exists(),
+    check('body-content').exists(),
+    check('project-tags').exists()
+], function (req, res, next) {
+    const errors = validationResult(req).mapped();
+    if (Object.keys(errors).length != 0)
+        return res.render('dashboard/projects-edit', { title: 'New project — Raison', errors: errors, userInput: req.body });
+    projectController.createProject(req, function(error, project) {
+        if (error) {
+            res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project: ' + error, userInput: req.body});
         } else {
             res.redirect('/dashboard/projects');
         }
@@ -90,17 +98,25 @@ router.get('/projects/:id',projectAuthentication, function (req, res, next) {
     });
 });
 
-router.post('/projects/:id', projectAuthentication,  function (req, res, next) {
+router.post('/projects/:id', [
+    check('project-title').exists(),
+    check('banner-url').exists(),
+    check('body-content').exists(),
+    check('project-tags').exists()
+], function (req, res, next) {
+    const errors = validationResult(req).mapped();
+    if (Object.keys(errors).length != 0)
+        return res.render('dashboard/projects-edit', { title: `Edit — ${req.body.title} — Raison`, errors: errors, userInput: req.body });
     projectController.updateProject(req, mongoose.Types.ObjectId(req.params['id']),
-    function(successful, project) {
-        res.locals.project = project;
-        if (successful) {
-            res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`});
-        } else {
-            res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`,
-                message: 'There is an error in saving process! Try again later! ' + error, userInput: req.body, project: project});
-        }
-    });
+        function(error, project) {
+            res.locals.project = project;
+            if (error) {
+                res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`,
+                    message: 'There is an error in saving process: ' + error, userInput: req.body, project: project});
+            } else {
+                res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`, project: project});
+            }
+        });
 });
 
 router.get('/projects/:id/offers', 
@@ -122,8 +138,7 @@ router.get('/offers-made', projectAutentication, function(req, res, next) {
             res.render('dashboard/offers-made', {title: 'Offers made - Raison'});
         });
     }
-    else
-        res.redirect('/dashboard/dashboard');
+    else res.redirect('/dashboard/dashboard');
 });
 
 router.get('/security', function (req, res, next) {
