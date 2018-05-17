@@ -56,6 +56,10 @@
                         </div>
                     </div>
                     <div class="value"><span class="unit">$</span> <%= offers[i].fundOffer %></div>
+                    <a href="/profile/<%= offers[i].funderUsername%>" style="text-decoration: none; color: inherit" class="info">
+                        <div class="time"> <%= TimeAgo.format(offers[i].dateOffered) %></div>
+                        <div class="investor-name"><%= offers[i].funder %></div>
+                    </a>
                     <% const offerRep = numeral(offers[i].fundOffer).format('$ 0.0 a').split(' '); %>
                     <div class="value"><span class="unit">$</span><%= offerRep[1] %><span class="unit"><%= offerRep[2] %></span></div>
                     <% if (offers[i].type === "Investment") {%>
