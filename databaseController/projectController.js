@@ -83,13 +83,13 @@ function satisfied(project, keyword, time, topic, country, typeProject) {
             || (time === '1' && diffDate(date, project.datePosted) <= 7)
             || (time === '2' && (curMonth === prMonth && curYear === prYear))
             || (time === '3' && curYear === prYear)) &&
-        (country === 'all' || (project.location === country)) &&
-        (typeProject === 'all' || (project.categories[0] === typeProject)));
+        (country === 'all' || (project.location && project.location.trim() === country)) &&
+        (typeProject === 'all' || (project.categories[0].trim() === typeProject)));
     var secondCondition = false;
-    if (typeProject === 'all') secondCondition = true;
+    if (topic === 'all') secondCondition = true;
     else {
         for (var i = 1; i < project.categories.length; i++) {
-            if (project.categories[i] === topic) {
+            if (project.categories[i].trim() === topic) {
                 secondCondition = true;
                 break;
             }
@@ -100,12 +100,12 @@ function satisfied(project, keyword, time, topic, country, typeProject) {
 }
 
 var getProjectQuery = async function (req) {
-    var keyword = req.body.keyword.toLowerCase();
-    var time = req.body.time;
-    var topic = req.body.topic;
-    var sortOrder = req.body.sortOrder;
-    var country = req.body.country;
-    var typeProject = req.body.typeProject;
+    var keyword = req.body.keyword.toLowerCase().trim();
+    var time = req.body.time.trim();
+    var topic = req.body.topic.trim();
+    var sortOrder = req.body.sortOrder.trim();
+    var country = req.body.country.trim();
+    var typeProject = req.body.typeProject.trim();
 
     var promise = new Promise((resolve, reject) => {
         var count = 0;
