@@ -30,7 +30,8 @@
                             </a>
                         </div>
                     </div>
-                    <div class="value"><span class="unit">$</span> <%= offers[i].fundOffer %></div>
+                    <% const offerRep = numeral(offers[i].fundOffer).format('$ 0.0 a').split(' '); %>
+                    <div class="value"><span class="unit">$</span><%= offerRep[1] %><span class="unit"><%= offerRep[2] %></span></div>
                     <% if (offers[i].type === "Investment") {%>
                     <button disabled class="mdc-button">
                         <% if (offers[i].accepted == 2) {%>
