@@ -1,6 +1,22 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
 
+<% 
+const acceptStatus = {
+    0: {
+        class: "",
+        text: "Pending"
+    },
+    1: {
+        class: " accepted",
+        text: "Accepted"
+    },
+    2: {
+        class: " not-accepted",
+        text: "Not accepted"
+    }
+}
+%>
 
 <div class="dashboard-content container">
     <%- include('nav-aside', {path: 'offers-made'}) %>
@@ -14,12 +30,7 @@
             <% } %>
 
             <% for (var i = 0; i < offers.length; i++) { %>
-            <details class="mdc-card offer-card
-                 <% if (offers[i].accepted === 1) { %>
-                 accepted
-                <% } else if (offers[i].accepted === 0) { %>
-                non-accepted
-                <% } %>
+            <details class="mdc-card offer-card<%= acceptStatus[offers[i].accepted].class %>
                 ">
                 <summary>
                     <a href="/startups/<%= offers[i].projectId%>" style="text-decoration: none; color: inherit" class="info">
@@ -31,15 +42,9 @@
                     <% const offerRep = numeral(offers[i].fundOffer).format('$ 0.0 a').split(' '); %>
                     <div class="value"><span class="unit">$</span><%= offerRep[1] %><span class="unit"><%= offerRep[2] %></span></div>
                     <% if (offers[i].type === "Investment") {%>
-                    <button disabled class="mdc-button">
-                        <% if (offers[i].accepted == 2) {%>
-                        Pending
-                        <% } else if (offers[i].accepted == 0) { %>
-                        Rejected
-                        <% } else { %>
-                        Accepted
-                        <% } %>
-                    </button>
+                        <button disabled class="mdc-button">
+                            <%= acceptStatus[offers[i].accepted].text %>
+                        </button>
                     <% } %>
                 </summary>
                 <div class="details article-content">

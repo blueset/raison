@@ -1,24 +1,23 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
 
-<script>
-    function chooseOffer(offerId) {
 
-        var projectId = document.getElementById("hidden-project-id").innerText;
-
-        $.post("/choose-offer",
-            {
-                projectId: projectId,
-                offerId: offerId
-            },
-            function(data, status){
-                alert(data);
-                window.location.reload(false);
-            });
+<% 
+const acceptStatus = {
+    0: {
+        class: "",
+        text: "Accept"
+    },
+    1: {
+        class: " accepted",
+        text: "Accepted"
+    },
+    2: {
+        class: " not-accepted",
+        text: "Not accepted"
     }
-
-
-</script>
+}
+%>
 
 
 <div class="dashboard-content container">
@@ -38,13 +37,7 @@
             <% } %>
 
             <% for (var i = 0; i < offers.length; i++) { %>
-            <details class="mdc-card offer-card
-                 <% if (offers[i].accepted === 1) { %>
-                 accepted
-                <% } else if (offers[i].accepted === 0) { %>
-                non-accepted
-                <% } %>
-                ">
+            <details class="mdc-card offer-card<%= acceptStatus[offers[i].accepted].class">
                 <summary>
                     <img src="<%= offers[i].funderImage%>" alt="Offer" class="investor-logo">
                     <div class="info">
@@ -63,19 +56,11 @@
                     <% const offerRep = numeral(offers[i].fundOffer).format('$ 0.0 a').split(' '); %>
                     <div class="value"><span class="unit">$</span><%= offerRep[1] %><span class="unit"><%= offerRep[2] %></span></div>
                     <% if (offers[i].type === "Investment") {%>
-                    <button onclick="chooseOffer('<%= offers[i].offerId%>')"
-                            <% if (offers[i].accepted !== 2) {%>
-                            disabled
-                            <% } %>
-                            class="mdc-button">
-                        <% if (offers[i].accepted == 2) {%>
-                        Accept
-                        <% } else if (offers[i].accepted == 0) { %>
-                        Rejected
-                        <% } else { %>
-                        Accepted
-                        <% } %>
-                    </button>
+                        <button onclick="chooseOffer('<%= offers[i].offerId%>')"
+                                <%= offers[i].accepted !== 0 ? 'disabled' : '' %>
+                                class="mdc-button">
+                            <%= acceptStatus[offers[i].accepted].text %>
+                        </button>
                     <% } %>
                 </summary>
                 <div class="details article-content">
