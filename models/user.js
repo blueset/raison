@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var userSchema = new mongoose.Schema( {
+var userSchema = new mongoose.Schema({
     authentication: {
         username: String,
         email: String,
@@ -12,11 +12,17 @@ var userSchema = new mongoose.Schema( {
     image: String,
     totalFunds: Number,
     // Project Id
-    projects: [mongoose.Schema.ObjectId],
+    offers: [
+        {
+            project: mongoose.Schema.Types.ObjectId,
+            offer: mongoose.Schema.Types.ObjectId
+        }
+    ],
+    projects: [mongoose.Schema.Types.ObjectId],
     notifications: [
         {
             content: String,
-            project: mongoose.Schema.ObjectId,
+            project: mongoose.Schema.Types.ObjectId,
             link: String,
             from: {
                 email: String,

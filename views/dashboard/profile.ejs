@@ -26,19 +26,11 @@
             </div>
             <div class="mdc-form-control form-element">
                 <div class="mdc-text-field">
-                    <input type="date" id="date_of_birth" value="1960-01-01" class="mdc-text-field__input">
-                    <label class="mdc-floating-label mdc-floating-label--float-above" for="date_of_birth">Date of
-                        Birth</label>
-                    <div class="mdc-line-ripple"></div>
-                </div>
-            </div>
-            <div class="mdc-form-control form-element">
-                <div class="mdc-text-field">
                     <input type="text" required id="bio"
                            value= "<%= user.bio %>"
                            class="mdc-text-field__input"
-                            name="bio"
-                            maxlength="50">
+                           name="bio"
+                           maxlength="50">
                     <label class="mdc-floating-label" for="bio">Bio</label>
                     <div class="mdc-line-ripple"></div>
                 </div>
@@ -49,22 +41,12 @@
             <div class="mdc-form-control form-element">
                 <div class="mdc-select">
                     <select class="mdc-select__native-control" name="role">
-                        <option value="Startups"
-                                <% if (user.role == "Startups") { %>
-                                selected
-                                <% } %>
-                        >Startup
-                        </option>
-                        <option value="Investors"
-                                <% if (user.role == "Investors") { %>
-                                selected
-                                <% } %>
-                        >Investor
-                        </option>
-                        <option value="Donators"
-                                <% if (user.role == "Donators") { %> selected <% } %>>Donator</option>
-                        <option value="Charities"
-                                <% if (user.role == "Charities") { %> selected <% } %>>Charity</option>
+                        <option value="Startups"<%= user.role == 'Startups' && ' selected' || ''%>>Startup 
+                        </option> 
+                        <option value="Investors"<%= user.role == 'Investors' && ' selected' || ''%>>Investor 
+                        </option> 
+                        <option value="Donators"<%= user.role == 'Donators' && ' selected' || ''%>>Donator</option> 
+                        <option value="Charities"<%= user.role == 'Charity' && ' selected' || ''%>>Charity</option> 
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
                     <div class="mdc-select__bottom-line"></div>

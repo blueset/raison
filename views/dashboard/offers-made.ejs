@@ -1,12 +1,11 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
 
-
 <% 
 const acceptStatus = {
     0: {
         class: "",
-        text: "Accept"
+        text: "Pending"
     },
     1: {
         class: " accepted",
@@ -19,34 +18,31 @@ const acceptStatus = {
 }
 %>
 
-
 <div class="dashboard-content container">
-    <%- include('nav-aside', {path: 'projects'}) %>
+    <%- include('nav-aside', {path: 'offers-made'}) %>
     <div class="content">
         <section>
-            <a href="/dashboard/projects/" class="mdc-button">
-                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to projects list
-            </a>
             <div class="title-row">
-                <h1>Offers to the project</h1>
+                <h1>Offers Made</h1>
             </div>
             <% if (offers.length === 0) { %>
-                <div class="no-item">No offer here yet.</div>
+            <div class="no-item">No offer here yet.</div>
             <% } %>
+
             <% for (var i = 0; i < offers.length; i++) { %>
-            <details class="mdc-card offer-card<%= acceptStatus[offers[i].accepted].class">
+            <details class="mdc-card offer-card<%= acceptStatus[offers[i].accepted].class %>
+                ">
                 <summary>
-                    <img src="<%= offers[i].funderImage%>" alt="Offer" class="investor-logo">
-                    <a href="/profile/<%= offers[i].funderUsername%>" style="text-decoration: none; color: inherit" class="info">
+                    <a href="/startups/<%= offers[i].projectId%>" style="text-decoration: none; color: inherit" class="info">
                         <div class="time"> <%= TimeAgo.format(offers[i].dateOffered) %></div>
-                        <div class="investor-name"><%= offers[i].funder %></div>
+                        <div class="investor-name">
+                                <%= offers[i].projectTitle%>
+                        </div>
                     </a>
                     <% const offerRep = numeral(offers[i].fundOffer).format('$ 0.0 a').split(' '); %>
                     <div class="value"><span class="unit">$</span><%= offerRep[1] %><span class="unit"><%= offerRep[2] %></span></div>
                     <% if (offers[i].type === "Investment") {%>
-                        <button onclick="chooseOffer('<%= offers[i].offerId%>')"
-                                <%= offers[i].accepted !== 0 ? 'disabled' : '' %>
-                                class="mdc-button">
+                        <button disabled class="mdc-button">
                             <%= acceptStatus[offers[i].accepted].text %>
                         </button>
                     <% } %>
@@ -59,22 +55,6 @@ const acceptStatus = {
         </section>
     </div>
 </div>
-
-
-<script>
-    function chooseOffer(offerId) {
-        var projectId = "<%= linkProject %>";
-        $.post("/choose-offer",
-            {
-                projectId: projectId,
-                offerId: offerId
-            },
-            function(data, status){
-                alert(data);
-                window.location.reload(false);
-            });
-    }
-</script>
 
 <%- include('../components/footer') %>
 <%- include('../templates/foot') %>

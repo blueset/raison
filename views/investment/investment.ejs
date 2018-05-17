@@ -77,7 +77,14 @@
             </div>
             <% for (var i = 0; i < latestProject.length; i++) {%>
             <% project = latestProject[i]%>
-            <%- include('../components/detail-card', project)%>
+            <%- include('../components/detail-card', {
+                url: `/interaction/${project.content._id}`,
+                banner: project.content.banner,
+                title: project.content.title,
+                author: project.author,
+                summary: project.content.desc
+                comments: project.content.comments.length
+            }) %>
             <% } %>
             <!--<a href="#!" class="mdc-button">Show more</a>-->
         </section>

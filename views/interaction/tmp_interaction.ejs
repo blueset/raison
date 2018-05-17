@@ -8,7 +8,7 @@
 
 <script>
     function makeOffer(typeOffer) {
-       window.location = '/make_offer?projectId=<%= interaction._id%>&title=<%= interaction.title%>&type=' + typeOffer;
+        window.location = '/make_offer?projectId=<%= interaction._id %>&title=<%= interaction.title %>&type=' + typeOffer;
     }
 </script>
 
@@ -18,11 +18,11 @@
     </div>
 
     <div class="author">
-        <a href="/profile/<%= author.authentication.username%>">
+        <a href="/profile/<%= author.authentication.username %>">
             <img class='author-avatar' src="<%= author.image %>" alt="">
         </a>
 
-        <div class="author-info"> <%= author.name %><br> <%= interaction.datePosted.toDateString()%></div>
+        <div class="author-info"> <%= author.name %><br> <%= interaction.datePosted.toDateString() %></div>
     </div>
     <div class="description article-content">
         <img class="featuring-image" width="100%" src="<%= interaction.banner %>" alt="First slide">
@@ -34,38 +34,57 @@
         <section class="information-section" id="investor-information">
             <div class="investor-information-entry">
                 <div class="title">Status</div>
-                <% if (interaction.investor || interaction.categories[0] === "Donation") {%>
-                <div class="content">Implemented </div>
+                <% if (interaction.investor || interaction.categories[0] === "Donation") { %>
+                <div class="content">Implemented</div>
                 <% } else { %>
-                <div class="content"> Pending </div>
+                <div class="content"> Pending</div>
                 <% } %>
             </div>
-            <% if (interaction.investor) {%>
-                <div class="investor-information-entry">
-                    <div class="title">Invested By</div>
-                    <img src="<%= investorImage %>" style="border-radius: 50%" class="picture" alt="Company Logo">
+            <% if (interaction.investor) { %>
+            <div class="investor-information-entry">
+                <div class="title">Invested By</div>
+                <img src="<%= investorImage %>" style="border-radius: 50%" class="picture" alt="Company Logo">
                 <div class="content"><a style="text-decoration: none"
-                            href="/profile/<%= investorUsername%>"> <%= investorName %></a> </div>
+                                        href="/profile/<%= investorUsername %>"> <%= investorName %></a></div>
             </div>
             <% } %>
             <div class="investor-information-entry">
                 <div class="title">Total Funds</div>
-                <div class="content">$ <%= interaction.totalFunds%> </div>
+                <div class="content">$ <%= interaction.totalFunds %> </div>
             </div>
         </section>
         <section class="actions">
             <% if (!interaction.investor && user && ((author.role === 'Startups' && user.role === 'Investors'))) { %>
+            <% if (num_invest === 0) { %>
             <button class="mdc-button mdc-button--raised primary-action-button" onclick="makeOffer('Investment')">
                 <i class="mdc-button__icon mdi mdi-star-outline"></i>
                 Make an offer
             </button>
+            <% } else { %>
+            <button class="mdc-button mdc-button--raised primary-action-button">
+                <i class="mdc-button__icon mdi mdi-star-outline"></i>
+                You have made an offer for this project!
+            </button>
+            <% } %>
+
             <% } %>
 
             <% if (user && ((author.role === 'Charities' && user.role === 'Donators'))) { %>
+            <% if (num_invest !== 0) { %>
+            <button class="mdc-button mdc-button--raised primary-action-button">
+                <i class="mdc-button__icon mdi mdi-star-outline"></i>
+                You have made <%= num_invest%> donations for this project!
+            </button>
+            <button class="mdc-button mdc-button--raised primary-action-button" onclick="makeOffer('Donation')">
+                <i class="mdc-button__icon mdi mdi-star-outline"></i>
+                Donate more!
+            </button>
+            <% } else { %>
             <button class="mdc-button mdc-button--raised primary-action-button" onclick="makeOffer('Donation')">
                 <i class="mdc-button__icon mdi mdi-star-outline"></i>
                 Make a donation
             </button>
+            <% } %>
             <% } %>
             <button class="mdc-button mdc-button--raised secondary-action-button">
                 <i class="mdc-button__icon mdi mdi-message-reply-text"></i>

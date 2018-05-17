@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var projectSchema = new mongoose.Schema( {
-    author: mongoose.Schema.ObjectId,
-    investor: mongoose.Schema.ObjectId,
-    offers: [mongoose.Schema.ObjectId],
+    author: mongoose.Schema.Types.ObjectId,
+    investor: mongoose.Schema.Types.ObjectId,
+    offers: [mongoose.Schema.Types.ObjectId],
     datePosted: Date,
     progress: [
         {
@@ -20,13 +20,10 @@ var projectSchema = new mongoose.Schema( {
     desc: String,
     totalFunds: Number,
     categories: [String],
-    location: {
-        lat: mongoose.Schema.Types.Decimal128,
-        long: mongoose.Schema.Types.Decimal128
-    },
+    location: String,
     comments: [
         {
-            commenter: mongoose.Schema.ObjectId,
+            commenter: mongoose.Schema.Types.ObjectId,
             comment: String,
             date: {
                 type: Date,

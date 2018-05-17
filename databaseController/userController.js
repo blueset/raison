@@ -42,8 +42,10 @@ var createUser = function (req, callback) {
         bio: "",
         totalFunds: 0,
         role: req.body.role,
+        offers: [],
         projects: [],
-        activity: []
+        activity: [],
+        notifications: []
     });
 
     user.save(function (err) {
@@ -192,7 +194,10 @@ var notifyUser = function (userId, user, content, link, projectId, sender) {
             read: false,
             time: Date.now()
         });
-        user.save(function(err){});
+        user.save(function (err) {
+            console.log('dm co loi roi');
+            console.log(err);
+        });
     } else {
         findUser2(userId, function (user) {
             user.notifications.unshift({
@@ -207,12 +212,52 @@ var notifyUser = function (userId, user, content, link, projectId, sender) {
                 time: Date.now()
             });
             user.save(function (err) {
+                console.log('dm co loi roi');
+                console.log(err);
             });
         });
     }
 
 }
 
+
+var getOffers = function (user, callback) {
+    if (user.offers.length === 0) {
+        callback([]);
+    }
+    var offers = [];
+    var count = 0;
+    for (var i = 0; i < user.offers.length; i++) {
+        (async function (i_tmp) {
+
+                offerController.getOffer(mongoose.Types.ObjectId(user.offers[i_tmp].offer), async function (offer) {
+                    var promise2 = new Promise((resolve, reject) => {
+                        projectController.getProject(offer.project, function(project) {
+                           resolve(project);
+                        });
+                    });
+                    var tmp_project = await promise2;
+                    offers.push({
+                        fundOffer: offer.fundOffer,
+                        proposal: offer.proposal,
+                        dateOffered: offer.dateOffered,
+                        accepted: offer.accepted,
+                        offerId: offer._id,
+                        type: offer.type,
+                        projectTitle: tmp_project.title,
+                        projectId: tmp_project._id
+                    });
+                    count++;
+                    if (count === user.offers.length) {
+                        offers.sort(function (a, b) {
+                            return b.dateOffered - a.dateOffered;
+                        });
+                        callback(offers);
+                    }
+                });
+        })(i);
+    }
+}
 
 module.exports = {
     createUser: createUser,
@@ -225,8 +270,10 @@ module.exports = {
     getTopUser: getTopUser,
     addCurrentProject: addCurrentProject,
     addActivity: addActivity,
-    notifyUser: notifyUser
+    notifyUser: notifyUser,
+    getOffers: getOffers
 }
 
 const projectController = require('./projectController');
+const offerController = require('./projectOfferController');
 

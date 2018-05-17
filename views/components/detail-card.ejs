@@ -1,25 +1,25 @@
 <div class="detail-card mdc-card">
-    <a href="/interaction/<%= project.content._id %>" class="detail-card-media-action mdc-card__primary-action">
-        <div class="mdc-card__media mdc-card__media--9-16" style="background-image: url('<%= project.content.banner %>')"></div>
+    <a href="<%= locals.url || '#!' %>" class="detail-card-media-action mdc-card__primary-action">
+        <div class="mdc-card__media mdc-card__media--9-16" style="background-image: url('<%= banner %>')"></div>
     </a>
     <div class="detail-card-content">
-        <a href="/interaction/<%= project.content._id %>" class="detail-card-content-action mdc-card__primary-action">
+        <a href="<%= locals.url || '#!' %>" class="detail-card-content-action mdc-card__primary-action">
             <div class="detail-card-author">
                 <div class="detail-card-author-text">
-                    <div class="mdc-typography-overflow-ellipsis"><%= project.content.title %></div>
-                    <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis"><%= project.author.name %></div>
+                    <div class="mdc-typography-overflow-ellipsis"><%= title %></div>
+                    <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis"><%= author.name %></div>
                 </div>
-                <img class="detail-card-profile-picture" src="<%= project.author.image %>" alt="<%= project.author.name %>">
+                <img class="detail-card-profile-picture" src="<%= author.image %>" alt="<%= author.name %>">
             </div>
             <div class="detail-card-summary">
-                <%- project.content.desc %>
+                <%= summary %>
             </div>
         </a>
         <div class="mdc-card__actions">
             <div class="mdc-card__action-buttons">
-                <a class="mdc-button">
+                <a class="mdc-button" href="#!">
                     <i class="mdi mdi-message-reply-text mdc-button__icon"></i>
-                    <%= project.content.comments.length %>
+                    <%= comments %>
                 </a>
             </div>
             <div class="mdc-card__action-icons">

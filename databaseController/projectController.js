@@ -82,7 +82,6 @@ var chooseOffer = function (author, projectId, offerId, callback) {
                         project.save(function (err) {
                         });
 
-
                         var link = "/interaction/" + projectId;
                         var content = "You accepted a proposal for a project <a href=" + link + ">" + project.title + "</a>";
                         author.activity.unshift({
@@ -129,19 +128,20 @@ var createProject = function (req, callback) {
         ratings: {
             sumRate: 0,
             numVoters: 0
-        }
+        },
+        location: req.body.location || null
     });
 
     project.save(function (err) {
         if (err) {
-            callback(false, project);
+            callback(err, project);
         } else {
             userController.addNewProject(project._id, req.user, function (err2) {
                 if (err2) {
-                    callback(false, project);
+                    callback(err, project);
                 }
                 else {
-                    callback(true, project);
+                    callback(err, project);
                 }
             })
         }
@@ -149,7 +149,10 @@ var createProject = function (req, callback) {
 }
 
 function checkFinish(taskDone, taskNeed, callback, err) {
-    console.log(taskDone);
+    if (err) {
+        callback(false);
+        return;
+    }
     if (taskDone === taskNeed) {
         if (err) callback(false);
         else callback(true);
@@ -161,7 +164,7 @@ var addOffer = function (project, offer, callback) {
     if (project.categories[0] === 'Donation')
         taskNeed = 3;
     else
-        taskNeed = 1;
+        taskNeed = 2;
     var taskDone = 0;
     project.offers.unshift(offer._id);
     if (project.categories[0] === 'Donation') {
@@ -171,26 +174,38 @@ var addOffer = function (project, offer, callback) {
             author.save(function (err) {
                 taskDone++;
                 checkFinish(taskDone, taskNeed, callback, err);
+                userController.findUser2(offer.actor, function (actor) {
+                    var found = false;
+                    for (var i = 0; i < actor.projects.length; i++) {
+                        if (actor.projects[i].toString() === project._id.toString()) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    actor.projects.unshift(project._id);
+                    actor.offers.push({
+                        project: project._id,
+                        offer: offer._id
+                    });
+                    actor.totalFunds += offer.fundOffer;
+                    actor.save(function (err) {
+                        taskDone++;
+                        checkFinish(taskDone, taskNeed, callback, err);
+                    });
+                });
             });
         });
-
+    } else {
         userController.findUser2(offer.actor, function (actor) {
-            var found = false;
-            for (var i = 0; i < actor.projects.length; i++) {
-                if (actor.projects[i].toString() === project._id.toString()) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found)
-                actor.projects.unshift(project._id);
-            actor.totalFunds += offer.fundOffer;
-            actor.save(function (err) {
+            actor.offers.push({
+                project: project._id,
+                offer: offer._id
+            });
+            actor.save(function(err) {
                 taskDone++;
                 checkFinish(taskDone, taskNeed, callback, err);
             });
-
-
         });
     }
     project.save(function (err) {
@@ -219,6 +234,7 @@ var getOffers = async function (projectId, callback) {
                         resolve({
                             funderImage: gravatar.url(tmp_user.authentication.email, {protocol: 'https', d: 'retro'}),
                             funder: tmp_user.name,
+                            funderUsername: tmp_user.authentication.username,
                             fundOffer: offer.fundOffer,
                             proposal: offer.proposal,
                             dateOffered: offer.dateOffered,
@@ -259,18 +275,18 @@ var updateProject = function (req, projectId, callback) {
             project.categories = [project.categories[0]].concat(req.body['project-tags'].split(","));
 
             project.save(function (err) {
-                if (err) callback(false, project);
-                else callback(true, project);
+                if (err) callback(err, project);
+                else callback(err, project);
             })
         } else {
-            callback(false, project);
+            callback(err, project);
         }
     });
 }
 
 var addComment = function (projectId, commenter, comment, callback) {
     Project.findOne({'_id': projectId}, function (err, project) {
-        if (err) callback(false);
+        if (err) callback(err);
         else {
             project.comments.unshift({
                 commenter: commenter._id,
@@ -278,9 +294,9 @@ var addComment = function (projectId, commenter, comment, callback) {
                 date: Date.now()
             });
             project.save(function (err) {
-                if (err) callback(false);
+                if (err) callback(err);
                 else {
-                    var content = `You made a comment on project <a href=/interaction/${projectId}> ${project.title} </a>.`;
+                    var content = `You made a comment on project <a href='/interaction/${projectId}'> ${project.title} </a>.`;
                     userController.addActivity(commenter, content);
                     if (commenter._id.toString() !== project.author.toString()) {
                         userController.findUser2(project.author, function (author) {
@@ -288,12 +304,12 @@ var addComment = function (projectId, commenter, comment, callback) {
                                 var author_content = `${commenter.name} commented on project ${project.title}`
                                 var link = `/interaction/${project._id}`;
                                 userController.notifyUser(null, author, author_content, link, project._id, commenter);
-                                callback(true);
+                                callback(err;
                             } else {
-                                callback(false);
+                                callback(err);
                             }
                         });
-                    } else callback(true);
+                    } else callback(err;
                 }
             })
         }

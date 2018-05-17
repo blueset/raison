@@ -9,7 +9,7 @@ var projectController = require('../databaseController/projectController');
 var gravatar = require('gravatar');
 
 router.post('/createProject', function(req, res) {
-    projectController.createProject(req, function(created, project) {
+    projectController.createProject(req, function(created) {
         if (created) {
             res.send('yay!');
         } else {
@@ -43,14 +43,6 @@ router.get('/:id', function (req, res, next) {
     projectController.getProject(req.params.id, function(project) {
         if (project) {
             res.locals.interaction = project;
-            // if (project.location) {
-            //     getJSON('http://maps.googleapis.com/maps/api/geocode/json?latlng='
-            //         + project.location.lat + ','
-            //         + project.location.long + '?sensor=false',
-            //         function (error, response) {
-            //
-            //         })
-            // }
 
             userController.findUser2(project.author, async function(author) {
                 if (author)  {
@@ -67,6 +59,7 @@ router.get('/:id', function (req, res, next) {
                         });
                         investor = await promise2;
                     }
+                    var num_invest = 0;
                     if (investor) {
                         res.locals.investorName = investor.name;
                         res.locals.investorImage = gravatar.url(investor.authentication.email, {
@@ -74,7 +67,14 @@ router.get('/:id', function (req, res, next) {
                             d: 'retro'
                         });
                         res.locals.investorUsername = investor.authentication.username;
+                    } else {
+                        for (var i = 0; i < req.user.offers.length; i++) {
+                            if (req.user.offers[i].project.toString() === req.params.id) {
+                                num_invest++;
+                            }
+                        }
                     }
+                    res.locals.num_invest = num_invest;
                     res.locals.comments = await promise;
                     res.render('interaction/tmp_interaction', { title: 'Interactions' });
                 } else {
@@ -92,8 +92,8 @@ router.get('/:id', function (req, res, next) {
 
 router.post('/:id', function(req, res, next) {
     var projectId = mongoose.Types.ObjectId(req.params.id);
-    projectController.addComment(projectId, res.locals.user, req.body.comment, function(saved) {
-        if (saved) {
+    projectController.addComment(projectId, res.locals.user, req.body.comment, function(error) {
+        if (!error) {
             res.redirect('/interaction/' + req.params.id);
         }
     });
