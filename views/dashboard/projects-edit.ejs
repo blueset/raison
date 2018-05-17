@@ -41,11 +41,9 @@
                     </p>
                 </div>
 
-
-
                 <div class="mdc-form-control form-element" id="location-container">
                     <div
-                            class="mdc-text-field chip-text-field <%= (locals.error && locals.error['project-tags'] && ' mdc-text-field--invalid') || '' %>">
+                            class="mdc-text-field<%= (locals.error && locals.error['project-tags'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="location"
                                value="<%= (locals.userInput && locals.userInput.location) || (locals.project && locals.project.location) %>"
                                name="location" class="mdc-text-field__input">
@@ -114,7 +112,7 @@
         snackbar.show({
             message: message,
             actionText: confirm || 'OK',
-            actionHandler: callback || () => {}
+            actionHandler: callback || function(){}
         });
     }
 
