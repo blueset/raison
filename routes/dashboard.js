@@ -130,7 +130,7 @@ router.get('/projects/:id/offers',
     });
 });
 
-router.get('/offers-made', projectAutentication, function(req, res, next) {
+router.get('/offers-made', projectAuthentication, function(req, res, next) {
     res.locals.numeral = numeral;
     if (req.user.role === 'Donators' || req.user.role === 'Investors') {
         userController.getOffers(req.user, function(offers) {

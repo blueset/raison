@@ -144,9 +144,16 @@
             </div>
         </form>
 
-        <% for (var i = 0; i < results.length; i++) { %>
-        <% project = results[i] %>
-        <%- include('./components/detail-card', project) %>
+        <% for (var i = 0; i < results.length; i++) {%>
+        <% project = results[i]%>
+        <%- include('./components/detail-card', {
+        url: `/interaction/${project.content._id}`,
+        banner: project.content.banner,
+        title: project.content.title,
+        author: project.author,
+        summary: project.content.desc,
+        comments: project.content.comments.length
+        })%>
         <% } %>
     </div>
 

@@ -42,6 +42,7 @@ section (optional): {
                 <a href="#!" id="menu-bar-notification-btn" class="mdc-icon-toggle"><i
                             class="mdi mdi-bell-outline<%= (user.notifications && user.notifications.some((i) => i.read) && ' notification-have-unread') || '' %>"></i></a>
                 <div class="mdc-menu" id="menu-bar-notification-menu" data-anchor="#menu-bar-notification-btn"
+                     style="overflow: scroll"
                      data-anchor-position="BOTTOM_START">
                     <ul class="mdc-menu__items mdc-list notification-list-wrap" role="menu" aria-hidden="true">
                         <div class="mbn-header">
