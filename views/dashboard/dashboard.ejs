@@ -36,5 +36,17 @@
     </div>
 </div>
 
+<%- include('../components/snackbar') %>
+
+<% if (locals.message) { %>
+<script>
+    snackbar.show({
+        message: "<%= locals.message %>",
+        actionText: "Dismiss",
+        actionHandler: () => {}
+    });
+</script>
+<% } %>
+
 <%- include('../components/footer') %>
 <%- include('../templates/foot') %>

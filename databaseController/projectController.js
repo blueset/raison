@@ -304,12 +304,12 @@ var addComment = function (projectId, commenter, comment, callback) {
                                 var author_content = `${commenter.name} commented on project ${project.title}`
                                 var link = `/interaction/${project._id}`;
                                 userController.notifyUser(null, author, author_content, link, project._id, commenter);
-                                callback(err;
+                                callback(err);
                             } else {
                                 callback(err);
                             }
                         });
-                    } else callback(err;
+                    } else callback(err);
                 }
             })
         }
