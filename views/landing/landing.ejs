@@ -26,7 +26,12 @@
             <%# Loop card starts. %>
             <% for (var i = 1; i < projects.length; i++) {%>
             <% project = projects[i] %>
-            <%- include('../components/author-card', project) %>
+            <%- include('../components/author-card', {
+                banner: project.content.banner,
+                author: project.author,
+                title: project.content.title,
+                url: `interaction/${project.content._id}`
+            }) %>
             <% } %>
 
         </section>
@@ -36,7 +41,12 @@
                 <a href="#!" class="mdc-button">More</a>
             </div>
             <% project = projects[0] %>
-            <%- include('../components/author-card', project) %>
+            <%- include('../components/author-card', {
+                banner: project.content.banner,
+                author: project.author,
+                title: project.content.title,
+                url: `interaction/${project.content._id}`
+            }) %>
 
         </section>
         <section id="top-donators">
