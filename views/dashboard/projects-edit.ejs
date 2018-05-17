@@ -1,69 +1,6 @@
 <%- include('../templates/head') %>
 <%- include('navbar') %>
 
-
-<% if (!(project && project.location)) {%>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxoRJ-J409lbgy5pxY_3EQHfbhW0ArydM"
-        type="text/javascript"></script>
-<script>
-
-    $(document).ready(function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-        } else {
-            alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
-            document.getElementById("location-container").style.display = "none";
-        }
-    });
-
-    function successFunction(position) {
-        document.getElementById("location-label").className += " mdc-floating-label--float-above";
-        var geocoder;
-        geocoder = new google.maps.Geocoder();
-        var lat = position.coords.latitude;
-        var long = position.coords.longitude;
-        var latlng = new google.maps.LatLng(lat, long);
-        geocoder.geocode(
-            {'latLng': latlng},
-            function(results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    if (results[0]) {
-                        var add= results[0].formatted_address ;
-                        var  value=add.split(",");
-
-                        var count=value.length;
-                        var country=value[count-1];
-
-                        document.getElementById("location").value = country;
-                    }
-                    else  {
-                        alert("failure to get your location");
-                        document.getElementById("location").value = null;
-                        document.getElementById("location-container").style.display = "none";
-                    }
-                }
-                else {
-                    alert("failure to get your location");
-                    document.getElementById("location").value = null;
-                    document.getElementById("location-container").style.display = "none";
-                }
-            }
-        );
-
-
-
-    }
-
-    function errorFunction(position) {
-        alert("There is an error in locating your position!");
-        document.getElementById("location").value = null;
-        document.getElementById("location-container").style.display = "none";
-    }
-
-</script>
-<% } %>
-
-
 <div class="dashboard-content container">
     <%- include('nav-aside', {path: 'projects'}) %>
     <div class="content">
@@ -110,13 +47,13 @@
                     <div
                             class="mdc-text-field chip-text-field <%= (locals.error && locals.error['project-tags'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="location"
-                               value="<%= (project && project.location)%>"
+                               value="<%= (locals.userInput && locals.userInput.location) || (locals.project && locals.project.location) %>"
                                name="location" class="mdc-text-field__input">
-                        <label class="mdc-floating-label" for="project-title" id="location-label"> Location </label>
+                        <label class="mdc-floating-label" for="project-title" id="location-label">Location</label>
                         <div class="mdc-line-ripple"></div>
                     </div>
                     <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
-                        <%= (locals.error && locals.error['project-title'] && locals.error['project-title'].msg) || '' %>
+                        <%= (locals.error && locals.error['location'] && locals.error['location'].msg) || '' %>
                     </p>
                 </div>
 
@@ -170,6 +107,7 @@
 <script src="/javascripts/taginput.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxoRJ-J409lbgy5pxY_3EQHfbhW0ArydM" type="text/javascript"></script>
 <script>
 
     var alert = (message, confirm, callback) => {
@@ -179,6 +117,55 @@
             actionHandler: callback || () => {}
         });
     }
+
+    $(document).ready(function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+        } else {
+            alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+            document.getElementById("location-container").style.display = "none";
+        }
+    });
+
+    function successFunction(position) {
+        document.getElementById("location-label").className += " mdc-floating-label--float-above";
+        var geocoder;
+        geocoder = new google.maps.Geocoder();
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        var latlng = new google.maps.LatLng(lat, long);
+        geocoder.geocode(
+            {'latLng': latlng},
+            function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var add = results[0].formatted_address ;
+                        var value = add.split(",");
+
+                        var count = value.length;
+                        var country = value[count-1];
+
+                        document.getElementById("location").value = country;
+                    } else {
+                        alert("Failed to get your location");
+                        document.getElementById("location").value = null;
+                        document.getElementById("location-container").style.display = "none";
+                    }
+                } else {
+                    alert("Failed to get your location");
+                    document.getElementById("location").value = null;
+                    document.getElementById("location-container").style.display = "none";
+                }
+            }
+        );
+    }
+
+    function errorFunction(position) {
+        alert("There is an error in locating your position.");
+        document.getElementById("location").value = null;
+        document.getElementById("location-container").style.display = "none";
+    }
+
     $(document).ready(function() {
         $("#banner-preview").css("background-image", `url('${$("#banner-url").val()}')`);
     });

@@ -22,33 +22,21 @@ const acceptStatus = {
 
 <div class="dashboard-content container">
     <%- include('nav-aside', {path: 'projects'}) %>
-    <div id="hidden-project-id" style="display: none"><%= linkProject %></div>
     <div class="content">
         <section>
             <a href="/dashboard/projects/" class="mdc-button">
-                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to the projects list
+                <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to projects list
             </a>
             <div class="title-row">
-                <a href="/interaction/<%= linkProject %>"
-                style="text-decoration: none"> <h1>Offers to the project </h1></a>
+                <h1>Offers to the project</h1>
             </div>
             <% if (offers.length === 0) { %>
-            <div class="no-item">No offer here yet.</div>
+                <div class="no-item">No offer here yet.</div>
             <% } %>
-
             <% for (var i = 0; i < offers.length; i++) { %>
             <details class="mdc-card offer-card<%= acceptStatus[offers[i].accepted].class">
                 <summary>
                     <img src="<%= offers[i].funderImage%>" alt="Offer" class="investor-logo">
-                    <div class="info">
-                        <div class="time"> <%= offers[i].dateOffered.toDateString() %></div>
-                        <div class="investor-name">
-                            <a href="/profile/<%= offers[i].funderUsername%>" style="text-decoration: none; color: inherit">
-                                <%= offers[i].funder%>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="value"><span class="unit">$</span> <%= offers[i].fundOffer %></div>
                     <a href="/profile/<%= offers[i].funderUsername%>" style="text-decoration: none; color: inherit" class="info">
                         <div class="time"> <%= TimeAgo.format(offers[i].dateOffered) %></div>
                         <div class="investor-name"><%= offers[i].funder %></div>
@@ -65,13 +53,28 @@ const acceptStatus = {
                 </summary>
                 <div class="details article-content">
                     <%- offers[i].proposal %>
-
                 </div>
             </details>
             <% } %>
         </section>
     </div>
 </div>
+
+
+<script>
+    function chooseOffer(offerId) {
+        var projectId = "<%= linkProject %>";
+        $.post("/choose-offer",
+            {
+                projectId: projectId,
+                offerId: offerId
+            },
+            function(data, status){
+                alert(data);
+                window.location.reload(false);
+            });
+    }
+</script>
 
 <%- include('../components/footer') %>
 <%- include('../templates/foot') %>
