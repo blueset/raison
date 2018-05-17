@@ -56,7 +56,6 @@
                 </div>
 
 
-
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field<%= (locals.error && locals.error['banner-url'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="url" id="banner-url" class="mdc-text-field__input"
@@ -70,7 +69,8 @@
                     <p class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg"
                        id="banner-url-helper-text">
                         <%= (locals.error && locals.error['banner-image'] && locals.error['banner-image'].msg) || '' %>
-                        We recommend you to upload images through public image hosting services such as <a href="https://imgur.com">imgur</a>.
+                        We recommend you to upload images through public image hosting services such as <a
+                                href="https://imgur.com">imgur</a>.
                     </p>
                 </div>
                 <div id="banner-preview">
@@ -105,18 +105,19 @@
 <script src="/javascripts/taginput.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxoRJ-J409lbgy5pxY_3EQHfbhW0ArydM" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxoRJ-J409lbgy5pxY_3EQHfbhW0ArydM"
+        type="text/javascript"></script>
 <script>
 
     var alert = (message, confirm, callback) => {
         snackbar.show({
             message: message,
             actionText: confirm || 'OK',
-            actionHandler: callback || () => {}
+            actionHandler: callback
         });
-    }
+    };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
         } else {
@@ -134,14 +135,14 @@
         var latlng = new google.maps.LatLng(lat, long);
         geocoder.geocode(
             {'latLng': latlng},
-            function(results, status) {
+            function (results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
-                        var add = results[0].formatted_address ;
+                        var add = results[0].formatted_address;
                         var value = add.split(",");
 
                         var count = value.length;
-                        var country = value[count-1];
+                        var country = value[count - 1];
 
                         document.getElementById("location").value = country;
                     } else {
@@ -164,7 +165,7 @@
         document.getElementById("location-container").style.display = "none";
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#banner-preview").css("background-image", `url('${$("#banner-url").val()}')`);
     });
 
@@ -199,7 +200,7 @@
         });
     }
 
-    $(function() {
+    $(function () {
         mdcTagInput(document.querySelector(".chip-text-field"));
         $("#bodyContent").summernote({
             placeholder: "A detailed description of your project.",
@@ -219,7 +220,8 @@
     snackbar.show({
         message: "<%= locals.message %>",
         actionText: "Dismiss",
-        actionHandler: () => {}
+        actionHandler: () => {
+        }
     });
     <% } %>
 </script>

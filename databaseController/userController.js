@@ -5,6 +5,18 @@ const gravatar = require('gravatar');
 const User = mongoose.model('users');
 const passwordHash = require('password-hash');
 
+var Pusher = require('pusher');
+
+var pusher = new Pusher({
+    appId: '527576',
+    key: '815d82ff9292dfa79559',
+    secret: 'bc7b6143edf5236ba15e',
+    cluster: 'ap1',
+    encrypted: true
+});
+
+
+
 var getTopUser = async function (typeUser, num_top) {
 
     var promise = new Promise((resolve, reject) => {
@@ -183,7 +195,7 @@ var getProjects = async function (user) {
 
 var notifyUser = function (userId, user, content, link, projectId, sender) {
     if (user) {
-        user.notifications.unshift({
+        var tmp_notification = {
             content: content,
             project: projectId,
             link: link,
@@ -193,27 +205,41 @@ var notifyUser = function (userId, user, content, link, projectId, sender) {
             },
             read: false,
             time: Date.now()
-        });
+        };
+        user.notifications.unshift(tmp_notification);
+
         user.save(function (err) {
-            console.log('dm co loi roi');
-            console.log(err);
+            tmp_notification.image = gravatar.url(tmp_notification.from.email, {protocol: 'https', d: 'retro'});
+            tmp_notification._id = user.notifications[0]._id;
+            if (!err) {
+                pusher.trigger('my-channel', 'my-event', {
+                    "data": tmp_notification
+                });
+            }
         });
     } else {
         findUser2(userId, function (user) {
-            user.notifications.unshift({
+            var tmp_notification = {
                 content: content,
                 project: projectId,
+                link: link,
                 from: {
                     email: sender.authentication.email,
                     name: sender.name
                 },
-                link: link,
                 read: false,
                 time: Date.now()
-            });
+            };
+            user.notifications.unshift(tmp_notification);
+            tmp_notification.image = gravatar.url(tmp_notification.from.email, {protocol: 'https', d: 'retro'});
             user.save(function (err) {
-                console.log('dm co loi roi');
-                console.log(err);
+                tmp_notification.image = gravatar.url(tmp_notification.from.email, {protocol: 'https', d: 'retro'});
+                tmp_notification._id = user.notifications[0]._id;
+                if (!err) {
+                    pusher.trigger('my-channel', 'my-event', {
+                        "data": tmp_notification
+                    });
+                }
             });
         });
     }
@@ -268,7 +294,6 @@ module.exports = {
     addNewProject: addNewProject,
     getProjects: getProjects,
     getTopUser: getTopUser,
-    addCurrentProject: addCurrentProject,
     addActivity: addActivity,
     notifyUser: notifyUser,
     getOffers: getOffers

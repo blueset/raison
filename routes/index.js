@@ -15,5 +15,20 @@ router.get('/', async function (req, res) {
     res.render('landing/landing', {title: 'Raison — Connecting Investors, Startups, Donators & Charities.'});
 });
 
+router.post('/read-notification', function(req, res) {
+   if (req.user) {
+       var notificationId = req.body.noti;
+       for (var i = 0; i < req.user.notifications.length; i++) {
+           if (req.user.notifications[i]._id.toString() === notificationId) {
+               req.user.notifications[i].read = true;
+               req.user.save();
+               res.send('Yay!');
+               return;
+           }
+       }
+   }
+   res.send('oops');
+});
+
 
 module.exports = router;

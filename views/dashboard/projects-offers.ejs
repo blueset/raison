@@ -4,7 +4,7 @@
 
 <% 
 const acceptStatus = {
-    0: {
+    2: {
         class: "",
         text: "Accept"
     },
@@ -12,9 +12,9 @@ const acceptStatus = {
         class: " accepted",
         text: "Accepted"
     },
-    2: {
+    0: {
         class: " not-accepted",
-        text: "Not accepted"
+        text: "Rejected"
     }
 }
 %>
@@ -34,7 +34,7 @@ const acceptStatus = {
                 <div class="no-item">No offer here yet.</div>
             <% } %>
             <% for (var i = 0; i < offers.length; i++) { %>
-            <details class="mdc-card offer-card<%= acceptStatus[offers[i].accepted].class">
+            <details class="mdc-card offer-card<%= acceptStatus[offers[i].accepted].class%> ">
                 <summary>
                     <img src="<%= offers[i].funderImage%>" alt="Offer" class="investor-logo">
                     <a href="/profile/<%= offers[i].funderUsername%>" style="text-decoration: none; color: inherit" class="info">
@@ -44,8 +44,9 @@ const acceptStatus = {
                     <% const offerRep = numeral(offers[i].fundOffer).format('$ 0.0 a').split(' '); %>
                     <div class="value"><span class="unit">$</span><%= offerRep[1] %><span class="unit"><%= offerRep[2] %></span></div>
                     <% if (offers[i].type === "Investment") {%>
-                        <button onclick="chooseOffer('<%= offers[i].offerId%>')"
-                                <%= offers[i].accepted !== 0 ? 'disabled' : '' %>
+                        <button
+                                onclick="chooseOffer('<%= offers[i].offerId%>')"
+                                <%= offers[i].accepted !== 2 ? 'disabled' : '' %>
                                 class="mdc-button">
                             <%= acceptStatus[offers[i].accepted].text %>
                         </button>
