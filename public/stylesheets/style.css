@@ -12186,7 +12186,8 @@ nav {
       display: flex;
       flex-direction: row;
       align-items: center;
-      width: 500px; }
+      width: 500px;
+      cursor: pointer; }
       nav #menu-bar-notification ul.notification-list .notification-card img.avatar, nav #menu-bar-notification ul.notification-list .notification-card .texts {
         margin: 0.5em; }
       nav #menu-bar-notification ul.notification-list .notification-card img.avatar {
