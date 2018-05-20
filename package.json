@@ -35,6 +35,7 @@
     "javascript-time-ago": "^1.0.30",
     "jquery": "^3.3.1",
     "material-components-web": "^0.34.1",
+    "moment": "^2.22.1",
     "mongoose": "^5.0.17",
     "morgan": "~1.9.0",
     "node-sass-import-once": "^1.2.0",

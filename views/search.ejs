@@ -1,29 +1,50 @@
 <%- include('templates/head') %>
-<%- include('components/navbar', {theme: "dark", section: {name: "Search", url: "/search"}, state: "Search"}) %>
+<%- include('components/navbar', {theme: "dark", section: {name: "Search", url: "search"}}) %>
+
+<script src="/javascripts/countrylist.js"></script>
+<script>
+    $(document).ready(function () {
+        var countrySelect = document.getElementById('country-select');
+
+        for (var i = 0; i < country_list.length; i++) {
+            var option = document.createElement("option");
+            option.value = country_list[i];
+            option.innerHTML = country_list[i];
+            countrySelect.appendChild(option);
+        }
+
+        <% if (userinput && userinput.country) {%>
+        countrySelect.value = document.getElementById("prev-country").innerText.trim();
+        <% } %>
+    });
+
+    function submitForm() {
+        $(".detail-card").css("display", "none");
+        document.getElementById("loading").style.display = 'block';
+        document.getElementById("form").submit();
+    }
+
+</script>
 
 <div class="container">
     <div id="search-body">
-        <form action="/search" class="search-controllers">
+        <form action="/search" method="POST" class="search-controllers" id="form">
             <div id="search-query-form-control" class="mdc-form-control">
                 <div class="mdc-text-field mdc-text-field--with-trailing-icon">
-                    <input type="text" name="query" id="search-keyword" class="mdc-text-field__input" value="<%= locals.userInput && locals.userInput.query || '' %>">
+                    <input type="text" name="keyword" id="search-keyword" class="mdc-text-field__input"
+                           value="<%= userinput && userinput.keyword %>">
                     <label class="mdc-floating-label" for="search-keyword">Search keywords</label>
-                    <i class="mdc-text-field__icon" tabindex="0"><i class="mdi mdi-magnify"></i></i>
+                    <i class="mdc-text-field__icon" tabindex="0"><i
+                                onclick="submitForm()"
+                                class="mdi mdi-magnify"></i></i>
                     <div class="mdc-line-ripple"></div>
                 </div>
             </div>
             <div class="search-filter-form-control mdc-form-control">
                 <div class="mdc-select">
-                    <select class="mdc-select__native-control">
-                        <option value="AU" selected>📍 Australia</option>
-                        <option value="ALL">Worldwide</option>
-                        <option value="AS">Asia</option>
-                        <option value="EU">Europe</option>
-                        <option value="NA">North America</option>
-                        <option value="SA">South America</option>
-                        <option value="AF">Africa</option>
-                        <option value="OC">Oceania</option>
-                        <option value="AN">Antarctica</option>
+                    <div id="prev-country" style="display: none;"> <%= userinput && userinput.country %></div>
+                    <select class="mdc-select__native-control" id="country-select" name="country">
+                        <option value="all">Worldwide</option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">Region</div>
                     <div class="mdc-select__bottom-line"></div>
@@ -31,8 +52,34 @@
             </div>
             <div class="search-filter-form-control mdc-form-control">
                 <div class="mdc-select">
-                    <select class="mdc-select__native-control">
-                        <option value="ALL">All topics</option>
+                    <select class="mdc-select__native-control" name="topic">
+                        <option value="all"
+                                <%= (userinput && userinput.topic === "all") ? " selected" : "" %>>All topics
+                        </option>
+                        <option value="science"
+                                <%= (userinput && userinput.topic === "science") ? " selected" : "" %>>Science
+                        </option>
+                        <option value="economy"
+                                <%= (userinput && userinput.topic === "economy") ? " selected" : "" %>>Economy
+                        </option>
+                        <option value="agriculture"
+                                <%= (userinput && userinput.topic === "agriculture") ? " selected" : "" %>>Agriculture
+                        </option>
+                        <option value="it"
+                                <%= (userinput && userinput.topic === "it") ? " selected" : "" %>>IT
+                        </option>
+                        <option value="computing"
+                                <%= (userinput && userinput.topic === "computing") ? " selected" : "" %>>Computing
+                        </option>
+                        <option value="military"
+                                <%= (userinput && userinput.topic === "military") ? " selected" : "" %>>Military
+                        </option>
+                        <option value="food"
+                                <%= (userinput && userinput.topic === "food") ? " selected" : "" %>>Food
+                        </option>
+                        <option value="sports"
+                                <%= (userinput && userinput.topic === "sports") ? " selected" : "" %>>Sports
+                        </option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">Topic</div>
                     <div class="mdc-select__bottom-line"></div>
@@ -40,12 +87,20 @@
             </div>
             <div class="search-filter-form-control mdc-form-control">
                 <div class="mdc-select">
-                    <select name="time" class="mdc-select__native-control">
-                        <option value="65536" selected>All time</option>
-                        <option value="1">Today</option>
-                        <option value="7">This week</option>
-                        <option value="30">This month</option>
-                        <option value="365">This year</option>
+                    <select class="mdc-select__native-control" name="time">
+                        <option value="all" selected>All time</option>
+                        <option value="0"
+                                <%= (userinput && userinput.time === "0") ? " selected" : "" %>>Today
+                        </option>
+                        <option value="1"
+                                <%= (userinput && userinput.time === "1") ? " selected" : "" %>>This week
+                        </option>
+                        <option value="2"
+                                <%= (userinput && userinput.time === "2") ? " selected" : "" %>>This month
+                        </option>
+                        <option value="3"
+                                <%= (userinput && userinput.time === "3") ? " selected" : "" %>>This year
+                        </option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">Time</div>
                     <div class="mdc-select__bottom-line"></div>
@@ -53,32 +108,53 @@
             </div>
             <div class="search-filter-form-control mdc-form-control">
                 <div class="mdc-select">
-                    <select name="sort" class="mdc-select__native-control">
-                        <option value="REL" selected>By relevance</option>
-                        <option value="TIME">By time</option>
-                        <option value="LIKE">By likes</option>
-                        <option value="COMMENT">By comments</option>
+                    <select class="mdc-select__native-control" name="sortOrder">
+                        <option value="time"
+                                <%= (userinput && userinput.sortOrder === "time") ? " selected" : "" %>>By time
+                        </option>
+                        <option value="comment"
+                                <%= (userinput && userinput.sortOrder === "comment") ? " selected" : "" %>>By comments
+                        </option>
+                        <option value="funds"
+                                <%= (userinput && userinput.sortOrder === "funds") ? " selected" : "" %>>By funds
+                        </option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">Sort order</div>
                     <div class="mdc-select__bottom-line"></div>
                 </div>
             </div>
+
+            <div class="search-filter-form-control mdc-form-control">
+                <div class="mdc-select">
+                    <select class="mdc-select__native-control" name="typeProject">
+                        <option value="all"
+                                <%= (userinput && userinput.typeProject === "all") ? " selected" : "" %>>All Types
+                        </option>
+                        <option value="Donation"
+                                <%= (userinput && userinput.typeProject === "Donation") ? " selected" : "" %>>Donation
+                        </option>
+                        <option value="Investment"
+                                <%= (userinput && userinput.typeProject === "Investment") ? " selected" : "" %>>
+                            Investment
+                        </option>
+                    </select>
+                    <div class="mdc-select__label mdc-select__label--float-above">Type Project</div>
+                    <div class="mdc-select__bottom-line"></div>
+                </div>
+            </div>
         </form>
-        <% for (let i of locals.projects) { %>
-        <%- include('components/detail-card', {
-            image: i.banner,
-            title: i.title,
-            summary: i.desc,
-            author: {
-                name: i.author.name,
-                avatar: i.image
-            },
-            url: "/startups/" + i.id
-        }) %> 
+
+        <% for (var i = 0; i < results.length; i++) { %>
+        <% project = results[i] %>
+        <%- include('./components/detail-card', project) %>
         <% } %>
-        <%- include('components/pagination', {total: 1, current: 1, url: "/search?page="}) %>
     </div>
-    
+
+
+    <div id="loading"
+         style="display: none; height: 250px; margin: auto; background: url('/images/loading.gif') no-repeat center center;"> </div>
+
+
 </div>
 <%- include('components/footer') %>
 <%- include('templates/foot') %>

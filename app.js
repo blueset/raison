@@ -29,6 +29,7 @@ var interaction = require('./routes/interaction');
 var profile = require('./routes/profile');
 var makeOffer = require('./routes/makeOffer');
 var chooseOffer = require('./routes/chooseOffer');
+var search = require('./routes/search');
 
 // Config
 var configPassport = require('./config/passport-config');
@@ -88,6 +89,7 @@ app.use(timeAgoMiddleware);
 // Binding routes
 app.use('/', index);
 app.use('/', auth);
+app.use('/', search);
 app.use('/investment', investment);
 app.use('/donation', donation);
 app.use('/profile', profile);

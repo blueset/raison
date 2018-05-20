@@ -22,7 +22,7 @@
             <img class='author-avatar' src="<%= author.image %>" alt="">
         </a>
 
-        <div class="author-info"> <%= author.name %><br> <%= interaction.datePosted.toDateString() %></div>
+        <div class="author-info"> <%= author.name %><br> <%= TimeAgo.format(interaction.datePosted) %></div>
     </div>
     <div class="description article-content">
         <img class="featuring-image" width="100%" src="<%= interaction.banner %>" alt="First slide">

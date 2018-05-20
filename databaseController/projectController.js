@@ -17,6 +17,14 @@ function latestComparator(a, b) {
     return b.content.datePosted - a.content.datePosted;
 }
 
+function commentComparator(a, b) {
+    return b.content.comments.length - a.content.comments.length;
+}
+
+function fundComparator(a, b) {
+    return b.content.totalFunds - a.content.totalFunds;
+}
+
 var getTopProject = async function (typeProject, num_top, criteria) {
 
     var promise = new Promise((resolve, reject) => {
@@ -49,6 +57,89 @@ var getTopProject = async function (typeProject, num_top, criteria) {
                         tmp_projects.sort(latestComparator);
                     }
                     resolve(tmp_projects.slice(0, num_top));
+                }
+            });
+        });
+    });
+
+    return await promise;
+}
+
+function diffDate(date1, date2) {
+    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    var diffD = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return diffD;
+}
+
+function satisfied(project, keyword, time, topic, country, typeProject) {
+    var date = new Date();
+    var curDay = date.getDate();
+    var curMonth = date.getMonth();
+    var curYear = date.getFullYear();
+    var prDay = project.datePosted.getDate();
+    var prMonth = project.datePosted.getMonth();
+    var prYear = project.datePosted.getFullYear();
+    var firstCondition = ((!keyword || (project.title.indexOf(keyword) !== -1)) &&
+        (time === 'all' || (time === '0' && (curDay === prDay && curMonth === prMonth && curYear === prYear))
+            || (time === '1' && diffDate(date, project.datePosted) <= 7)
+            || (time === '2' && (curMonth === prMonth && curYear === prYear))
+            || (time === '3' && curYear === prYear)) &&
+        (country === 'all' || (project.location && project.location.trim() === country)) &&
+        (typeProject === 'all' || (project.categories[0].trim() === typeProject)));
+    var secondCondition = false;
+    if (topic === 'all') secondCondition = true;
+    else {
+        for (var i = 1; i < project.categories.length; i++) {
+            if (project.categories[i].trim() === topic) {
+                secondCondition = true;
+                break;
+            }
+        }
+    }
+
+    return firstCondition && secondCondition;
+}
+
+var getProjectQuery = async function (req) {
+    var keyword = req.body.keyword.toLowerCase().trim();
+    var time = req.body.time.trim();
+    var topic = req.body.topic.trim();
+    var sortOrder = req.body.sortOrder.trim();
+    var country = req.body.country.trim();
+    var typeProject = req.body.typeProject.trim();
+
+    var promise = new Promise((resolve, reject) => {
+        var count = 0;
+        Project.find({}, function (err, projects) {
+            if (projects.length === 0)
+                resolve([]);
+            var tmp_projects = [];
+            projects.forEach(async function (project) {
+                if (satisfied(project, keyword, time, topic, country, typeProject)) {
+                    const promise2 = new Promise((resolve, reject) => {
+                        userController.findUser2(project.author, function (author) {
+                            resolve(author);
+                        });
+                    });
+                    var author = await promise2;
+                    tmp_projects.push({
+                        content: project,
+                        author: {
+                            name: author.name,
+                            image: gravatar.url(author.authentication.email, {protocol: 'https', d: 'retro'})
+                        }
+                    });
+                }
+                count++;
+                if (count === projects.length) {
+                    if (sortOrder === "time")
+                        tmp_projects.sort(latestComparator);
+                    else if (sortOrder === "comment") {
+                        tmp_projects.sort(commentComparator);
+                    } else {
+                        tmp_projects.sort(fundComparator);
+                    }
+                    resolve(tmp_projects.slice());
                 }
             });
         });
@@ -185,7 +276,7 @@ var addOffer = function (project, offer, callback) {
                         }
                     }
                     if (!found)
-                    actor.projects.unshift(project._id);
+                        actor.projects.unshift(project._id);
                     actor.offers.push({
                         project: project._id,
                         offer: offer._id
@@ -204,7 +295,7 @@ var addOffer = function (project, offer, callback) {
                 project: project._id,
                 offer: offer._id
             });
-            actor.save(function(err) {
+            actor.save(function (err) {
                 taskDone++;
                 checkFinish(taskDone, taskNeed, callback, err);
             });
@@ -326,7 +417,8 @@ module.exports = {
     getTopProject: getTopProject,
     addOffer: addOffer,
     getOffers: getOffers,
-    chooseOffer: chooseOffer
+    chooseOffer: chooseOffer,
+    getProjectQuery: getProjectQuery
 }
 
 var userController = require('./userController');
