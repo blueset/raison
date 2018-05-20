@@ -2,11 +2,19 @@
 @import "variables";
 @import "functions";
 
+#search-container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #search-body {
     padding-bottom: 3em;
     @include make-grid();
     form {
-        @include mdc-layout-grid-resp-cell(12, 12, 12);
+        @include mdc-layout-grid-resp-cell(12, 8, 4);
         @include make-grid();
         .mdc-form-control {
             display: flex;
@@ -15,7 +23,7 @@
             }
         }
         #search-query-form-control {
-            @include mdc-layout-grid-resp-cell(12, 8, 4);
+            @include mdc-layout-grid-resp-cell(9, 8, 4);
         }
         .search-filter-form-control {
             @include mdc-layout-grid-resp-cell(3, 4, 4);
@@ -26,5 +34,16 @@
     }
     .pagination {
         @include mdc-layout-grid-resp-cell(12, 8, 4);
+    }
+
+    .no-item {
+        @include mdc-layout-grid-resp-cell(12, 8, 4);
+    }
+
+    #loading {
+        @include mdc-layout-grid-resp-cell(12, 8, 4);
+        display: none;
+        align-items: center;
+        justify-content: center;
     }
 }
