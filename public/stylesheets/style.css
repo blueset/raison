@@ -19883,14 +19883,6 @@ footer {
       width: 100%; }
     .dashboard-content > .content .submit-button {
       margin: 2rem 0 4rem 0; }
-    .dashboard-content > .content .warning-line {
-      color: #c62828; }
-    .dashboard-content > .content .warning-button:not(:disabled) {
-      background-color: #c62828; }
-    .dashboard-content > .content .warning-button:not(:disabled) {
-      color: white;
-      /* @alternate */
-      color: var(--mdc-theme-text-primary-on-dark, white); }
     .dashboard-content > .content .thread-list .mdc-list-item .mdc-list-item__text .name {
       color: black; }
     .dashboard-content > .content .thread-list .mdc-list-item .mdc-list-item__text .time::before {
@@ -19989,6 +19981,20 @@ footer {
             font-size: 0.8em; }
         .dashboard-content > .content .offer-card summary button.mdc-button {
           width: 8em; }
+
+.warning-line {
+  color: #c62828; }
+
+.warning-button:not(:disabled) {
+  background-color: #c62828; }
+
+.warning-button:not(:disabled) {
+  color: white;
+  /* @alternate */
+  color: var(--mdc-theme-text-primary-on-dark, white); }
+
+.warning-light-button:not(:disabled) {
+  color: #c62828; }
 
 :root {
   --mdc-theme-primary: #243B55;

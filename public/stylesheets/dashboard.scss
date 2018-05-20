@@ -115,13 +115,6 @@
         .submit-button {
             margin: 2rem 0 4rem 0;
         }
-        .warning-line {
-            color: $material-color-red-800;
-        }
-        .warning-button {
-            @include mdc-button-container-fill-color($material-color-red-800);
-            @include mdc-button-ink-color(text-primary-on-dark);
-        }
 
         .thread-list {
             .mdc-list-item .mdc-list-item__text {
@@ -261,4 +254,15 @@
             }
         }
     }
+}
+
+.warning-line {
+    color: $material-color-red-800;
+}
+.warning-button {
+    @include mdc-button-container-fill-color($material-color-red-800);
+    @include mdc-button-ink-color(text-primary-on-dark);
+}
+.warning-light-button {
+    @include mdc-button-ink-color($material-color-red-800);
 }
