@@ -156,7 +156,7 @@ var chooseOffer = function (author, projectId, offerId, callback) {
             (function (i_tmp) {
                 offerController.getOffer(project.offers[i_tmp], function (offer) {
                     userController.findUser2(offer.actor, function (investor) {
-                        var link = `/interaction/${project.slug}-${project._id}`;
+                        var link = `/projects/${project.slug}-${project._id}`;
                         var content;
                         if (offer._id.toString() === offerId) {
                             investor.projects.unshift(projectId);
@@ -164,7 +164,7 @@ var chooseOffer = function (author, projectId, offerId, callback) {
                         } else {
                             content = `${author.name} rejected your offer for project ` + project.title;
                         }
-                        var link = `/interaction/${project.slug}-${project._id}`;
+                        var link = `/projects/${project.slug}-${project._id}`;
                         userController.notifyUser(null, investor, content, link, projectId, author);
                     });
                     if (offer._id.toString() === offerId) {
@@ -174,7 +174,7 @@ var chooseOffer = function (author, projectId, offerId, callback) {
                         project.save(function (err) {
                         });
 
-                        var link = `/interaction/${project.slug}-${project._id}`;
+                        var link = `/projects/${project.slug}-${project._id}`;
                         var content = "You accepted a proposal for a project <a href=" + link + ">" + project.title + "</a>";
                         author.activity.unshift({
                             content: content,
@@ -389,13 +389,13 @@ var addComment = function (projectId, commenter, comment, callback) {
             project.save(function (err) {
                 if (err) callback(err);
                 else {
-                    var content = `You made a comment on project <a href='/interaction/${project.slug}-${projectId}'>${project.title}</a>.`;
+                    var content = `You made a comment on project <a href='/projects/${project.slug}-${projectId}'>${project.title}</a>.`;
                     userController.addActivity(commenter, content);
                     if (commenter._id.toString() !== project.author.toString()) {
                         userController.findUser2(project.author, function (author) {
                             if (author) {
                                 var author_content = `${commenter.name} commented on project ${project.title}`
-                                var link = `/interaction/${project.slug}-${project._id}`;
+                                var link = `/projects/${project.slug}-${project._id}`;
                                 userController.notifyUser(null, author, author_content, link, project._id, commenter);
                                 callback(err);
                             } else {

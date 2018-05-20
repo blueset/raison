@@ -100,7 +100,7 @@ var addNewProject = function (projectId, user, callback) {
 
     projectController.getProject(projectId, function (project) {
         user.projects.unshift(projectId);
-        var link = `/interaction/${project.slug}-${project._id}`;
+        var link = `/projects/${project.slug}-${project._id}`;
         user.activity.unshift({
             content: "You created a new project <a href=" + link + ">" + project.title + "</a>",
             time: Date.now()

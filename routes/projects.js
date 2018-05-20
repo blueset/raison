@@ -30,7 +30,7 @@ async function getComments(project) {
 router.get('/:slug-:id', function (req, res, next) {
     projectController.getProject(req.params.id, function(project) {
         if (project) {
-            res.locals.interaction = project;
+            res.locals.projects = project;
 
             userController.findUser2(project.author, async function(author) {
                 if (author)  {
@@ -66,7 +66,7 @@ router.get('/:slug-:id', function (req, res, next) {
                     }
                     res.locals.num_invest = num_invest;
                     res.locals.comments = await promise;
-                    res.render('interaction/tmp_interaction', { title: 'Interaction?? — Raison' });
+                    res.render('projects/tmp_project', { title: 'projects?? — Raison' });
                 } else {
                     res.send('Oops');
                 }
@@ -84,7 +84,7 @@ router.post('/:slug-:id/comment', function(req, res, next) {
     var projectId = mongoose.Types.ObjectId(req.params.id);
     projectController.addComment(projectId, res.locals.user, req.body.comment, function(error) {
         if (!error) {
-            res.redirect(`/interaction/${req.params.slug}-${req.params.id}`);
+            res.redirect(`/projects/${req.params.slug}-${req.params.id}`);
         }
     });
 });

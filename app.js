@@ -25,7 +25,7 @@ var investment = require('./routes/investment');
 var statics = require('./routes/statics');
 var auth = require('./routes/auth');
 var dashboard = require('./routes/dashboard');
-var interaction = require('./routes/interaction');
+var projects = require('./routes/projects');
 var profile = require('./routes/profile');
 var makeOffer = require('./routes/makeOffer');
 var chooseOffer = require('./routes/chooseOffer');
@@ -93,7 +93,7 @@ app.use('/', search);
 app.use('/investment', investment);
 app.use('/donation', donation);
 app.use('/profile', profile);
-app.use('/interaction', interaction);
+app.use('/projects', projects);
 app.use('/make_offer', makeOffer);
 app.use('/choose-offer', chooseOffer);
 app.use('/dashboard', function(req, res, next) {
