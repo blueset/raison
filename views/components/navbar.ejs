@@ -7,14 +7,6 @@ section (optional): {
 }
 %>
 
-<script>
-    function goToPage(link) {
-        window.location.href = link;
-    }
-
-
-</script>
-
 <div class="container">
     <nav class="nav-<%= theme %>">
         <div class="nav-logo">
@@ -40,7 +32,7 @@ section (optional): {
             <% } else { %>
             <div class="mdc-menu-anchor" id="menu-bar-notification">
                 <a href="#!" id="menu-bar-notification-btn" class="mdc-icon-toggle"><i
-                            class="mdi mdi-bell-outline<%= (user.notifications && user.notifications.some((i) => i.read) && ' notification-have-unread') || '' %>"></i></a>
+                            class="mdi mdi-bell-outline<%= (user.notifications && user.notifications.some((i) => i.read === false) && ' notification-have-unread') || '' %>"></i></a>
                 <div class="mdc-menu" id="menu-bar-notification-menu" data-anchor="#menu-bar-notification-btn"
                      data-anchor-position="BOTTOM_START">
                     <ul class="mdc-menu__items mdc-list notification-list-wrap" role="menu" aria-hidden="true">
@@ -51,18 +43,24 @@ section (optional): {
                         </div>
 
 
-                        <ul class="notification-list">
+                        <ul class="notification-list" id = "list-noti">
                             <% if (locals.user.notifications && user.notifications.length > 0) {
                                     for (var notification of locals.user.notifications) { %>
-
                             <li class="notification-card mdc-card"
-                                style="cursor:  pointer"
-                                onclick = "goToPage('<%= notification.link%>')">
+                                style="cursor: pointer"
+                                data-id="<%=notification._id %>"
+                                data-read="<%= notification.read %>",
+                                data-link="<%= notification.link %>">
                                 <img src="<%= notification.image %>" alt="Amily Arinston"
                                      class="avatar">
                                 <div class="texts">
-                                    <div class="time"><%= TimeAgo.format(notification.time)%></div>
-                                    <div class="text mdc-typography-overflow-ellipsis"><strong><%- notification.content%> </strong>
+                                    <div class="time"><%= TimeAgo.format(notification.time) %></div>
+                                    <div class="text mdc-typography-overflow-ellipsis">
+                                        <% if (notification.read) { %>
+                                        <weak><%- notification.content %> </weak>
+                                        <% } else { %>
+                                        <strong><%- notification.content %> </strong>
+                                        <% } %>
                                     </div>
                                 </div>
                             </li>
@@ -104,10 +102,10 @@ section (optional): {
             </div>
         </div>
         <% } %>
-<button href="#" class="navbar-drawer-toggle mdc-toolbar__menu-icon">
-    <i class="mdi mdi-menu"></i>
-</button>
-</nav>
+        <button href="#" class="navbar-drawer-toggle mdc-toolbar__menu-icon">
+            <i class="mdi mdi-menu"></i>
+        </button>
+    </nav>
 </div>
 
 <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
@@ -162,3 +160,64 @@ section (optional): {
         </div>
     </div>
 </aside>
+
+
+<script>
+    var pusher = new Pusher('815d82ff9292dfa79559', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+
+        $("#menu-bar-notification-btn").addClass("notification-have-unread");
+
+        var list = document.getElementById("list-noti");
+        $('.no-notification').remove();
+
+        var notification = data.data;
+
+        var timeAgo = jQuery.timeago(notification.time);
+        var new_noti_html = `
+        <li class="notification-card mdc-card"
+            data-id="${notification._id}"
+            data-read="false"
+            data-link="${notification.link}">
+            <img src="${notification.image}" alt="Amily Arinston"
+                    class="avatar">
+            <div class="texts">
+                <div class="time">${timeAgo} %></div>
+                <div class="text mdc-typography-overflow-ellipsis">
+                    <strong>${notification.content}</strong>
+                </div>
+            </div>
+        </li>
+        `;
+
+        $(list).prepend(new_noti_html);
+
+        snackbar.show({
+            message: "You have got a new notification!",
+            actionText: "Dismiss",
+            actionHandler: () => {}
+        });
+    });
+
+    $(function() {
+        $("#list-noti").on('click', '.notification-card', function() {
+            var notificationId = this.dataset.id,
+                read = this.dataset.read,
+                link = this.dataset.link;
+            if (read === 'false') {
+                $.post("/read-notification",
+                    {noti: notificationId},
+                    function(data, status){
+                        window.location.href = link;
+                    });
+            } else {
+                window.location.href = link;
+            }
+        });
+    });
+</script>

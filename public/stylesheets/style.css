@@ -13756,7 +13756,6 @@ footer {
 /* Landing page */
 .landing-banner {
   position: relative;
-  overflow: hidden;
   background: rgba(0, 0, 0, 0.4); }
   .landing-banner::before {
     content: " ";
