@@ -55,6 +55,9 @@
                     </p>
                 </div>
 
+                <input id="lat" style="display: none" name="lat">
+                <input id="long" style="display: none" name="long">
+
 
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field<%= (locals.error && locals.error['banner-url'] && ' mdc-text-field--invalid') || '' %>">
@@ -133,6 +136,8 @@
         var lat = position.coords.latitude;
         var long = position.coords.longitude;
         var latlng = new google.maps.LatLng(lat, long);
+        document.getElementById('lat').value = lat;
+        document.getElementById('long').value = long;
         geocoder.geocode(
             {'latLng': latlng},
             function (results, status) {

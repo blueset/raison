@@ -8,11 +8,12 @@
                 <div class="detail-card-author-text">
                     <div class="mdc-typography-overflow-ellipsis"><%= title %></div>
                     <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis"><%= author.name %></div>
+                    <div class="mdc-list-item__secondary-text mdc-typography-overflow-ellipsis"><%= timeAgo %></div>
                 </div>
                 <img class="detail-card-profile-picture" src="<%= author.image %>" alt="<%= author.name %>">
             </div>
             <div class="detail-card-summary">
-                <%= summary %>
+                <%- summary %>
             </div>
         </a>
         <div class="mdc-card__actions">

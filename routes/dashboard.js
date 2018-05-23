@@ -69,7 +69,7 @@ router.post('/projects/new', [
         if (error) {
             res.render('dashboard/projects-edit', {title: 'New project — Raison', message: 'Errors in saving Project: ' + error, userInput: req.body});
         } else {
-            res.redirect('/dashboard/projects');
+            res.redirect(`/interaction/${project._id}`);
         }
     })
 });
@@ -114,7 +114,7 @@ router.post('/projects/:id', [
                 res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`,
                     message: 'There is an error in saving process: ' + error, userInput: req.body, project: project});
             } else {
-                res.render('dashboard/projects-edit', {title: `Edit — ${project.title} — Raison`, project: project});
+                res.redirect(`/interaction/${project._id}`);
             }
         });
 });

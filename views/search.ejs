@@ -1,35 +1,10 @@
 <%- include('templates/head') %>
 <%- include('components/navbar', {theme: "dark", section: {name: "Search", url: "search"}}) %>
 
-<script src="/javascripts/countrylist.js"></script>
-<script>
-    $(document).ready(function () {
-        var countrySelect = document.getElementById('country-select');
-
-        for (var i = 0; i < country_list.length; i++) {
-            var option = document.createElement("option");
-            option.value = country_list[i];
-            option.innerHTML = country_list[i];
-            countrySelect.appendChild(option);
-        }
-
-        <% if (userinput && userinput.country) {%>
-        countrySelect.value = document.getElementById("prev-country").innerText.trim();
-        <% } %>
-    });
-
-    function submitForm() {
-        $(".detail-card").css("display", "none");
-        document.getElementById("loading").style.display = 'block';
-        document.getElementById("form").submit();
-    }
-
-</script>
-
 <div class="container">
     <div id="search-body">
         <form action="/search" method="POST" class="search-controllers" id="form">
-            <div id="search-query-form-control" class="mdc-form-control">
+            <div class="mdc-form-control search-query-form-control">
                 <div class="mdc-text-field mdc-text-field--with-trailing-icon">
                     <input type="text" name="keyword" id="search-keyword" class="mdc-text-field__input"
                            value="<%= userinput && userinput.keyword %>">
@@ -40,6 +15,47 @@
                     <div class="mdc-line-ripple"></div>
                 </div>
             </div>
+            <div class="mdc-form-control search-query-form-control">
+                <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                    <input type="text" id="current-location" class="mdc-text-field__input">
+                    <label id="location-label" class="mdc-floating-label" for="current-location"> Current
+                        Location </label>
+                    <div class="mdc-line-ripple"></div>
+                </div>
+            </div>
+
+            <div class="search-filter-form-control mdc-form-control" id="current-location-section"
+                    <% if (!(userinput && userinput.distanceLocation)) { %>
+                 style="display: none"
+                <% } %>
+            >
+                <div class="mdc-select">
+                    <select class="mdc-select__native-control" name="distanceLocation">
+                        <option value="all" selected> Select distance</option>
+                        <option value="0.5"
+                                <%= (userinput && userinput.distanceLocation === "0.5") ? " selected" : "" %>> 0.5 km
+                        </option>
+                        <option value="1"
+                                <%= (userinput && userinput.distanceLocation === "1") ? " selected" : "" %>> 1 km
+                        </option>
+                        <option value="2"
+                                <%= (userinput && userinput.distanceLocation === "2") ? " selected" : "" %>> 2 km
+                        </option>
+                        <option value="5"
+                                <%= (userinput && userinput.distanceLocation === "5") ? " selected" : "" %>> 5 km
+                        </option>
+                        <option value="10"
+                                <%= (userinput && userinput.distanceLocation === "10") ? " selected" : "" %>> 10 km
+                        </option>
+                        <option value="20"
+                                <%= (userinput && userinput.distanceLocation === "20") ? " selected" : "" %>> 20 km
+                        </option>
+                    </select>
+                    <div class="mdc-select__label mdc-select__label--float-above">Distance from current location</div>
+                    <div class="mdc-select__bottom-line"></div>
+                </div>
+            </div>
+
             <div class="search-filter-form-control mdc-form-control">
                 <div class="mdc-select">
                     <div id="prev-country" style="display: none;"> <%= userinput && userinput.country %></div>
@@ -88,7 +104,9 @@
             <div class="search-filter-form-control mdc-form-control">
                 <div class="mdc-select">
                     <select class="mdc-select__native-control" name="time">
-                        <option value="all" selected>All time</option>
+                        <option value="all"
+                                <%= (userinput && userinput.time === "all") ? " selected" : "" %>>All time
+                        </option>
                         <option value="0"
                                 <%= (userinput && userinput.time === "0") ? " selected" : "" %>>Today
                         </option>
@@ -119,7 +137,7 @@
                                 <%= (userinput && userinput.sortOrder === "funds") ? " selected" : "" %>>By funds
                         </option>
                     </select>
-                    <div class="mdc-select__label mdc-select__label--float-above">Sort order</div>
+                    <div class="mdc-select__label mdc-select__label--float-above">Sort Order</div>
                     <div class="mdc-select__bottom-line"></div>
                 </div>
             </div>
@@ -142,26 +160,129 @@
                     <div class="mdc-select__bottom-line"></div>
                 </div>
             </div>
+
+            <input id="lat" style="display: none" name="lat">
+            <input id="long" style="display: none" name="long">
+
+            <div class="search-filter-form-control mdc-form-control">
+                <div class="mdc-select">
+                    <select class="mdc-select__native-control" name="projectStatus">
+                        <option value="all"
+                                <%= (userinput && userinput.projectStatus === "all") ? " selected" : "" %>>
+                            All Types
+                        </option>
+                        <option value="0"
+                                <%= (userinput && userinput.projectStatus === "0") ? " selected" : "" %>>
+                            Pending
+                        </option>
+                        <option value="1"
+                                <%= (userinput && userinput.projectStatus === "1") ? " selected" : "" %>>
+                            Implemented
+                        </option>
+                    </select>
+                    <div class="mdc-select__label mdc-select__label--float-above">Project Status</div>
+                    <div class="mdc-select__bottom-line"></div>
+                </div>
+            </div>
+
+
         </form>
 
-        <% for (var i = 0; i < results.length; i++) {%>
-        <% project = results[i]%>
+        <% for (var i = 0; i < results.length; i++) { %>
+        <% project = results[i] %>
         <%- include('./components/detail-card', {
+        timeAgo: TimeAgo.format(project.content.datePosted),
         url: `/interaction/${project.content._id}`,
         banner: project.content.banner,
         title: project.content.title,
         author: project.author,
         summary: project.content.desc,
         comments: project.content.comments.length
-        })%>
+        }) %>
         <% } %>
     </div>
 
 
     <div id="loading"
-         style="display: none; height: 250px; margin: auto; background: url('/images/loading.gif') no-repeat center center;"> </div>
+         style="display: none; height: 250px; margin: auto; background: url('/images/loading.gif') no-repeat center center;"></div>
 
 
 </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxoRJ-J409lbgy5pxY_3EQHfbhW0ArydM"
+        type="text/javascript"></script>
+
+<script src="/javascripts/countrylist.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var countrySelect = document.getElementById('country-select');
+
+        for (var i = 0; i < country_list.length; i++) {
+            var option = document.createElement("option");
+            option.value = country_list[i];
+            option.innerHTML = country_list[i];
+            countrySelect.appendChild(option);
+        }
+
+        <% if (userinput && userinput.country) { %>
+        countrySelect.value = document.getElementById("prev-country").innerText.trim();
+        <% } %>
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+        } else {
+            alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+        }
+    });
+
+    function successFunction(position) {
+        document.getElementById("location-label").className += " mdc-floating-label--float-above";
+        var geocoder;
+        geocoder = new google.maps.Geocoder();
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        var latlng = new google.maps.LatLng(lat, long);
+        document.getElementById("lat").value = lat;
+        document.getElementById("long").value = long;
+        geocoder.geocode(
+            {'latLng': latlng},
+            function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var add = results[0].formatted_address;
+                        var value = add.split(",");
+
+                        var count = value.length;
+                        var country = value[count - 1];
+                        <% if (!(userinput && userinput.distanceLocation)) { %>
+                        document.getElementById("current-location-section").style.display = '';
+                        <% } %>
+                        document.getElementById("current-location").value = add;
+                        <% if (!(userinput && userinput.country)) { %>
+                        document.getElementById("country-select").value = country.trim();
+                        <% } %>
+                    } else {
+                        document.getElementById("current-location").value = "Failed to get your current location";
+                    }
+                } else {
+                    document.getElementById("current-location").value = "Failed to get your current location";
+                }
+            }
+        );
+    }
+
+    function errorFunction(position) {
+        document.getElementById("current-location").value = "Failed to get your current location";
+    }
+
+    function submitForm() {
+        $(".detail-card").css("display", "none");
+        document.getElementById("loading").style.display = 'block';
+        document.getElementById("form").submit();
+    }
+
+
+</script>
 <%- include('components/footer') %>
 <%- include('templates/foot') %>

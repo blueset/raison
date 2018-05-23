@@ -212,7 +212,7 @@ var notifyUser = function (userId, user, content, link, projectId, sender) {
             tmp_notification.image = gravatar.url(tmp_notification.from.email, {protocol: 'https', d: 'retro'});
             tmp_notification._id = user.notifications[0]._id;
             if (!err) {
-                pusher.trigger('my-channel', 'my-event', {
+                pusher.trigger('my-channel', user._id.toString(), {
                     "data": tmp_notification
                 });
             }
@@ -236,7 +236,7 @@ var notifyUser = function (userId, user, content, link, projectId, sender) {
                 tmp_notification.image = gravatar.url(tmp_notification.from.email, {protocol: 'https', d: 'retro'});
                 tmp_notification._id = user.notifications[0]._id;
                 if (!err) {
-                    pusher.trigger('my-channel', 'my-event', {
+                    pusher.trigger('my-channel', user._id.toString(), {
                         "data": tmp_notification
                     });
                 }
