@@ -12,12 +12,16 @@
                 </a>
             </div>
             <div class="number-card mdc-card" id="feeds">
-                <div class="number">42</div>
-                <div class="name">Feeds</div>
+                <a href="#!" class="mdc-card__primary-action">
+                    <div class="number">42</div>
+                    <div class="name">Offers</div>
+                </a>
             </div>
             <div class="number-card mdc-card" id="likes">
-                <div class="number">233</div>
-                <div class="name">Likes</div>
+                <a href="#!" class="mdc-card__primary-action">
+                    <div class="number">5</div>
+                    <div class="name">Accepted</div>
+                </a>
             </div>
         </div>
         <section>
@@ -35,6 +39,16 @@
         </section>
     </div>
 </div>
+
+<% if (locals.message) { %>
+<script>
+    snackbar.show({
+        message: "<%= locals.message %>",
+        actionText: "Dismiss",
+        actionHandler: () => {}
+    });
+</script>
+<% } %>
 
 <%- include('../components/footer') %>
 <%- include('../templates/foot') %>

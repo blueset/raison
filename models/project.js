@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 
 var projectSchema = new mongoose.Schema( {
-    author: mongoose.Schema.Types.ObjectId,
+    slug: { type: String, required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, required: true },
     investor: mongoose.Schema.Types.ObjectId,
     offers: [mongoose.Schema.Types.ObjectId],
-    datePosted: Date,
+    datePosted: { type: Date, required: true, default: new Date() },
     progress: [
         {
             isAuthor: Boolean,
@@ -15,7 +16,7 @@ var projectSchema = new mongoose.Schema( {
             }
         }
     ],
-    title: String,
+    title: { type: String, required: true },
     banner: String,
     desc: String,
     totalFunds: Number,

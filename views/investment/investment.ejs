@@ -15,6 +15,7 @@
                     <li data-target="#highlights-carousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
+<<<<<<< HEAD
                     <% for (var i = 0; i < topProject.length; i++) { %>
                     <div class="carousel-item
                     <% if (i === 0) { %>
@@ -29,6 +30,14 @@
                             <div class="author-card-content">
                                 <img class="author-card-profile-picture" src="<%= topProject[i].author.image %>"
                                      alt="Lauren Arnold">
+=======
+                    <% for (var i = 0; i < topProject.length; i++) {%>
+                    <div class="carousel-item<%= i == 0 ? ' active': '' %>">
+                        <a href="/projects/<%= topProject[i].content.slug %>-<%= topProject[i].content._id %>" class="author-card-carousel mdc-ripple-surface">
+                            <img class="d-block w-100" style="height: 500px" src="<%= topProject[i].content.banner %>" alt="First slide">
+                            <div class="author-card-content">
+                                <img class="author-card-profile-picture" src="<%= topProject[i].author.image %>" alt="Lauren Arnold">
+>>>>>>> 3c197195c8aed245aa135b3733b16d19b0decaf4
                                 <div class="author-card-text">
                                     <div class="title mdc-typography-overflow-ellipsis"><%= topProject[i].content.title %></div>
                                     <div class="author-name mdc-list-item__secondary-text mdc-typography-overflow-ellipsis">
@@ -54,7 +63,7 @@
         </section>
         <section id="in-your-region">
             <div class="section-title">
-                <h1>Top Startups </h1>
+                <h1>Top Startups</h1>
             </div>
             <% for (var i = 0; i < startups.length; i++) { %>
             <% tmp_user = startups[i] %>
@@ -64,7 +73,7 @@
         </section>
         <section id="around-the-world">
             <div class="section-title">
-                <h1>Top Investors </h1>
+                <h1>Top Investors</h1>
             </div>
             <% for (var i = 0; i < investors.length; i++) { %>
             <% tmp_user = investors[i] %>
@@ -77,6 +86,7 @@
                 <h1>Latest ideas</h1>
                 <a href="#!" class="mdc-icon-toggle"><i class="mdi mdi-arrow-right"></i></a>
             </div>
+<<<<<<< HEAD
             <% for (var i = 0; i < latestProject.length; i++) { %>
             <% project = latestProject[i] %>
             <%- include('../components/detail-card', {
@@ -87,9 +97,21 @@
             author: project.author,
             summary: project.content.desc,
             comments: project.content.comments.length
+=======
+            <% for (var i = 0; i < latestProject.length; i++) {%>
+            <% project = latestProject[i]%>
+            <%= project %>
+            <%# - include('../components/detail-card', {
+                url: `/projects/${project.content.slug}-${project.content._id}`,
+                banner: project.content.banner,
+                title: project.content.title,
+                author: project.author,
+                summary: project.content.desc
+                comments: project.content.comments.length
+>>>>>>> 3c197195c8aed245aa135b3733b16d19b0decaf4
             }) %>
             <% } %>
-            <!--<a href="#!" class="mdc-button">Show more</a>-->
+            <%# a href="#!" class="mdc-button">Show more</a %>
         </section>
     </div>
 </div>

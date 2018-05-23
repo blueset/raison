@@ -43,7 +43,7 @@
 
                 <div class="mdc-form-control form-element" id="location-container">
                     <div
-                            class="mdc-text-field chip-text-field <%= (locals.error && locals.error['project-tags'] && ' mdc-text-field--invalid') || '' %>">
+                            class="mdc-text-field<%= (locals.error && locals.error['project-tags'] && ' mdc-text-field--invalid') || '' %>">
                         <input required type="text" id="location"
                                value="<%= (locals.userInput && locals.userInput.location) || (locals.project && locals.project.location) %>"
                                name="location" class="mdc-text-field__input">
@@ -57,7 +57,6 @@
 
                 <input id="lat" style="display: none" name="lat">
                 <input id="long" style="display: none" name="long">
-
 
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field<%= (locals.error && locals.error['banner-url'] && ' mdc-text-field--invalid') || '' %>">
@@ -102,8 +101,6 @@
     <option value="sports">Sports</option>
 </datalist>
 
-<%- include('../components/snackbar') %>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
 <script src="/javascripts/taginput.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
@@ -116,7 +113,8 @@
         snackbar.show({
             message: message,
             actionText: confirm || 'OK',
-            actionHandler: callback
+            actionHandler: callback || function () {
+            }
         });
     };
 

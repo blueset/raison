@@ -100,7 +100,7 @@ var addNewProject = function (projectId, user, callback) {
 
     projectController.getProject(projectId, function (project) {
         user.projects.unshift(projectId);
-        var link = "/interaction/" + projectId;
+        var link = `/projects/${project.slug}-${project._id}`;
         user.activity.unshift({
             content: "You created a new project <a href=" + link + ">" + project.title + "</a>",
             time: Date.now()
@@ -122,20 +122,6 @@ var addActivity = function (user, content) {
     user.save(function (err) {
     });
 }
-
-var addCurrentProject = function (user, projectId, callback) {
-    var found = false;
-    for (var i = 0; i < user.projects.length; i++) {
-        if (user.projects[i].toString() === projectId.toString()) {
-            found = true;
-            break;
-        }
-    }
-    if (found) callback(false);
-    user.projects.unshift(projectId);
-    callback(true);
-}
-
 
 var authenticateUser = function (identity, password, callback) {
     if (identity.indexOf('@') != -1) {
@@ -236,7 +222,11 @@ var notifyUser = function (userId, user, content, link, projectId, sender) {
                 tmp_notification.image = gravatar.url(tmp_notification.from.email, {protocol: 'https', d: 'retro'});
                 tmp_notification._id = user.notifications[0]._id;
                 if (!err) {
+<<<<<<< HEAD
                     pusher.trigger('my-channel', user._id.toString(), {
+=======
+                    pusher.trigger('my-channel', 'my-event', {
+>>>>>>> 3c197195c8aed245aa135b3733b16d19b0decaf4
                         "data": tmp_notification
                     });
                 }

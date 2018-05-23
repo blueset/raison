@@ -8,13 +8,13 @@
 
 <script>
     function makeOffer(typeOffer) {
-        window.location = '/make_offer?projectId=<%= interaction._id %>&title=<%= interaction.title %>&type=' + typeOffer;
+        window.location = '/make_offer?projectId=<%= projects._id %>&title=<%= projects.title %>&type=' + typeOffer;
     }
 </script>
 
 <div id="startup-project-content" class="container">
     <div class="title">
-        <h1><%= locals.interaction.title %></h1>
+        <h1><%= locals.projects.title %></h1>
     </div>
 
     <div class="author">
@@ -22,11 +22,11 @@
             <img class='author-avatar' src="<%= author.image %>" alt="">
         </a>
 
-        <div class="author-info"> <%= author.name %><br> <%= TimeAgo.format(interaction.datePosted) %></div>
+        <div class="author-info"> <%= author.name %><br> <%= TimeAgo.format(projects.datePosted) %></div>
     </div>
     <div class="description article-content">
-        <img class="featuring-image" width="100%" src="<%= interaction.banner %>" alt="First slide">
-        <%- interaction.desc %>
+        <img class="featuring-image" width="100%" src="<%= projects.banner %>" alt="First slide">
+        <%- projects.desc %>
     </div>
 
 
@@ -34,13 +34,13 @@
         <section class="information-section" id="investor-information">
             <div class="investor-information-entry">
                 <div class="title">Status</div>
-                <% if (interaction.investor || interaction.categories[0] === "Donation") { %>
+                <% if (projects.investor || projects.categories[0] === "Donation") { %>
                 <div class="content">Implemented</div>
                 <% } else { %>
                 <div class="content"> Pending</div>
                 <% } %>
             </div>
-            <% if (interaction.investor) { %>
+            <% if (projects.investor) { %>
             <div class="investor-information-entry">
                 <div class="title">Invested By</div>
                 <img src="<%= investorImage %>" style="border-radius: 50%" class="picture" alt="Company Logo">
@@ -50,11 +50,11 @@
             <% } %>
             <div class="investor-information-entry">
                 <div class="title">Total Funds</div>
-                <div class="content">$ <%= interaction.totalFunds %> </div>
+                <div class="content">$ <%= projects.totalFunds %> </div>
             </div>
         </section>
         <section class="actions">
-            <% if (!interaction.investor && user && ((author.role === 'Startups' && user.role === 'Investors'))) { %>
+            <% if (!projects.investor && user && ((author.role === 'Startups' && user.role === 'Investors'))) { %>
             <% if (num_invest === 0) { %>
             <button class="mdc-button mdc-button--raised primary-action-button" onclick="makeOffer('Investment')">
                 <i class="mdc-button__icon mdi mdi-star-outline"></i>
@@ -73,7 +73,7 @@
             <% if (num_invest !== 0) { %>
             <button class="mdc-button mdc-button--raised primary-action-button">
                 <i class="mdc-button__icon mdi mdi-star-outline"></i>
-                You have made <%= num_invest%> donations for this project!
+                You have made <%= num_invest %> donations for this project!
             </button>
             <button class="mdc-button mdc-button--raised primary-action-button" onclick="makeOffer('Donation')">
                 <i class="mdc-button__icon mdi mdi-star-outline"></i>
@@ -101,7 +101,7 @@
         </section>
         <section class="information-section">
             <h2>Comments</h2>
-            <%- include('../components/comments') %>
+            <%- include('../components/comments', {formAction: `/startups/${project.slug}/${project.id}/comment`}) %>
         </section>
     </div>
 </div>

@@ -2,17 +2,17 @@
 <%- include('../components/navbar', {theme: "dark", section: {name: "Startup", url: "/startups"}}) %>
 
 <div id="startup-project-offer-content" class="container">
-    <a href="/interaction/<%= projectId %>" class="mdc-button">
+    <a href="/projects/" class="mdc-button">
         <i class="mdc-button__icon mdi mdi-chevron-left"></i> Back to the project
     </a>
     <h1>Make an offer</h1>
     <% if (type === 'Donation') {%>
-    <p>Donation to project <%= title%></p>
+        <p>Donation to project <%= title %></p>
     <% } else { %>
-    <p>Offer to project <%= title%></p>
+        <p>Offer to project <%= title %></p>
     <% } %>
 
-    <form action="?projectId=<%= projectId%>&type=<%= type%>" method="POST">
+    <form action="?projectId=<%= projectId %>&type=<%= type %>" method="POST">
         <div class="mdc-form-control form-element">
             <div class="mdc-text-field large-text-field mdc-text-field--with-leading-icon">
                 <i class="mdi mdi-currency-usd mdc-text-field__icon" tabindex="0" role="button"></i>

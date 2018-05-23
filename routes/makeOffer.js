@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
             } else {
                 offerController.createOffer(req, project, req.user, req.query['type'], function(successful) {
                     if (successful) {
-                        res.redirect(`/interaction/${project._id}`);
+                        res.redirect(`/projects/${project.slug}-${project._id}`);
                     } else {
                         res.redirect('/');
                     }

@@ -22,10 +22,9 @@
                         <% } else { %>
                         ">
                         <% } %>
-                        <a href="/interaction/<%= topProject[i].content._id %>"
-                           class="author-card-carousel mdc-ripple-surface">
-                            <img class="d-block w-100" style="height: 500px" src="<%= topProject[i].content.banner %>"
-                                 alt="First slide">
+
+                        <a href="/projects/<%= topProject[i].content.slug %>-<%= topProject[i].content._id%>" class="author-card-carousel mdc-ripple-surface">
+                            <img class="d-block w-100" style="height: 500px" src="<%= topProject[i].content.banner%>" alt="First slide">
                             <div class="author-card-content">
                                 <img class="author-card-profile-picture" src="<%= topProject[i].author.image %>"
                                      alt="Lauren Arnold">

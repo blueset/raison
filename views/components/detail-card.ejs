@@ -13,7 +13,7 @@
                 <img class="detail-card-profile-picture" src="<%= author.image %>" alt="<%= author.name %>">
             </div>
             <div class="detail-card-summary">
-                <%- summary %>
+                <%= summary.replace(/<\/?[^>]+(>|$)/g, "") %>
             </div>
         </a>
         <div class="mdc-card__actions">

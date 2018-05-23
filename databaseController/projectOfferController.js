@@ -16,11 +16,11 @@ var createOffer = function (req, project, actor, type, callback) {
     offer.save(function (err) {
         if (!err) {
             var content;
-            var linkActor = `/interaction/${project._id}`
+            var linkActor = `/projects/${project.slug}-${project._id}`
             if (actor.role === 'Investors')
-                content = `You make an offer of $${req.body['moneyOffer']} for project <a href=${linkActor}> ${project.title} </a>.`;
+                content = `You make an offer of $${req.body['moneyOffer']} for project <a href=${linkActor}>${project.title}</a>.`;
             else
-                content = `You make a donation of $${req.body['moneyOffer']} for project <a href=${linkActor}> ${project.title} </a>.`;
+                content = `You make a donation of $${req.body['moneyOffer']} for project <a href=${linkActor}>${project.title}</a>.`;
 
             userController.addActivity(actor, content);
             var author_content = content.replace('You', actor.name);

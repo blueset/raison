@@ -30,7 +30,7 @@
                 banner: project.content.banner,
                 author: project.author,
                 title: project.content.title,
-                url: `interaction/${project.content._id}`
+                url: `projects/${project.content.slug}-${project.content._id}`
             }) %>
             <% } %>
 
@@ -45,7 +45,7 @@
                 banner: project.content.banner,
                 author: project.author,
                 title: project.content.title,
-                url: `interaction/${project.content._id}`
+                url: `projects/${project.content.slug}-${project.content._id}`
             }) %>
 
         </section>
@@ -65,7 +65,7 @@
                             <div class="mdc-list-item__text">
                                 <%= donators[i].name %>
                                 <span class="mdc-list-item__secondary-text">
-                                <%= donators[i].bio %>
+                                <%= donators[i].bio || donators[i].username %>
                             </span>
                             </div>
                         </li>
@@ -81,7 +81,7 @@
 
 <div class="landing-lower-banner" style="background-image: url('https://picsum.photos/1200x600?image=26')">
     <div class="container">
-        <h2>Join us to<br>improve the society</h2>
+        <h2>Join us to <br>improve the society</h2>
         <div class="call-to-action">
             <a href="/signup" class="mdc-button mdc-button--raised">Sign up for free</a>
         </div>

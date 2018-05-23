@@ -71,7 +71,11 @@ const acceptStatus = {
                 offerId: offerId
             },
             function(data, status){
-                alert(data);
+                snackbar.show({
+                    message: data,
+                    actionText: "Dismiss",
+                    actionHandler: () => {}
+                });
                 window.location.reload(false);
             });
     }
