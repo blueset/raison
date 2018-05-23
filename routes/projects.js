@@ -66,7 +66,7 @@ router.get('/:slug-:id', function (req, res, next) {
                     }
                     res.locals.num_invest = num_invest;
                     res.locals.comments = await promise;
-                    res.render('projects/tmp_project', { title: 'projects?? — Raison' });
+                    res.render('projects/tmp_project', { title: 'Projects — Raison' });
                 } else {
                     res.send('Oops');
                 }

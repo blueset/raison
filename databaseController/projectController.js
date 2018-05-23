@@ -145,6 +145,7 @@ var getProjectQuery = async function (req) {
     var time = req.body.time.trim();
     var topic = req.body.topic.trim();
     var sortOrder = req.body.sortOrder.trim();
+    console.log( req.body.country);
     var country = req.body.country.trim();
     var typeProject = req.body.typeProject.trim();
     var projectStatus = req.body.projectStatus.trim();

@@ -222,11 +222,7 @@ var notifyUser = function (userId, user, content, link, projectId, sender) {
                 tmp_notification.image = gravatar.url(tmp_notification.from.email, {protocol: 'https', d: 'retro'});
                 tmp_notification._id = user.notifications[0]._id;
                 if (!err) {
-<<<<<<< HEAD
                     pusher.trigger('my-channel', user._id.toString(), {
-=======
-                    pusher.trigger('my-channel', 'my-event', {
->>>>>>> 3c197195c8aed245aa135b3733b16d19b0decaf4
                         "data": tmp_notification
                     });
                 }

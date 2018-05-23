@@ -80,7 +80,7 @@
             <% project = latestProject[i] %>
             <%- include('../components/detail-card', {
             timeAgo: TimeAgo.format(project.content.datePosted),
-            url: `/interaction/${project.content._id}`,
+            url: `/projects/${project.content.slug}-${project.content._id}`,
             banner: project.content.banner,
             title: project.content.title,
             author: project.author,
