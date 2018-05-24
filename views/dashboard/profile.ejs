@@ -45,8 +45,10 @@
                         </option> 
                         <option value="Investors"<%= user.role == 'Investors' && ' selected' || ''%>>Investor 
                         </option> 
-                        <option value="Donators"<%= user.role == 'Donators' && ' selected' || ''%>>Donator</option> 
-                        <option value="Charities"<%= user.role == 'Charity' && ' selected' || ''%>>Charity</option> 
+                        <option value="Donators"<%= user.role == 'Donators' && ' selected' || ''%>>Donator
+                        </option>
+                        <option value="Charities"<%= user.role == 'Charities' && ' selected' || ''%>>Charity
+                        </option>
                     </select>
                     <div class="mdc-select__label mdc-select__label--float-above">I'm signing up as a(n)...</div>
                     <div class="mdc-select__bottom-line"></div>

@@ -23,7 +23,7 @@
                         ">
                         <% } %>
 
-                        <a href="/projects/<%= topProject[i].content.slug %>-<%= topProject[i].content._id%>" class="author-card-carousel mdc-ripple-surface">
+                        <a href="/projects/<%= topProject[i].content.slug || 'undefined' %>/<%= topProject[i].content._id%>" class="author-card-carousel mdc-ripple-surface">
                             <img class="d-block w-100" style="height: 500px" src="<%= topProject[i].content.banner%>" alt="First slide">
                             <div class="author-card-content">
                                 <img class="author-card-profile-picture" src="<%= topProject[i].author.image %>"
@@ -80,7 +80,7 @@
             <% project = latestProject[i] %>
             <%- include('../components/detail-card', {
             timeAgo: TimeAgo.format(project.content.datePosted),
-            url: `/projects/${project.content.slug}-${project.content._id}`,
+            url: `/projects/${project.content.slug}/${project.content._id}`,
             banner: project.content.banner,
             title: project.content.title,
             author: project.author,
