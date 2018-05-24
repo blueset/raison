@@ -22,8 +22,8 @@
                 flex-grow: 1;
             }
         }
-        #search-query-form-control {
-            @include mdc-layout-grid-resp-cell(9, 8, 4);
+        .search-query-form-control {
+            @include mdc-layout-grid-resp-cell(12, 8, 4);
         }
         .search-filter-form-control {
             @include mdc-layout-grid-resp-cell(3, 4, 4);

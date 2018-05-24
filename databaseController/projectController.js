@@ -71,7 +71,33 @@ function diffDate(date1, date2) {
     return diffD;
 }
 
-function satisfied(project, keyword, time, topic, country, typeProject) {
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180)
+}
+
+function withinRange(lat, long, latPr, longPr, distanceLocation) {
+    if (distanceLocation === 'all')
+        return true;
+    if (lat && long && latPr && longPr) {
+        return getDistanceFromLatLonInKm(lat, long, latPr, longPr) <= distanceLocation;
+    } else return false;
+}
+
+function satisfied(project, keyword, time, topic, country, typeProject, projectStatus, lat, long, distanceLocation) {
     var date = new Date();
     var curDay = date.getDate();
     var curMonth = date.getMonth();
@@ -79,13 +105,27 @@ function satisfied(project, keyword, time, topic, country, typeProject) {
     var prDay = project.datePosted.getDate();
     var prMonth = project.datePosted.getMonth();
     var prYear = project.datePosted.getFullYear();
+    var latPr, longPr;
+    if (project.coordinate) {
+        latPr = project.coordinate.lat || parseFloat(project.coordinate.lat);
+        longPr = project.coordinate.long || parseFloat(project.coordinate.long);
+    } else {
+        latPr = null;
+        longPr = null;
+    }
+
+
     var firstCondition = ((!keyword || (project.title.indexOf(keyword) !== -1)) &&
         (time === 'all' || (time === '0' && (curDay === prDay && curMonth === prMonth && curYear === prYear))
             || (time === '1' && diffDate(date, project.datePosted) <= 7)
             || (time === '2' && (curMonth === prMonth && curYear === prYear))
             || (time === '3' && curYear === prYear)) &&
         (country === 'all' || (project.location && project.location.trim() === country)) &&
-        (typeProject === 'all' || (project.categories[0].trim() === typeProject)));
+        (typeProject === 'all' || (project.categories[0].trim() === typeProject)) &&
+        (projectStatus === 'all'
+            || (projectStatus === '0' && (project.categories[0].trim() === 'Investment' && (!project.investor)))
+            || (projectStatus === '1' && (project.categories[0].trim() === 'Donation' || project.investor))) &&
+        withinRange(lat, long, latPr, longPr, distanceLocation));
     var secondCondition = false;
     if (topic === 'all') secondCondition = true;
     else {
@@ -105,8 +145,14 @@ var getProjectQuery = async function (req) {
     var time = req.body.time.trim();
     var topic = req.body.topic.trim();
     var sortOrder = req.body.sortOrder.trim();
+    console.log( req.body.country);
     var country = req.body.country.trim();
     var typeProject = req.body.typeProject.trim();
+    var projectStatus = req.body.projectStatus.trim();
+    var lat = req.body.lat || parseFloat(req.body.lat.trim());
+    var long = req.body.long || parseFloat(req.body.long.trim());
+    var distanceLocation = (req.body.distanceLocation.trim() === "all") ? "all" : parseFloat(req.body.distanceLocation.trim());
+
 
     var promise = new Promise((resolve, reject) => {
         var count = 0;
@@ -115,7 +161,7 @@ var getProjectQuery = async function (req) {
                 resolve([]);
             var tmp_projects = [];
             projects.forEach(async function (project) {
-                if (satisfied(project, keyword, time, topic, country, typeProject)) {
+                if (satisfied(project, keyword, time, topic, country, typeProject, projectStatus, lat, long, distanceLocation)) {
                     const promise2 = new Promise((resolve, reject) => {
                         userController.findUser2(project.author, function (author) {
                             resolve(author);
@@ -156,7 +202,7 @@ var chooseOffer = function (author, projectId, offerId, callback) {
             (function (i_tmp) {
                 offerController.getOffer(project.offers[i_tmp], function (offer) {
                     userController.findUser2(offer.actor, function (investor) {
-                        var link = `/projects/${project.slug}-${project._id}`;
+                        var link = `/projects/${project.slug}/${project._id}`;
                         var content;
                         if (offer._id.toString() === offerId) {
                             investor.projects.unshift(projectId);
@@ -164,7 +210,7 @@ var chooseOffer = function (author, projectId, offerId, callback) {
                         } else {
                             content = `${author.name} rejected your offer for project ` + project.title;
                         }
-                        var link = `/projects/${project.slug}-${project._id}`;
+                        var link = `/projects/${project.slug}/${project._id}`;
                         userController.notifyUser(null, investor, content, link, projectId, author);
                     });
                     if (offer._id.toString() === offerId) {
@@ -174,7 +220,7 @@ var chooseOffer = function (author, projectId, offerId, callback) {
                         project.save(function (err) {
                         });
 
-                        var link = `/projects/${project.slug}-${project._id}`;
+                        var link = `/projects/${project.slug}/${project._id}`;
                         var content = "You accepted a proposal for a project <a href=" + link + ">" + project.title + "</a>";
                         author.activity.unshift({
                             content: content,
@@ -214,7 +260,7 @@ var createProject = function (req, callback) {
         progress: [],
         title: req.body['project-title'],
         banner: req.body['banner-url'],
-        desc: req.sanitize(req.body['body-content']),
+        desc: req.body['body-content'],
         totalFunds: 0,
         categories: [typeProject].concat(req.body['project-tags'].split(',')),
         comments: [],
@@ -222,7 +268,11 @@ var createProject = function (req, callback) {
             sumRate: 0,
             numVoters: 0
         },
-        location: req.body.location || null
+        location: req.body.location || null,
+        coordinate: {
+            lat: req.body.lat || null,
+            long: req.body.long || null
+        }
     });
 
     project.save(function (err) {
@@ -365,6 +415,7 @@ var updateProject = function (req, projectId, callback) {
             project.title = req.body['project-title'];
             project.banner = req.body['banner-url'];
             project.desc = req.body['body-content'];
+            project.location = req.body['location'] || null;
             project.categories = [project.categories[0]].concat(req.body['project-tags'].split(","));
 
             project.save(function (err) {
@@ -377,7 +428,7 @@ var updateProject = function (req, projectId, callback) {
     });
 }
 
-var addComment = function (projectId, commenter, comment, callback) {
+var addComment = function (projectId, commenter, comment, callback) {;
     Project.findOne({'_id': projectId}, function (err, project) {
         if (err) callback(err);
         else {
@@ -387,22 +438,23 @@ var addComment = function (projectId, commenter, comment, callback) {
                 date: Date.now()
             });
             project.save(function (err) {
+                console.log(err);
                 if (err) callback(err);
                 else {
-                    var content = `You made a comment on project <a href='/projects/${project.slug}-${projectId}'>${project.title}</a>.`;
+                    var content = `You made a comment on project <a href='/projects/${project.slug}/${projectId}'>${project.title}</a>.`;
                     userController.addActivity(commenter, content);
                     if (commenter._id.toString() !== project.author.toString()) {
                         userController.findUser2(project.author, function (author) {
                             if (author) {
                                 var author_content = `${commenter.name} commented on project ${project.title}`
-                                var link = `/projects/${project.slug}-${project._id}`;
+                                var link = `/projects/${project.slug}/${project._id}`;
                                 userController.notifyUser(null, author, author_content, link, project._id, commenter);
-                                callback(err);
+                                callback(null);
                             } else {
-                                callback(err);
+                                callback('err');
                             }
                         });
-                    } else callback(err);
+                    } else callback('err');
                 }
             })
         }

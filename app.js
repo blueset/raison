@@ -1,19 +1,22 @@
 var express = require('express');
+var sassMiddleware = require('node-sass-middleware');
+var importOnce = require('node-sass-import-once');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var sassMiddleware = require('node-sass-middleware');
-var importOnce = require('node-sass-import-once');
 var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
 var expressSanitizer = require('express-sanitizer');
 
+
+
 // Custom middleware
 var authenticateUser = require('./middleware/authenticationMiddleware');
 var timeAgoMiddleware = require('./middleware/timeAgoMiddleware');
+var dashboardMiddleware = require('./middleware/dashboardMiddleware');
+var notificationMiddleware = require('./middleware/notificationMiddleware');
 
 // Create database
 require('./models/db.js');
@@ -42,7 +45,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -54,8 +56,10 @@ app.use(session({
 }));
 app.use(flash());
 
+// Set up cookie parser
 app.use(cookieParser());
 
+// Configuration
 if (process.env.NODE_ENV !== 'production')
     app.use(sassMiddleware({
         src: path.join(__dirname, 'public'),
@@ -80,11 +84,15 @@ if (process.env.NODE_ENV !== 'production')
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Config
 configPassport(app, passport);
 
+statics(app);
+
+
+// Set up middleware
 app.use(authenticateUser);
 app.use(timeAgoMiddleware);
+app.use(notificationMiddleware);
 
 // Binding routes
 app.use('/', index);
@@ -96,33 +104,12 @@ app.use('/profile', profile);
 app.use('/projects', projects);
 app.use('/make_offer', makeOffer);
 app.use('/choose-offer', chooseOffer);
-app.use('/dashboard', function(req, res, next) {
-    if (!req.user) {
-        req.session.redirectTo = req.originalUrl;
-        res.redirect('/login');
-    }
-    next();
-}, dashboard);
+app.use('/dashboard', dashboardMiddleware, dashboard);
 
-
-statics(app);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+// Handle error 404
+app.use(function(req, res, next) {
+    res.status(404);
+    res.send("File not found!");
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-});
-
-module.exports = app;
+app.listen(3000);

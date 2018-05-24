@@ -27,7 +27,7 @@ async function getComments(project) {
     return comments;
 }
 
-router.get('/:slug-:id', function (req, res, next) {
+router.get('/:slug/:id', function (req, res, next) {
     projectController.getProject(req.params.id, function(project) {
         if (project) {
             res.locals.projects = project;
@@ -66,7 +66,7 @@ router.get('/:slug-:id', function (req, res, next) {
                     }
                     res.locals.num_invest = num_invest;
                     res.locals.comments = await promise;
-                    res.render('projects/tmp_project', { title: 'projects?? — Raison' });
+                    res.render('projects/projects', { title: 'Projects — Raison' });
                 } else {
                     res.send('Oops');
                 }
@@ -80,11 +80,16 @@ router.get('/:slug-:id', function (req, res, next) {
 
 
 
-router.post('/:slug-:id/comment', function(req, res, next) {
+router.post('/:slug/:id/comment', function(req, res, next) {
     var projectId = mongoose.Types.ObjectId(req.params.id);
-    projectController.addComment(projectId, res.locals.user, req.body.comment, function(error) {
+    // console.log('check');
+    // console.log(projectId);
+    // console.log(req.body.comment);
+    projectController.addComment(mongoose.Types.ObjectId(projectId), res.locals.user, req.body.comment, function(error) {
+        // console.log('ca');
+        // console.log(error);
         if (!error) {
-            res.redirect(`/projects/${req.params.slug}-${req.params.id}`);
+            res.redirect(`/projects/${req.params.slug}/${req.params.id}`);
         }
     });
 });

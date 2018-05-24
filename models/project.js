@@ -22,6 +22,10 @@ var projectSchema = new mongoose.Schema( {
     totalFunds: Number,
     categories: [String],
     location: String,
+    coordinate: {
+        lat: mongoose.Schema.Types.Decimal128,
+        long: mongoose.Schema.Types.Decimal128
+    },
     comments: [
         {
             commenter: mongoose.Schema.Types.ObjectId,

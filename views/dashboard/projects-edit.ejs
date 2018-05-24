@@ -55,6 +55,8 @@
                     </p>
                 </div>
 
+                <input id="lat" style="display: none" name="lat">
+                <input id="long" style="display: none" name="long">
 
                 <div class="mdc-form-control form-element">
                     <div class="mdc-text-field<%= (locals.error && locals.error['banner-url'] && ' mdc-text-field--invalid') || '' %>">
@@ -103,18 +105,20 @@
 <script src="/javascripts/taginput.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxoRJ-J409lbgy5pxY_3EQHfbhW0ArydM" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxoRJ-J409lbgy5pxY_3EQHfbhW0ArydM"
+        type="text/javascript"></script>
 <script>
 
     var alert = (message, confirm, callback) => {
         snackbar.show({
             message: message,
             actionText: confirm || 'OK',
-            actionHandler: callback || function(){}
+            actionHandler: callback || function () {
+            }
         });
-    }
+    };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
         } else {
@@ -130,6 +134,8 @@
         var lat = position.coords.latitude;
         var long = position.coords.longitude;
         var latlng = new google.maps.LatLng(lat, long);
+        document.getElementById('lat').value = lat;
+        document.getElementById('long').value = long;
         geocoder.geocode(
             {'latLng': latlng},
             function (results, status) {

@@ -4,15 +4,60 @@
     <div class="container" id="search-container">
         <div id="search-body">
             <form action="/search" method="POST" class="search-controllers" id="form">
-                <div id="search-query-form-control" class="mdc-form-control">
+                <div class="mdc-form-control search-query-form-control">
                     <div class="mdc-text-field mdc-text-field--with-trailing-icon">
                         <input type="text" name="keyword" id="search-keyword" class="mdc-text-field__input"
-                            value="<%= userinput && userinput.keyword %>">
+                               value="<%= userinput && userinput.keyword %>">
                         <label class="mdc-floating-label" for="search-keyword">Search keywords</label>
-                        <button type="submit" class="mdc-text-field__icon" tabindex="0"><i class="mdi mdi-magnify"></i></button>
+                        <button type="submit" class="mdc-text-field__icon" tabindex="0"><i class="mdi mdi-magnify"></i>
+                        </button>
                         <div class="mdc-line-ripple"></div>
                     </div>
                 </div>
+
+                <div class="mdc-form-control search-query-form-control">
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                        <input type="text" id="current-location" class="mdc-text-field__input">
+                        <label id="location-label" class="mdc-floating-label" for="current-location"> Current
+                            Location </label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
+
+                <div class="search-filter-form-control mdc-form-control" id="current-location-section"
+                        <% if (!(userinput && userinput.distanceLocation)) { %>
+                     style="display: none"
+                        <% } %>
+                >
+                    <div class="mdc-select">
+                        <select class="mdc-select__native-control" name="distanceLocation">
+                            <option value="all" selected> Select distance</option>
+                            <option value="0.5"
+                                    <%= (userinput && userinput.distanceLocation === "0.5") ? " selected" : "" %>> 0.5
+                                km
+                            </option>
+                            <option value="1"
+                                    <%= (userinput && userinput.distanceLocation === "1") ? " selected" : "" %>> 1 km
+                            </option>
+                            <option value="2"
+                                    <%= (userinput && userinput.distanceLocation === "2") ? " selected" : "" %>> 2 km
+                            </option>
+                            <option value="5"
+                                    <%= (userinput && userinput.distanceLocation === "5") ? " selected" : "" %>> 5 km
+                            </option>
+                            <option value="10"
+                                    <%= (userinput && userinput.distanceLocation === "10") ? " selected" : "" %>> 10 km
+                            </option>
+                            <option value="20"
+                                    <%= (userinput && userinput.distanceLocation === "20") ? " selected" : "" %>> 20 km
+                            </option>
+                        </select>
+                        <div class="mdc-select__label mdc-select__label--float-above">Distance from current location
+                        </div>
+                        <div class="mdc-select__bottom-line"></div>
+                    </div>
+                </div>
+
                 <div class="search-filter-form-control mdc-form-control">
                     <div class="mdc-select">
                         <div id="prev-country" style="display: none;"> <%= userinput && userinput.country %></div>
@@ -23,6 +68,11 @@
                         <div class="mdc-select__bottom-line"></div>
                     </div>
                 </div>
+
+
+                <input id="lat" style="display: none" name="lat">
+                <input id="long" style="display: none" name="long">
+
                 <div class="search-filter-form-control mdc-form-control">
                     <div class="mdc-select">
                         <select class="mdc-select__native-control" name="topic">
@@ -36,7 +86,8 @@
                                     <%= (userinput && userinput.topic === "economy") ? " selected" : "" %>>Economy
                             </option>
                             <option value="agriculture"
-                                    <%= (userinput && userinput.topic === "agriculture") ? " selected" : "" %>>Agriculture
+                                    <%= (userinput && userinput.topic === "agriculture") ? " selected" : "" %>>
+                                Agriculture
                             </option>
                             <option value="it"
                                     <%= (userinput && userinput.topic === "it") ? " selected" : "" %>>IT
@@ -86,7 +137,8 @@
                                     <%= (userinput && userinput.sortOrder === "time") ? " selected" : "" %>>By time
                             </option>
                             <option value="comment"
-                                    <%= (userinput && userinput.sortOrder === "comment") ? " selected" : "" %>>By comments
+                                    <%= (userinput && userinput.sortOrder === "comment") ? " selected" : "" %>>By
+                                comments
                             </option>
                             <option value="funds"
                                     <%= (userinput && userinput.sortOrder === "funds") ? " selected" : "" %>>By funds
@@ -104,7 +156,8 @@
                                     <%= (userinput && userinput.typeProject === "all") ? " selected" : "" %>>All Types
                             </option>
                             <option value="Donation"
-                                    <%= (userinput && userinput.typeProject === "Donation") ? " selected" : "" %>>Donation
+                                    <%= (userinput && userinput.typeProject === "Donation") ? " selected" : "" %>>
+                                Donation
                             </option>
                             <option value="Investment"
                                     <%= (userinput && userinput.typeProject === "Investment") ? " selected" : "" %>>
@@ -115,41 +168,70 @@
                         <div class="mdc-select__bottom-line"></div>
                     </div>
                 </div>
+
+
+                <div class="search-filter-form-control mdc-form-control">
+                    <div class="mdc-select">
+                        <select class="mdc-select__native-control" name="projectStatus">
+                            <option value="all"
+                                    <%= (userinput && userinput.projectStatus === "all") ? " selected" : "" %>>
+                                All Types
+                            </option>
+                            <option value="0"
+                                    <%= (userinput && userinput.projectStatus === "0") ? " selected" : "" %>>
+                                Pending
+                            </option>
+                            <option value="1"
+                                    <%= (userinput && userinput.projectStatus === "1") ? " selected" : "" %>>
+                                Implemented
+                            </option>
+                        </select>
+                        <div class="mdc-select__label mdc-select__label--float-above">Project Status</div>
+                        <div class="mdc-select__bottom-line"></div>
+                    </div>
+                </div>
+
             </form>
 
             <% for (var i = 0; i < results.length; i++) { %>
-                <% project = results[i] %>
-                <%- include('./components/detail-card', { 
-                        url: `/project/${project.content._id}`,
-                        banner: project.content.banner,
-                        title: project.content.title,
-                        author: project.author,
-                        summary: project.content.desc,
-                        comments: project.content.comments.length
-                }) %>
+            <% project = results[i] %>
+            <%- include('./components/detail-card', {
+            timeAgo: TimeAgo.format(project.content.datePosted),
+            url: `/projects/${project.content.slug}/${project.content._id}`,
+            banner: project.content.banner,
+            title: project.content.title,
+            author: project.author,
+            summary: project.content.desc,
+            comments: project.content.comments.length
+            }) %>
             <% } %>
 
             <% if (userinput && userinput.keyword && (results.length < 1)) { %>
-                <div class="no-item">
-                    There is no result matching your query, please try to
-                    change your query or remove some keywords or filters.
-                </div>
+            <div class="no-item">
+                There is no result matching your query, please try to
+                change your query or remove some keywords or filters.
+            </div>
             <% } %>
 
             <div id="loading">
                 <svg class="mdc-circular-progress" viewBox="25 25 50 50">
-                    <circle class="mdc-circular-progress__path" cx="50" cy="50" r="20" 
+                    <circle class="mdc-circular-progress__path" cx="50" cy="50" r="20"
                             fill="none" stroke-width="2" stroke-miterlimit="10"/>
                 </svg>
             </div>
         </div>
 
 
-        
     </div>
+
 </div>
 
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxoRJ-J409lbgy5pxY_3EQHfbhW0ArydM"
+        type="text/javascript"></script>
+
 <script src="/javascripts/countrylist.js"></script>
+
 <script>
     $(document).ready(function () {
         var countrySelect = document.getElementById('country-select');
@@ -161,10 +243,56 @@
             countrySelect.appendChild(option);
         }
 
-        <% if (userinput && userinput.country) {%>
+        <% if (userinput && userinput.country) { %>
         countrySelect.value = document.getElementById("prev-country").innerText.trim();
         <% } %>
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+        } else {
+            alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+        }
     });
+
+    function successFunction(position) {
+        document.getElementById("location-label").className += " mdc-floating-label--float-above";
+        var geocoder;
+        geocoder = new google.maps.Geocoder();
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        var latlng = new google.maps.LatLng(lat, long);
+        document.getElementById("lat").value = lat;
+        document.getElementById("long").value = long;
+
+        geocoder.geocode(
+            {'latLng': latlng},
+            function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var add = results[0].formatted_address;
+                        var value = add.split(",");
+
+                        var count = value.length;
+                        var country = value[count - 1];
+                        <% if (!(userinput && userinput.distanceLocation)) { %>
+                        document.getElementById("current-location-section").style.display = '';
+                        <% } %>
+                        document.getElementById("current-location").value = add;
+
+                    } else {
+                        document.getElementById("current-location").value = "Failed to get your current location";
+                    }
+                } else {
+                    document.getElementById("current-location").value = "Failed to get your current location";
+                }
+            }
+        );
+    }
+
+    function errorFunction(position) {
+        document.getElementById("current-location").value = "Failed to get your current location";
+    }
+
 
     $("form").submit(function () {
         $(".detail-card").css("display", "none");
