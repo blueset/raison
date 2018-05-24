@@ -13764,7 +13764,7 @@ footer {
     left: -1em;
     right: -1em;
     top: -1em;
-    bottom: -1em;
+    bottom: 0;
     background-image: url("/images/landing-background.jpeg");
     background-size: cover;
     background-position: center;
