@@ -32,7 +32,7 @@
                     </span>
 
                     <span class="time"><%= projects[i].datePosted.toDateString() %></span>
-                    <span class="totalFunds">$ <%= projects[i].totalFunds %></span>
+                    <span class="totalFunds"><%= numeral(projects[i].totalFunds).format('$0,0') %></span>
                 </li>
                 <% } %>
                 <% } else { %>

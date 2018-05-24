@@ -12,7 +12,7 @@ url: (user_profile.role === 'Startups' || user_profile.role === 'Investors') ? '
         </div>
         <div class="profile-header profile-name">
             <div class="name"> <%= user_profile.name %></div>
-            <div class="tagline">Total funds: $<%= user_profile.totalFunds %></div>
+            <div class="tagline">Total funds: <%= numeral(user_profile.totalFunds).format('0,0') %></div>
             <div class="tagline">Total projects: <%= user_profile.projects.length %></div>
         </div>
         <div class="profile-header profile-action">
