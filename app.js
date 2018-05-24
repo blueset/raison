@@ -112,4 +112,4 @@ app.use(function(req, res, next) {
     res.send("File not found!");
 });
 
-app.listen(3000);
+module.exports = app;

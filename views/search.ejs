@@ -9,8 +9,8 @@
                         <input type="text" name="keyword" id="search-keyword" class="mdc-text-field__input"
                                value="<%= userinput && userinput.keyword %>">
                         <label class="mdc-floating-label" for="search-keyword">Search keywords</label>
-                        <button type="submit" class="mdc-text-field__icon" tabindex="0"><i class="mdi mdi-magnify"></i>
-                        </button>
+                        <i id="search-form-submit" class="mdc-text-field__icon" tabindex="0"><i class="mdi mdi-magnify"></i>
+                        </i>
                         <div class="mdc-line-ripple"></div>
                     </div>
                 </div>
@@ -293,6 +293,7 @@
         document.getElementById("current-location").value = "Failed to get your current location";
     }
 
+    $("#search-form-submit").click(function() {$("form").submit();})
 
     $("form").submit(function () {
         $(".detail-card").css("display", "none");
