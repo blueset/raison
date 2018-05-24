@@ -37,7 +37,9 @@ section (optional): {
         var timeAgo = jQuery.timeago(notification.time);
         var new_noti_html = "<li class=\"notification-card mdc-card\"\n" +
             "                                style=\"cursor:  pointer\"\n" +
-            `                                onclick=\"goToPage('${ notification._id}', 'false', '${notification.link}')\">\n` +
+            `                                data-id="${notification._id}"\n` +
+            `                                data-read="${notification.read}"\n` +
+            `                                data-link="${notification.link }"> ` +
             `                                <img src=\"${notification.image}\" alt=\"Amily Arinston\"\n` +
             "                                     class=\"avatar\">\n" +
             "                                <div class=\"texts\">\n" +
@@ -117,7 +119,7 @@ section (optional): {
                             <li class="notification-card mdc-card"
                                 style="cursor: pointer"
                                 data-id="<%=notification._id %>"
-                                data-read="<%= notification.read %>",
+                                data-read="<%= notification.read %>"
                                 data-link="<%= notification.link %>">
                                 <img src="<%= notification.image %>" alt="Amily Arinston"
                                      class="avatar">

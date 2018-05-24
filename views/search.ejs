@@ -4,7 +4,7 @@
     <div class="container" id="search-container">
         <div id="search-body">
             <form action="/search" method="POST" class="search-controllers" id="form">
-                <div id = "search-query-form-control" class=" mdc-form-control">
+                <div class="mdc-form-control search-query-form-control">
                     <div class="mdc-text-field mdc-text-field--with-trailing-icon">
                         <input type="text" name="keyword" id="search-keyword" class="mdc-text-field__input"
                                value="<%= userinput && userinput.keyword %>">
@@ -15,14 +15,14 @@
                     </div>
                 </div>
 
-                <!--<div class="mdc-form-control search-query-form-control">-->
-                    <!--<div class="mdc-text-field mdc-text-field&#45;&#45;with-trailing-icon">-->
-                        <!--<input type="text" id="current-location" class="mdc-text-field__input">-->
-                        <!--<label id="location-label" class="mdc-floating-label" for="current-location"> Current-->
-                            <!--Location </label>-->
-                        <!--<div class="mdc-line-ripple"></div>-->
-                    <!--</div>-->
-                <!--</div>-->
+                <div class="mdc-form-control search-query-form-control">
+                    <div class="mdc-text-field mdc-text-field--with-trailing-icon">
+                        <input type="text" id="current-location" class="mdc-text-field__input">
+                        <label id="location-label" class="mdc-floating-label" for="current-location"> Current
+                            Location </label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
 
                 <div class="search-filter-form-control mdc-form-control" id="current-location-section"
                         <% if (!(userinput && userinput.distanceLocation)) { %>
@@ -33,7 +33,8 @@
                         <select class="mdc-select__native-control" name="distanceLocation">
                             <option value="all" selected> Select distance</option>
                             <option value="0.5"
-                                    <%= (userinput && userinput.distanceLocation === "0.5") ? " selected" : "" %>> 0.5 km
+                                    <%= (userinput && userinput.distanceLocation === "0.5") ? " selected" : "" %>> 0.5
+                                km
                             </option>
                             <option value="1"
                                     <%= (userinput && userinput.distanceLocation === "1") ? " selected" : "" %>> 1 km
@@ -57,10 +58,6 @@
                     </div>
                 </div>
 
-
-                <input id="lat" style="display: none" name="lat">
-                <input id="long" style="display: none" name="long">
-
                 <div class="search-filter-form-control mdc-form-control">
                     <div class="mdc-select">
                         <div id="prev-country" style="display: none;"> <%= userinput && userinput.country %></div>
@@ -71,6 +68,11 @@
                         <div class="mdc-select__bottom-line"></div>
                     </div>
                 </div>
+
+
+                <input id="lat" style="display: none" name="lat">
+                <input id="long" style="display: none" name="long">
+
                 <div class="search-filter-form-control mdc-form-control">
                     <div class="mdc-select">
                         <select class="mdc-select__native-control" name="topic">
@@ -221,6 +223,7 @@
 
 
     </div>
+
 </div>
 
 

@@ -3,7 +3,7 @@
 
 <% 
 const acceptStatus = {
-    0: {
+    2: {
         class: "",
         text: "Pending"
     },
@@ -11,9 +11,9 @@ const acceptStatus = {
         class: " accepted",
         text: "Accepted"
     },
-    2: {
+    0: {
         class: " not-accepted",
-        text: "Not accepted"
+        text: "Rejected"
     }
 }
 %>
@@ -33,7 +33,7 @@ const acceptStatus = {
             <details class="mdc-card offer-card<%= acceptStatus[offers[i].accepted].class %>
                 ">
                 <summary>
-                    <a href="/startups/<%= offers[i].projectId%>" style="text-decoration: none; color: inherit" class="info">
+                    <a style="text-decoration: none; color: inherit" class="info">
                         <div class="time"> <%= TimeAgo.format(offers[i].dateOffered) %></div>
                         <div class="investor-name">
                                 <%= offers[i].projectTitle%>
@@ -49,6 +49,8 @@ const acceptStatus = {
                 </summary>
                 <div class="details article-content">
                     <%- offers[i].proposal %>
+                    <a class="mdc-button" style="text-align: right;" href="/projects/<%= offers[i].slug + ""%>/<%= offers[i].projectId%>"> Go to the project</a>
+
                 </div>
             </details>
             <% } %>

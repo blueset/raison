@@ -1,4 +1,6 @@
 var express = require('express');
+var sassMiddleware = require('node-sass-middleware');
+var importOnce = require('node-sass-import-once');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -7,8 +9,7 @@ var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
 var expressSanitizer = require('express-sanitizer');
-var sassMiddleware = require('node-sass-middleware');
-var importOnce = require('node-sass-import-once');
+
 
 
 // Custom middleware
@@ -42,7 +43,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
 
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));
@@ -60,7 +60,7 @@ app.use(flash());
 app.use(cookieParser());
 
 // Configuration
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production')
     app.use(sassMiddleware({
         src: path.join(__dirname, 'public'),
         dest: path.join(__dirname, 'public'),
@@ -81,7 +81,9 @@ if (process.env.NODE_ENV !== 'production') {
             bower: false
         }
     }));
-}
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 configPassport(app, passport);
 
 statics(app);
