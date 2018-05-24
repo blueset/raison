@@ -17,6 +17,7 @@ var authenticateUser = require('./middleware/authenticationMiddleware');
 var timeAgoMiddleware = require('./middleware/timeAgoMiddleware');
 var dashboardMiddleware = require('./middleware/dashboardMiddleware');
 var notificationMiddleware = require('./middleware/notificationMiddleware');
+var numeralMiddleware = require('./middleware/numeralMiddleware');
 
 // Create database
 require('./models/db.js');
@@ -92,6 +93,7 @@ statics(app);
 // Set up middleware
 app.use(authenticateUser);
 app.use(timeAgoMiddleware);
+app.use(numeralMiddleware);
 app.use(notificationMiddleware);
 
 // Binding routes

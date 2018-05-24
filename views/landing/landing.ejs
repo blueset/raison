@@ -59,17 +59,15 @@
                 <ol class="mdc-list mdc-list--avatar-list">
                     <% for (var i = 0; i < donators.length; i++){%>
 
-                    <a href="profile/<%= donators[i].authentication.username %>" style="text-decoration: none; color: inherit">
-                        <li class="mdc-list-item" style="cursor: pointer">
-                            <div class="mdc-list-item__graphic"></div>
-                            <div class="mdc-list-item__text">
-                                <%= donators[i].name %>
-                                <span class="mdc-list-item__secondary-text">
-                                <%= donators[i].bio || donators[i].username %>
+                    <li class="mdc-list-item" data-href="profile/<%= donators[i].authentication.username %>" style="cursor: pointer">
+                        <div class="mdc-list-item__graphic"></div>
+                        <div class="mdc-list-item__text">
+                            <%= donators[i].name %>
+                            <span class="mdc-list-item__secondary-text">
+                                <%= donators[i].bio || donators[i].authentication.username %>
                             </span>
-                            </div>
-                        </li>
-                    </a>
+                        </div>
+                    </li>
 
                     <% } %>
 

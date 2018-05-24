@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var numeral = require('numeral');
 
 var userController = require('../databaseController/userController');
 var projectController = require('../databaseController/projectController');
@@ -122,7 +121,6 @@ router.post('/projects/:id', [
 router.get('/projects/:id/offers', 
             projectAuthentication, 
             function (req, res, next) {
-                res.locals.numeral = numeral;
     projectController.getOffers(mongoose.Types.ObjectId(req.params['id']), function(offers) {
         res.locals.offers = offers;
         res.locals.linkProject = req.params['id'];
@@ -131,7 +129,6 @@ router.get('/projects/:id/offers',
 });
 
 router.get('/offers-made', function(req, res, next) {
-    res.locals.numeral = numeral;
     if (req.user.role === 'Donators' || req.user.role === 'Investors') {
         userController.getOffers(req.user, function(offers) {
             res.locals.offers = offers;
