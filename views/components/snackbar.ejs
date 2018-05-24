@@ -10,4 +10,12 @@
 
 <script>
     var snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector("#snackbar"));
+    var alert = (message, confirm, callback) => {
+        snackbar.show({
+            message: message,
+            actionText: confirm || 'OK',
+            actionHandler: callback || function () {
+            }
+        });
+    };
 </script>
