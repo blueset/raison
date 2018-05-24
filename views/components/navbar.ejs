@@ -10,70 +10,6 @@ section (optional): {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.3/jquery.timeago.js" type="text/javascript"></script>
 
 
-<% if (user) {%>
-<script>
-    var pusher = new Pusher('815d82ff9292dfa79559', {
-        cluster: 'ap1',
-        encrypted: true
-    });
-
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('<%= user._id %>', function(data) {
-
-        var alert_sign = document.getElementById("menu-bar-notification-btn");
-        if (alert_sign.className.indexOf('notification-have-unread') === -1) {
-            alert_sign.className += " notification-have-unread";
-        }
-
-        var list = document.getElementById("list-noti");
-        var x = document.getElementsByClassName("no-notification");
-        console.log(x);
-        if (x.length !== 0) {
-            x[0].style.display = 'none';
-        }
-
-        var notification = data.data;
-
-        var timeAgo = jQuery.timeago(notification.time);
-        var new_noti_html = "<li class=\"notification-card mdc-card\"\n" +
-            "                                style=\"cursor:  pointer\"\n" +
-            `                                data-id="${notification._id}"\n` +
-            `                                data-read="${notification.read}"\n` +
-            `                                data-link="${notification.link }"> ` +
-            `                                <img src=\"${notification.image}\" alt=\"Amily Arinston\"\n` +
-            "                                     class=\"avatar\">\n" +
-            "                                <div class=\"texts\">\n" +
-            `                                    <div class=\"time\">${timeAgo} %></div>\n` +
-            "                                    <div class=\"text mdc-typography-overflow-ellipsis\">\n" +
-            `                                        <strong> ${notification.content} </strong>\n` +
-            "                                    </div>\n" +
-            "                                </div>\n" +
-            "                            </li>"
-
-        list.innerHTML = new_noti_html + list.innerHTML;
-
-        alert("You have got a new notification!");
-    });
-
-</script>
-<% } %>
-<script>
-    function goToPage(notificationId, read, link) {
-        if (read === 'false') {
-            $.post("/read-notification",
-                {
-                    noti: notificationId
-                },
-                function(data, status){
-                    window.location.href = link;
-                });
-        } else {
-            window.location.href = link;
-        }
-
-    }
-
-</script>
 
 
 <div class="container">
@@ -230,8 +166,8 @@ section (optional): {
     </div>
 </aside>
 
-
 <script>
+    <% if (user) {%>
     var pusher = new Pusher('815d82ff9292dfa79559', {
         cluster: 'ap1',
         encrypted: true
@@ -273,6 +209,7 @@ section (optional): {
         });
     });
 
+
     $(function() {
         $("#list-noti").on('click', '.notification-card', function() {
             var notificationId = this.dataset.id,
@@ -289,4 +226,6 @@ section (optional): {
             }
         });
     });
+
+    <% } %>
 </script>
